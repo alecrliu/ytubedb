@@ -15,6 +15,9 @@ videos = [{'title': 'Software Engineering', 'id': '1'},
 def index():
     return render_template('index.html')
 
+@app.route('/About')
+def about():
+    return render_template('about.html')
 
 @app.route('/videos')
 def showVideos():
