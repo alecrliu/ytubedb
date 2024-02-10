@@ -1,4 +1,4 @@
-# CS331E-Project
+# ytubedb
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/cs331e1/cs331e-project.git
+git remote add origin https://gitlab.com/cs331e1/ytubedb.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/cs331e1/cs331e-project/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/cs331e1/ytubedb/-/settings/integrations)
 
 ## Collaborate with your team
 
