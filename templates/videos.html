@@ -1,0 +1,21 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <h1>Videos</h1>
+    {% if videos == [] %}
+    <p>No videos exist</p>
+    {% else %}
+    {% for i in videos %}
+    <div>
+        {{i.title}} <br>
+        <br>
+        <br>
+    </div>
+    {% endfor %}
+    {% endif %}
+</body>
+
+</html>
