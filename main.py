@@ -1,6 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 
+
 app = Flask(__name__)
+# import json
+import json
+# 
+with open('data/playlist.json') as f:
+    playlist_data = json.load(f)
 
 # ------------
 # index
@@ -22,6 +28,10 @@ def about():
 @app.route('/videos')
 def showVideos():
     return render_template('videos.html', videos=videos)
+
+@app.route('/Playlist')
+def showPlaylist():
+    return render_template('playlist.html', playlists=playlist_data['items'])
 
 
 # debug=True to avoid restart the local development server manually after each change to your code.
