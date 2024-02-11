@@ -19,7 +19,7 @@ style="background-image: url('../static/images/splashBG.png');background-repeat:
 						<a class="nav-link active" aria-current="page" href="#">Splash</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="about.html">About</a>
+						<a class="nav-link" href="{{url_for('about')}}">About</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Model 1</a>
@@ -41,7 +41,7 @@ style="background-image: url('../static/images/splashBG.png');background-repeat:
 			<div class="d-flex">
 				<div class="list-group" 
 				style="text-align: center;font-size: 24px;min-width: 200px;">
-					<a href="about.html" class="list-group-item list-group-item-action">About</a>
+					<a href="{{url_for('about')}}" class="list-group-item list-group-item-action">About</a>
 					<a href="#" class="list-group-item list-group-item-action">Model 1</a>
 					<a href="#" class="list-group-item list-group-item-action">Model 2</a>
 					<a href="#" class="list-group-item list-group-item-action">Model 3</a>
