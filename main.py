@@ -8,6 +8,9 @@ import json
 with open('data/playlist.json') as f:
     playlist_data = json.load(f)
 
+with open('data/channel.json') as file:
+    channel_data = json.load(file)
+
 # ------------
 # index
 # ------------
@@ -33,6 +36,10 @@ def showVideos():
 def showPlaylist():
     return render_template('playlist.html', playlists=playlist_data['items'])
 
+@app.route('/Channels')
+def showChannels():
+    channels_info = channel_data['items']  
+    return render_template('channel.html', channels=channels_info)
 
 # debug=True to avoid restart the local development server manually after each change to your code.
 # host='0.0.0.0' to make the server publicly available.
