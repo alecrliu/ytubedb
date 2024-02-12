@@ -4,4 +4,4 @@
 .pylintrc
 *.pyc
 *.tmp
-venv
+venv/

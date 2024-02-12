@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>About</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+		integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+		crossorigin="anonymous"></script>
 </head>
+
 <body>
 	<!-- navbar section -->
 	<nav class="navbar navbar-expand sticky-top navbar-dark bg-dark" aria-label="Main navigation">
@@ -21,13 +27,13 @@
 						<a class="nav-link active" aria-current="page" href="#">About</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Model 1</a>
+						<a class="nav-link" href="{{url_for('showChannels')}}">Channels</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Model 2</a>
+						<a class="nav-link" href="{{url_for('showVideos')}}">Videos</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{url_for('showPlaylist')}}">Playlist</a>
+						<a class="nav-link" href="{{url_for('showPlaylist')}}">Playlists</a>
 					</li>
 				</ul>
 			</div>
@@ -37,10 +43,11 @@
 	<main>
 		<section class="py-5 text-center container">
 			<div class="row py-lg-5">
-			<div class="col-lg-6 col-md-8 mx-auto">
-				<h1 class="fw-light">YoutubeStats</h1>
-				<p class="lead text-body-secondary">Our website provides unique YouTube statistics based on channels, videos, and playlists.</p>
-			</div>
+				<div class="col-lg-6 col-md-8 mx-auto">
+					<h1 class="fw-light">YoutubeStats</h1>
+					<p class="lead text-body-secondary">Our website provides unique YouTube statistics based on
+						channels, videos, and playlists.</p>
+				</div>
 			</div>
 		</section>
 		<!-- Members -->
@@ -50,14 +57,17 @@
 					<!-- Nirmal Patel -->
 					<div class="col">
 						<div class="card shadow-sm">
-							<img src="../static/images/Nirmal.png" class="bd-placeholder-img card-img-top" max-width="100%" height="auto" alt="Nirmal Patel Image">
+							<img src="../static/images/Nirmal.png" class="bd-placeholder-img card-img-top"
+								max-width="100%" height="auto" alt="Nirmal Patel Image">
 							<div class="card-body">
 								<h3>Nirmal Patel</h3>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<div class="collapse" id="collapseNirmal">
 											<div class="card-body">
-												<p class="card-text">Nirmal Patel is a Physics senior pursuing Elements of Computing certificate. He took on the leadership role for CS331E project. </p>
+												<p class="card-text">Nirmal Patel is a Physics senior pursuing Elements
+													of Computing certificate. He took on the leadership role for CS331E
+													project. </p>
 												<ul>
 													<li>#Commits: NA</li>
 													<li>#Issues: NA</li>
@@ -65,10 +75,12 @@
 												</ul>
 											</div>
 										</div>
-										
+
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
-												<button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#collapseNirmal" aria-expanded="false" aria-controls="collapseNirmal">
+												<button type="button" class="btn btn-sm btn-outline-secondary"
+													data-bs-toggle="collapse" data-bs-target="#collapseNirmal"
+													aria-expanded="false" aria-controls="collapseNirmal">
 													View
 												</button>
 											</div>
@@ -81,14 +93,17 @@
 					<!-- Alec Liu -->
 					<div class="col">
 						<div class="card shadow-sm">
-							<img src="../static/images/Alec.png" class="bd-placeholder-img card-img-top" max-width="100%" height="auto" alt="Alec Liu Image">
+							<img src="../static/images/Alec.png" class="bd-placeholder-img card-img-top"
+								max-width="100%" height="auto" alt="Alec Liu Image">
 							<div class="card-body">
 								<h3>Alec Liu</h3>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<div class="collapse" id="collapseAlec">
 											<div class="card-body">
-												<p class="card-text">Alec Liu Bio</p>
+												<p class="card-text">Alec is a Mechanical Engineering senior
+													pursuing the Elements of Computing Certificate. He was in charge of
+													the backend role for the project. </p>
 												<ul>
 													<li>#Commits: NA</li>
 													<li>#Issues: NA</li>
@@ -96,10 +111,12 @@
 												</ul>
 											</div>
 										</div>
-										
+
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
-												<button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#collapseAlec" aria-expanded="false" aria-controls="collapseAlec">
+												<button type="button" class="btn btn-sm btn-outline-secondary"
+													data-bs-toggle="collapse" data-bs-target="#collapseAlec"
+													aria-expanded="false" aria-controls="collapseAlec">
 													View
 												</button>
 											</div>
@@ -112,14 +129,17 @@
 					<!-- Adrian Barajas -->
 					<div class="col">
 						<div class="card shadow-sm">
-							<img src="../static/images/Adrian.png" class="bd-placeholder-img card-img-top" max-width="100%" height="auto" alt="Adrian Barajas Image">
+							<img src="../static/images/Adrian.png" class="bd-placeholder-img card-img-top"
+								max-width="100%" height="auto" alt="Adrian Barajas Image">
 							<div class="card-body">
 								<h3>Adrian Barajas</h3>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<div class="collapse" id="collapseAdrian">
 											<div class="card-body">
-												<p class="card-text">Adrian is a Mechanical Engineering senior pursuing Elements of Computing Certificate. He took on the full-stack role for CS331E project. </p>
+												<p class="card-text">Adrian is a Mechanical Engineering senior pursuing
+													Elements of Computing Certificate. He took on the full-stack role
+													for CS331E project. </p>
 												<ul>
 													<li>#Commits: NA</li>
 													<li>#Issues: NA</li>
@@ -127,10 +147,12 @@
 												</ul>
 											</div>
 										</div>
-										
+
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
-												<button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#collapseAdrian" aria-expanded="false" aria-controls="collapseAdrian">
+												<button type="button" class="btn btn-sm btn-outline-secondary"
+													data-bs-toggle="collapse" data-bs-target="#collapseAdrian"
+													aria-expanded="false" aria-controls="collapseAdrian">
 													View
 												</button>
 											</div>
@@ -143,14 +165,17 @@
 					<!-- Junyu Yao -->
 					<div class="col">
 						<div class="card shadow-sm">
-							<img src="../static/images/Junyu.png" class="bd-placeholder-img card-img-top" max-width="100%" height="auto" alt="Junyu Yao Image">
+							<img src="../static/images/Junyu.png" class="bd-placeholder-img card-img-top"
+								max-width="100%" height="auto" alt="Junyu Yao Image">
 							<div class="card-body">
 								<h3>Junyu Yao</h3>
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
 										<div class="collapse" id="collapseJunyu">
 											<div class="card-body">
-												<p class="card-text">Junyu is a Physics senior pursuing Elements of Computing certificate. He took on the Front-end and UI role for CS331E project.</p>
+												<p class="card-text">Junyu is a Physics senior pursuing Elements of
+													Computing certificate. He took on the Front-end and UI role for
+													CS331E project.</p>
 												<ul>
 													<li>#Commits: NA</li>
 													<li>#Issues: NA</li>
@@ -158,10 +183,12 @@
 												</ul>
 											</div>
 										</div>
-										
+
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
-												<button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#collapseJunyu" aria-expanded="false" aria-controls="collapseJunyu">
+												<button type="button" class="btn btn-sm btn-outline-secondary"
+													data-bs-toggle="collapse" data-bs-target="#collapseJunyu"
+													aria-expanded="false" aria-controls="collapseJunyu">
 													View
 												</button>
 											</div>
@@ -179,8 +206,9 @@
 			<!-- Stats -->
 			<div class="accordion-item">
 				<h2 class="accordion-header">
-					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-					Stats
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+						Stats
 					</button>
 				</h2>
 				<div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordion">
@@ -214,8 +242,9 @@
 			<!-- Data -->
 			<div class="accordion-item">
 				<h2 class="accordion-header">
-					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-					Data
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						Data
 					</button>
 				</h2>
 				<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordion">
@@ -224,13 +253,19 @@
 							<li>
 								<ul>
 									<li>
-										<a class="link-opacity-50-hover" href="https://developers.google.com/youtube/v3/docs/channels">Youtube Channels Data</a>
+										<a class="link-opacity-50-hover"
+											href="https://developers.google.com/youtube/v3/docs/channels">Youtube
+											Channels Data</a>
 									</li>
 									<li>
-										<a class="link-opacity-50-hover" href="https://developers.google.com/youtube/v3/docs/videos">Youtube Videos Data</a>
+										<a class="link-opacity-50-hover"
+											href="https://developers.google.com/youtube/v3/docs/videos">Youtube Videos
+											Data</a>
 									</li>
 									<li>
-										<a class="link-opacity-50-hover" href="https://developers.google.com/youtube/v3/docs/playlists">Youtube Playlists Data</a>
+										<a class="link-opacity-50-hover"
+											href="https://developers.google.com/youtube/v3/docs/playlists">Youtube
+											Playlists Data</a>
 									</li>
 								</ul>
 							</li>
@@ -247,8 +282,9 @@
 			<!-- Tools -->
 			<div class="accordion-item">
 				<h2 class="accordion-header">
-					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-					Tools
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						Tools
 					</button>
 				</h2>
 				<div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordion">
@@ -261,13 +297,15 @@
 	</main>
 	<!-- footer section -->
 	<footer class="text-body-secondary py-5">
-	<div class="container">
-		<p class="float-end mb-1">
-		<a href="#">Back to top</a>
-		</p>
-		<p class="mb-1">Album example is © Bootstrap, but please download and customize it for yourself!</p>
-		<p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
-	</div>
+		<div class="container">
+			<p class="float-end mb-1">
+				<a href="#">Back to top</a>
+			</p>
+			<p class="mb-1">Album example is © Bootstrap, but please download and customize it for yourself!</p>
+			<p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
+					href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
+		</div>
 	</footer>
 </body>
+
 </html>
