@@ -191,42 +191,7 @@
         "itemCount": 7
       }
     },
-    {
-      "kind": "youtube#playlist",
-      "etag": "cnRDNbfJ67VsAxXj3Uev8V1v-5U",
-      "id": "PLOU2XLYxmsIIhVnZBobftIBCnjQJgCplV",
-      "snippet": {
-        "publishedAt": "2023-07-19T22:13:11Z",
-        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
-        "title": "GDE Secrets",
-        "description": "",
-        "thumbnails": {
-          "default": {
-            "url": "https://i.ytimg.com/img/no_thumbnail.jpg",
-            "width": 120,
-            "height": 90
-          },
-          "medium": {
-            "url": "https://i.ytimg.com/img/no_thumbnail.jpg",
-            "width": 320,
-            "height": 180
-          },
-          "high": {
-            "url": "https://i.ytimg.com/img/no_thumbnail.jpg",
-            "width": 480,
-            "height": 360
-          }
-        },
-        "channelTitle": "Google for Developers",
-        "localized": {
-          "title": "GDE Secrets",
-          "description": ""
-        }
-      },
-      "contentDetails": {
-        "itemCount": 0
-      }
-    },
+
     {
       "kind": "youtube#playlist",
       "etag": "L0dksJZ9MafJGL554pM6otcMRi0",

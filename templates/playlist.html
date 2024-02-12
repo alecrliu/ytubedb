@@ -40,17 +40,46 @@
 			</div>
 		</div>
 	</nav>
-	<h1>YouTube Playlist Viewer</h1>
-	<div id="playlist">
-		{% for item in playlists %}
-		<div class="playlist-item">
-			<img src="{{ item.snippet.thumbnails.default.url }}" alt="{{ item.snippet.title }}">
-			<h3>{{ item.snippet.title }}</h3>
-			<p>{{ item.snippet.description }}</p>
-			<a href="https://www.youtube.com/playlist?list={{ item.id }}">View Playlist</a>
+	<main class="py-5 mt-5">
+		<div class="container">
+		  <h1 class="fw-light text-center">YouTube Playlist Viewer</h1>
+		  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
+			{% for item in playlists %}
+			<div class="col">
+			  <div class="card shadow-sm">
+				<img class="bd-placeholder-img card-img-top" src="{{ item.snippet.thumbnails.high.url }}" alt="{{ item.snippet.title }}">
+				<div class="card-body">
+				  <h5 class="card-title">{{ item.snippet.title }}</h5>
+				  <div class="d-flex justify-content-between align-items-center">
+					<div class="btn-group">
+						<div class="collapse" id="collapse{{item.id}}">
+							<div class="card-body">
+								<p class="card-text">{{ item.snippet.description }}</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
+									  <a href="https://www.youtube.com/playlist?list={{ item.id }}" class="btn btn-sm btn-outline-secondary">View Playlist</a>
+									</div>
+								  </div>
+							</div>
+						</div>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="btn-group">
+								<button type="button" class="btn btn-sm btn-outline-secondary"
+									data-bs-toggle="collapse" data-bs-target="#collapse{{item.id}}"
+									aria-expanded="false" aria-controls="collapse{{item.id}}">
+									Description
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			  </div>
+			</div>
+			{% endfor %}
+		  </div>
 		</div>
-		{% endfor %}
-	</div>
+	  </main>
 </body>
 
 </html>
