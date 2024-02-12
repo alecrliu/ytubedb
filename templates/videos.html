@@ -38,7 +38,6 @@
             </div>
         </div>
     </nav>
-    <h1>YouTube Videos</h1>
     <script>
         // This code loads the IFrame Player API code asynchronously.
         var tag = document.createElement('script');
@@ -51,8 +50,8 @@
         function onYouTubeIframeAPIReady() {
             for (var i = 0; i < players.length; i++) {
                 players[i] = new YT.Player('player' + (i + 1), {
-                    height: '390',
-                    width: '640',
+                    height: '400',
+                    width: '100%',
                     videoId: players[i],
                     playerVars: {
                         'playsinline': 1
@@ -82,32 +81,47 @@
             player.stopVideo();
         }
     </script>
-
-    <div id="videos">
-        <br>
-        <br>
-        <hr>
-        {% for vid in videos %}
-        <div class="video-item">
-            <div id="player{{ loop.index }}"></div>
-            <script>
-                players.push('{{ vid.id }}');
-            </script>
-            <br>
-            <br>
-            <h6>Views: {{ vid.statistics.viewCount }} </h6>
-            <h6>Comments: {{ vid.statistics.commentCount }}</h6>
-            <br>
-            {% set lines = vid.snippet.description.split('\n') %}
-            {% for line in lines %}
-            <p>{{ line }}</p>
-            {% endfor %}
-            <hr
-            <br>
-            <br
+    <main class="py-5 mt-5">
+        <div class="container">
+            <h1 class="fw-light text-center">YouTube Videos</h1>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
+                {% for vid in videos %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div id="player{{ loop.index }}"></div>
+                        <script>
+                            players.push('{{ vid.id }}');
+                        </script>
+                        <div class="card-body">
+                            <h6 class="card-title">Views: {{ vid.statistics.viewCount }}</h6>
+                            <h6 class="card-title">Comments: {{ vid.statistics.commentCount }}</h6>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}"
+                                        aria-expanded="false" aria-controls="collapse{{ loop.index }}">
+                                        Description
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="collapse" id="collapse{{ loop.index }}">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        {% set lines = vid.snippet.description.split('\n') %}
+                                        {% for line in lines %}
+                                        {{ line }}
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
-    </div>
+    </main>
 </body>
 
 </html>
