@@ -33,6 +33,11 @@ def showChannels():
     channels_info = channel_data['items']
     return render_template('channel.html', channels=channels_info)
 
+# we gotta get this to link to each specific channel somehow
+# @app.route('/channel/<string:channelId>')
+# def channel(channelId):
+#     channel_info = channel_data.get(channelId)
+#     return render_template('channel.html', channels=channel_info)
 
 @app.route('/videos')
 def showVideos():
