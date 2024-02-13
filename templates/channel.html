@@ -59,7 +59,8 @@
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">Subscribers: {{ channel.statistics.subscriberCount }}</li>
                                         <li class="list-group-item">Total Views: {{ channel.statistics.viewCount }}</li>
-                                        <li class="list-group-item">Videos: {{ channel.statistics.videoCount }}</li>
+										<li class="list-group-item"><a href="{{url_for('showVideos')}}">Videos</a>: {{ channel.statistics.videoCount }}</li>
+
                                     </ul>
                                 </div>
                             </div>
