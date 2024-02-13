@@ -94,7 +94,9 @@
                         </script>
                         <div class="card-body">
                             <!-- the link to a specific channel below doesn't work yet, have to link it to each channel somehow -->
-                            <h5 class="card-title"><a href="{{url_for('channel', channelId=vid.snippet.channelId)}}">{{ vid.snippet.channelTitle }}</a></h5>
+                            <h5 class="card-title"><a
+                                    href="{{url_for('showChannels', channelId=vid.snippet.channelId)}}">{{
+                                    vid.snippet.channelTitle }}</a></h5>
                             <h6 class="card-title">Views: {{ vid.statistics.viewCount }}</h6>
                             <h6 class="card-title">Likes: {{ vid.statistics.likeCount }}</h6>
                             <h6 class="card-title">Comments: {{ vid.statistics.commentCount }}</h6>
@@ -106,6 +108,11 @@
                                         aria-expanded="false" aria-controls="collapse{{ loop.index }}">
                                         Description
                                     </button>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="{{url_for('showPlaylist')}}" class="btn btn-sm btn-outline-secondary">
+                                        Playlists
+                                    </a>
                                 </div>
                             </div>
                             <div class="collapse" id="collapse{{ loop.index }}">

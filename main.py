@@ -4,13 +4,13 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 
 app = Flask(__name__)
 # import json data
-with open('data/playlist.json','r', encoding='utf-8') as f:
+with open('data/playlist.json', 'r', encoding='utf-8') as f:
     playlist_data = json.load(f)
 
-with open('data/channel.json','r', encoding='utf-8') as file:
+with open('data/channel.json', 'r', encoding='utf-8') as file:
     channel_data = json.load(file)
 
-with open('data/video.json','r', encoding='utf-8') as file:
+with open('data/video.json', 'r', encoding='utf-8') as file:
     videos = json.load(file)
 
 # ------------
@@ -38,6 +38,7 @@ def showChannels():
 # def channel(channelId):
 #     channel_info = channel_data.get(channelId)
 #     return render_template('channel.html', channels=channel_info)
+
 
 @app.route('/videos')
 def showVideos():
