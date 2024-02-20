@@ -46,11 +46,13 @@
                 <div class="col">
                     <div class="card shadow-sm">
                         <a href="{{url_for('showChannel', channelId=channel.id)}}">
-                            <img class="bd-placeholder-img card-img-top" src="{{ channel.snippet.thumbnails.high.url }}" alt="Channel Thumbnail">
+                            <img class="bd-placeholder-img card-img-top" src="{{ channel.snippet.thumbnails.high.url }}"
+                                alt="Channel Thumbnail">
                         </a>
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="{{url_for('showChannel', channelId=channel.id)}}" class="btn btn-sm btn-outline-secondary">View Channel</a>
+                                <a href="{{url_for('showChannel', channelId=channel.id)}}"
+                                    class="btn btn-sm btn-outline-secondary">View Channel</a>
                             </div>
                         </div>
                     </div>
@@ -60,4 +62,5 @@
         </div>
     </main>
 </body>
+
 </html>

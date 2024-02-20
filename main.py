@@ -32,20 +32,16 @@ def about():
 def showChannels():
     channels_info = channel_data['items']
     return render_template('channels.html', channels=channels_info)
+
+
 @app.route('/channel/<string:channelId>')
 def showChannel(channelId):
     # Directly use channel_data['items'] if channels is not defined elsewhere
-    channel_info = next((channel for channel in channel_data['items'] if channel['id'] == channelId), None)
+    channel_info = next(
+        (channel for channel in channel_data['items'] if channel['id'] == channelId), None)
     if channel_info is None:
         return "Channel not found", 404
     return render_template('channel.html', channel=channel_info)
-
-
-# we gotta get this to link to each specific channel somehow
-# @app.route('/channel/<string:channelId>')
-# def channel(channelId):
-#     channel_info = channel_data.get(channelId)
-#     return render_template('channel.html', channels=channel_info)
 
 
 @app.route('/videos')
@@ -54,7 +50,7 @@ def showVideos():
 
 
 @app.route('/video/<string:videoId>')
-def video(videoId):
+def playVideo(videoId):
     video_info = None
     video_list = videos["items"]
     for video in video_list:

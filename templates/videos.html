@@ -47,19 +47,21 @@
                 {% for vid in videos %}
                 <div class="col">
                     <div class="card shadow-sm">
-                        <a href="{{url_for('video', videoId=vid.id)}}"><img class="bd-placeholder-img card-img-top"
+                        <a href="{{url_for('playVideo', videoId=vid.id)}}"><img class="bd-placeholder-img card-img-top"
                                 src="{{ vid.snippet.thumbnails.medium.url }}" alt="thumbnail"></a>
 
                         <div class="card-body">
-                            <!-- the link to a specific channel below doesn't work yet, have to link it to each channel somehow -->
                             <h5 class="card-title">
-                                <a href="{{url_for('video', videoId=vid.id)}}">{{vid.snippet.title }}</a>
+                                <a href="{{url_for('playVideo', videoId=vid.id)}}">{{vid.snippet.title }}</a>
                             </h5>
                             <hr>
                             <br>
                             <div class="d-flex justify-content-between align-items-center">
-                                <h6><a href="{{url_for('showChannels', channelId=vid.snippet.channelId)}}">{{vid.snippet.channelTitle
-                                        }}</a></h6>
+                                <!-- hard coded UC_x5XG1OV2P6uZZ5FSM9Ttw for each video's channel for now-->
+                                <h6><a
+                                        href="{{url_for('showChannel', channelId="UC_x5XG1OV2P6uZZ5FSM9Ttw")}}">{{vid.snippet.channelTitle}}</a>
+                                </h6>
+                                <!-- should really be {{ vid.snippet.channelId }}-->
                                 <h7 class="card-title"> <i class="far fa-eye"></i> {{ vid.statistics.viewCount }}</h7>
                             </div>
                         </div>
