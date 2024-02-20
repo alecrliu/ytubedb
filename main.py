@@ -53,7 +53,7 @@ def video(videoId):
         if video['id'] == videoId:
             video_info = video
             break
-    return render_template('video.html', video=video_info)
+    return render_template('video.html', video=video_info, videoId=videoId)
 
 
 @app.route('/playlists')

@@ -45,13 +45,19 @@
     <main class="py-5 mt-5">
         <div class="container">
             <h1 class="fw-light text-center">Sorry, this video is not in our database.</h1>
+            <h1 class="fw-light text-center">If only we had more storage...</h1>
             <br>
             <img src="../static/images/missingVideo.png" class="img-fluid mx-auto d-block" alt="missingVideo"
                 style="width: 30%; height: auto;">
             <br>
-            <h1 class="fw-light text-center">If only we had more storage...</h1>
+
+            <br>
             <a class="nav-link" href="{{url_for('showVideos')}}">
-                <h1 class="text-center">Check out another video?</h1>
+                <h1 class="text-center">• Check out another video?</h1>
+            </a>
+            <br>
+            <a class="nav-link" href="https://www.youtube.com/watch?v={{videoId}}">
+                <h1 class="text-center">• Watch on YouTube?</h1>
             </a>
         </div>
     </main>
