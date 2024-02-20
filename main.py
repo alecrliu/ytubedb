@@ -45,10 +45,14 @@ def showVideos():
     return render_template('videos.html', videos=videos["items"])
 
 
-# @app.route('/video/<string:videoId>')
-# def video(videoId):
-#     video_info = videos.get(videoId)
-#     return render_template('video.html', video=video_info)
+@app.route('/video/<string:videoId>')
+def video(videoId):
+    video_list = videos["items"]
+    for video in video_list:
+        if video['id'] == videoId:
+            video_info = video
+            break
+    return render_template('video.html', video=video_info)
 
 
 @app.route('/playlists')
