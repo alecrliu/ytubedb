@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Channel</title>
+    <title>Channel List</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -40,45 +40,24 @@
     </nav>
     <main class="py-5 mt-5">
         <div class="container">
-            <h1 class="fw-light text-center">{{ channel.snippet.title }}</h1>
-            <div class="card mb-3">
-            
-                <div class="text-center">
-                    <img src="https://i.ytimg.com/vi/KOEfDvr4DcQ/hqdefault.jpg" alt="MrBeast Video Thumbnail" class="img-fluid" style="width: 750px; height: auto;">
-
+            <h1 class="fw-light text-center">YouTube Channels</h1>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
+                {% for channel in channels %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <a href="{{url_for('showChannel', channelId=channel.id)}}">
+                            <img class="bd-placeholder-img card-img-top" src="{{ channel.snippet.thumbnails.high.url }}" alt="Channel Thumbnail">
+                        </a>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{{url_for('showChannel', channelId=channel.id)}}" class="btn btn-sm btn-outline-secondary">View Channel</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-
-
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <!-- Column for the Description Button -->
-                        <div class="col-md-auto">
-                            <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionCollapse" aria-expanded="false" aria-controls="descriptionCollapse">
-                                Description
-                            </button>
-                        </div>
-                
-                        <!-- Column for the Statistics, centered -->
-                        <div class="col d-flex justify-content-center">
-                            <p class="mb-0 me-3"><small class="text-muted">Subscribers: {{ channel.statistics.subscriberCount }}</small></p>
-                            <p class="mb-0 me-3">Total Views: {{ channel.statistics.viewCount }}</p>
-                            <p class="mb-0">Videos: {{ channel.statistics.videoCount }}</p>
-                        </div>
-                    </div>
-                    <!-- Collapsible description -->
-                    <div class="collapse" id="descriptionCollapse">
-                        <div class="card card-body mt-3">
-                            {{ channel.snippet.description }}
-                        </div>
-                    </div>
-                    <p class="card-text mt-3"><a href="{{ url_for('video', videoId='KOEfDvr4DcQ') }}">View Video</a></p>
-
-                </div>                                               
+                {% endfor %}
             </div>
         </div>
     </main>
 </body>
 </html>
-
-
