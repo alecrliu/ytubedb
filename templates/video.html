@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/nohyperlinks.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -38,7 +41,21 @@
             </div>
         </div>
     </nav>
-
+    {% if video is none %}
+    <main class="py-5 mt-5">
+        <div class="container">
+            <h1 class="fw-light text-center">Sorry, this video is not in our database.</h1>
+            <br>
+            <img src="../static/images/missingVideo.png" class="img-fluid mx-auto d-block" alt="missingVideo"
+                style="width: 30%; height: auto;">
+            <br>
+            <h1 class="fw-light text-center">If only we had more storage...</h1>
+            <a class="nav-link" href="{{url_for('showVideos')}}">
+                <h1 class="text-center">Check out another video?</h1>
+            </a>
+        </div>
+    </main>
+    {% else %}
     <main class="py-5 mt-5">
         <div class="container">
             <h1 class="fw-light text-center">{{video.snippet.title}}</h1>
@@ -53,9 +70,11 @@
                                 <h5 class="card-title"><a
                                         href="{{url_for('showChannels', channelId=video.snippet.channelId)}}">{{
                                         video.snippet.channelTitle }}</a></h5>
-                                <h6 class="card-title">Views: {{ video.statistics.viewCount }}</h6>
-                                <h6 class="card-title">Likes: {{ video.statistics.likeCount }}</h6>
-                                <h6 class="card-title">Comments: {{ video.statistics.commentCount }}</h6>
+                                <h6 class="card-title"><i class="far fa-eye"></i> {{ video.statistics.viewCount }}</h6>
+                                <h6 class="card-title"><i class="far fa-thumbs-up"></i>{{ video.statistics.likeCount }}
+                                </h6>
+                                <h6 class="card-title"><i class="far fa-comment"></i> {{ video.statistics.commentCount
+                                    }}</h6>
                             </div>
                             <hr>
                             <div class="d-flex justify-content-between align-items-center">
@@ -68,7 +87,7 @@
                                 </div>
                                 <div class="btn-group">
                                     <a href="{{url_for('showPlaylist')}}" class="btn btn-sm btn-outline-secondary">
-                                        Playlists
+                                        <i class="fas fa-list"></i>
                                     </a>
                                 </div>
                             </div>
@@ -87,6 +106,7 @@
                 </div>
             </div>
     </main>
+    {% endif %}
 </body>
 
 </html>

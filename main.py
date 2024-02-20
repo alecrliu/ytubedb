@@ -47,6 +47,7 @@ def showVideos():
 
 @app.route('/video/<string:videoId>')
 def video(videoId):
+    video_info = None
     video_list = videos["items"]
     for video in video_list:
         if video['id'] == videoId:
