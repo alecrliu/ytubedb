@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Playlist</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
 		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
 		crossorigin="anonymous"></script>
@@ -13,9 +12,8 @@
 		integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
 		crossorigin="anonymous"></script>
 </head>
-
 <body>
-	<!-- navbar section -->
+    <!-- navbar section -->
 	<nav class="navbar navbar-expand sticky-top navbar-dark bg-dark" aria-label="Main navigation">
 		<div class="container-fluid">
 			<div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
@@ -33,63 +31,77 @@
 						<a class="nav-link" href="{{url_for('showVideos')}}">Videos</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Playlists</a>
-
+						<a class="nav-link active" aria-current="page" href="{{url_for('showPlaylist')}}">Playlists</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
+	{% if playlist is none %}
+    <main class="py-5 mt-5">
+        <div class="container">
+            <h1 class="fw-light text-center">Sorry, this playlist is not in our database.</h1>
+            <h1 class="fw-light text-center">If only we had more storage...</h1>
+            <br>
+            <img src="../static/images/missingVideo.png" class="img-fluid mx-auto d-block" alt="missingVideo"
+                style="width: 30%; height: auto;">
+            <br>
+
+            <br>
+            <a class="nav-link" href="{{url_for('showPlaylist')}}">
+                <h1 class="text-center">• Check out another playlist?</h1>
+            </a>
+            <br>
+            <a class="nav-link" href="https://www.youtube.com/playlist?list={{ playlist.id }}">
+                <h1 class="text-center">• Watch on YouTube?</h1>
+            </a>
+        </div>
+    </main>
+    {% else %}
+	<!-- playlist section -->
 	<main class="py-5 mt-5">
-		<div class="container">
-			<h1 class="fw-light text-center">YouTube Playlist Viewer</h1>
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
-				{% for item in playlists %}
-				<div class="col">
+        <div class="container">
+			<h1 class="fw-light text-center">{{ playlist.snippet.title }}</h1>
+            <br>
+            <div class="row">
+                <div class="col-9 mx-auto">
 					<div class="card shadow-sm">
-						<img class="bd-placeholder-img card-img-top" src="{{ item.snippet.thumbnails.high.url }}"
-							alt="{{ item.snippet.title }}">
+						<img class="bd-placeholder-img card-img-top" src="{{ playlist.snippet.thumbnails.maxres.url }}" alt="{{ playlist.snippet.title }}">
 						<div class="card-body">
-							<h5 class="card-title">{{ item.snippet.title }}</h5>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<div class="collapse" id="collapse{{item.id}}">
-										<div class="card-body">
-											<p class="card-text">{{ item.snippet.description }}</p>
-											<div class="d-flex justify-content-between align-items-center">
-												<div class="btn-group">
-													<a href="https://www.youtube.com/playlist?list={{ item.id }}"
-														class="btn btn-sm btn-outline-secondary">View Playlist</a>
-												</div>
-												<div class="btn-group">
-													<a href="{{url_for('showVideos')}}"
-														class="btn btn-sm btn-outline-secondary">View videos</a>
-												</div>
-												<div class="btn-group">
-													<a href="{{url_for('showChannels')}}"
-														class="btn btn-sm btn-outline-secondary">View channel</a>
-												</div>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="btn-group">
+								<div class="collapse" id="collapse{{playlist.id}}">
+									<div class="card-body">
+										<p class="card-text">{{ playlist.snippet.description }}</p>
+										<div class="d-flex align-items-start">
+											<div class="btn-group">
+											<a href="https://www.youtube.com/playlist?list={{ playlist.id }}" class="btn btn-sm btn-outline-secondary">View Playlist</a>
+											</div>
+											<div class="btn-group">
+												<a href="{{url_for('playVideo',videoId='KOEfDvr4DcQ')}}" class="btn btn-sm btn-outline-secondary">View videos</a>
+											</div>
+											<div class="btn-group">
+												<a href="{{url_for('showChannel',channelId=playlist.snippet.channelId)}}" class="btn btn-sm btn-outline-secondary">View channel</a>
 											</div>
 										</div>
 									</div>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button" class="btn btn-sm btn-outline-secondary"
-												data-bs-toggle="collapse" data-bs-target="#collapse{{item.id}}"
-												aria-expanded="false" aria-controls="collapse{{item.id}}">
-												Description
-											</button>
-										</div>
+								</div>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
+										<button type="button" class="btn btn-sm btn-outline-secondary"
+											data-bs-toggle="collapse" data-bs-target="#collapse{{playlist.id}}"
+											aria-expanded="false" aria-controls="collapse{{playlist.id}}">
+											Description
+										</button>
 									</div>
 								</div>
 							</div>
 						</div>
+						</div>
 					</div>
-				</div>
-				{% endfor %}
-			</div>
-		</div>
-	</main>
+                </div>
+            </div>
+    </main>
+	{% endif %}
 </body>
-
 </html>
