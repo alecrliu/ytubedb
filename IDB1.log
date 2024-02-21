@@ -1,3 +1,9 @@
+commit c69fc0ad1da847c333d2f8aff4f24561b0b61943
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Feb 21 10:56:47 2024 -0600
+
+    modified makefile, log and added tools
+
 commit 48a34e7f3d003ac56a314e748bf52ef969b28aa5
 Author: Alec Liu <alec.liu@utexas.edu>
 Date:   Wed Feb 21 09:45:13 2024 -0600
