@@ -21,6 +21,14 @@ else                                   # UTCS
     AUTOPEP8 := autopep8
 endif
 
+versions:
+	$(PYTHON) --version
+	$(PIP) --version
+	$(PYLINT) --version
+	$(COVERAGE) --version
+	$(PYDOC) --version
+	$(AUTOPEP8) --version
+
 models.html: models.py
 	$(PYDOC) -w  models
 IDB1.log:
