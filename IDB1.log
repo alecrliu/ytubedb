@@ -1,3 +1,9 @@
+commit 3575bd388447ab6b9cc80d62758925e18092a0dc
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Feb 21 11:34:47 2024 -0600
+
+    changed http to https for videos
+
 commit 69f5882e6445065d3aaa5a72c103ca21c8b82848
 Author: Alec Liu <alec.liu@utexas.edu>
 Date:   Wed Feb 21 11:15:05 2024 -0600
