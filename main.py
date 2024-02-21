@@ -17,23 +17,24 @@ with open('data/video.json', 'r', encoding='utf-8') as file:
 # index
 # ------------
 
-# splash page
-@app.route('/')
+
+@app.route('/')  # splash page
 def index():
     return render_template('splash.html')
 
-# about page
-@app.route('/about')
+
+@app.route('/about')  # about page
 def about():
     return render_template('about.html')
 
-# channels page display multiple channels
-@app.route('/channels')
+
+@app.route('/channels')  # channels page displays multiple channels
 def showChannels():
     channels_info = channel_data['items']
     return render_template('channels.html', channels=channels_info)
 
-# channel page display detail channel info
+
+# channel page displays detail channel info
 @app.route('/channel/<string:channelId>')
 def showChannel(channelId):
     # Directly use channel_data['items'] if channels is not defined elsewhere
@@ -43,27 +44,27 @@ def showChannel(channelId):
         return "Channel not found", 404
     return render_template('channel.html', channel=channel_info)
 
-# videos page display multiple videos
-@app.route('/videos')
+
+@app.route('/videos')  # videos page displays multiple videos
 def showVideos():
     return render_template('videos.html', videos=videos["items"])
 
-# video page display single video
-@app.route('/video/<string:videoId>')
-def playVideo(videoId):
-    video_info = None
-    video_list = videos["items"]
-    for video in video_list:
-        if video['id'] == videoId:
-            video_info = video
+
+@app.route('/video/<string:videoId>')  # video page displays single video
+def oneVideo(videoId):
+    video = None
+    for vid in videos["items"]:
+        if vid['id'] == videoId:
+            video = vid
             break
-    return render_template('video.html', video=video_info, videoId=videoId)
+    return render_template('video.html', video=video, videoId=videoId)
 
 
-# playlists page display mutiple videos
+# playlists page display multiple videos
 @app.route('/playlists')
 def showPlaylist():
     return render_template('playlists.html', playlists=playlist_data['items'])
+
 
 # playlists page display single playlist
 @app.route('/playlist/<string:playlistId>')

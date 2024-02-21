@@ -74,8 +74,8 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <!-- hard coded UC_x5XG1OV2P6uZZ5FSM9Ttw for each video's channel for now-->
-                                <h5 class="card-title"><a
-                                        href="{{url_for('showChannel', channelId="UC_x5XG1OV2P6uZZ5FSM9Ttw")}}">{{
+                                <h5 class="card-title"><a href="{{url_for('showChannel', channelId="
+                                        UC_x5XG1OV2P6uZZ5FSM9Ttw")}}">{{
                                         video.snippet.channelTitle }}</a></h5>
                                 <!-- should really be {{ video.snippet.channelId }}-->
                                 <h6 class="card-title"><i class="far fa-eye"></i> {{ video.statistics.viewCount }}</h6>
@@ -94,7 +94,7 @@
                                     </button>
                                 </div>
                                 <div class="btn-group">
-                                    <a href="{{url_for('showPlaylist')}}" class="btn btn-sm btn-outline-secondary">
+                                    <a href="{{url_for('playList',playlistId='PLOU2XLYxmsILxbiyDRGC94XuT2dBXNY3n')}}" class="btn btn-sm btn-outline-secondary">
                                         <i class="fas fa-list"></i>
                                     </a>
                                 </div>

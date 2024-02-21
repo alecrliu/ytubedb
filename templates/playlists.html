@@ -42,26 +42,28 @@
 	</nav>
 	<main class="py-5 mt-5">
 		<div class="container">
-		  <h1 class="fw-light text-center">Google for Developer Playlist</h1>
-		  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
-			{% for item in playlists %}
-			<div class="col">
-			  <div class="card shadow-sm">
-				<img class="bd-placeholder-img card-img-top" src="{{ item.snippet.thumbnails.high.url }}" alt="{{ item.snippet.title }}">
-				<div class="card-body">
-				  <h5 class="card-title">{{ item.snippet.title }}</h5>
-				  <div class="d-flex justify-content-between align-items-center">
-					<div class="button">
-						<a href="{{ url_for('playList', playlistId = item.id)}}" class="btn btn-sm btn-outline-secondary">View Playlist</a>
+			<h1 class="fw-light text-center">Google for Developer Playlist</h1>
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
+				{% for item in playlists %}
+				<div class="col">
+					<div class="card shadow-sm">
+						<img class="bd-placeholder-img card-img-top" src="{{ item.snippet.thumbnails.high.url }}"
+							alt="{{ item.snippet.title }}">
+						<div class="card-body">
+							<h5 class="card-title">{{ item.snippet.title }}</h5>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="button">
+									<a href="{{ url_for('playList', playlistId = item.id)}}"
+										class="btn btn-sm btn-outline-secondary">View Playlist</a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				</div>
-			  </div>
+				{% endfor %}
 			</div>
-			{% endfor %}
-		  </div>
 		</div>
-	  </main>
+	</main>
 </body>
 
 </html>
