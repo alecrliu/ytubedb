@@ -1,3 +1,63 @@
+commit d7bdb670333cb643d0df59b4d0fef9263612b2b0
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Tue Feb 20 20:55:09 2024 -0600
+
+    Linked channel.html page to playlist page
+
+commit c0d34a33cdc47255350c68277fb8063a07f53f24
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 20 19:58:50 2024 -0600
+
+    formatting, added hardcoded playlist button
+
+commit e32527ffb3f1f7844efe726a0a2c8e715f91fdf0
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Tue Feb 20 18:43:52 2024 -0600
+
+    # Add detail playlist page, link to channel and video
+
+commit 2741cca768afbf304df98e3bb8cf95293601da69
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 20 17:24:23 2024 -0600
+
+    formatting, added links, fixed video links to gallery
+
+commit da7a79352ff6a35bb37814f274c0c3f9f2daa38a
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Tue Feb 20 16:39:41 2024 -0600
+
+    Changed the Navbar link for channels in the channel.html page
+
+commit e049ee4784b72627c0c4e43ed8811ae4735ea2ac
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Tue Feb 20 13:39:26 2024 -0600
+
+    Added Channel page which includes channel specs, edited channels page to only include logos and links, and edited main.py
+
+commit 50c96de4bf116a54cfce6aec31a951407e935365
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 20 12:17:55 2024 -0600
+
+    added ability to watch missing videos on youtube
+
+commit 2e54ddbf16c3bc744a42aec6e7a64e9bae29b11d
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 20 11:52:32 2024 -0600
+
+    added icons to statistics, missing video handling, reformatted links
+
+commit 8c6676867b219840b10adecdf700c047a22f6cfd
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 20 00:02:51 2024 -0600
+
+    added single video page connection
+
+commit 29773791b64d99a02f27e38ab2f3abaa1e2707b1
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Feb 19 11:34:15 2024 -0600
+
+    added placeholder files and added solo video page
+
 commit 998e8fb413602b854b97a8a935226ee9f71e2846
 Author: Alec Liu <alec.liu@utexas.edu>
 Date:   Wed Feb 14 10:13:21 2024 -0600
