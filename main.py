@@ -1,6 +1,5 @@
 import json
-from flask import Flask, render_template, request, redirect, url_for, jsonify
-
+from flask import Flask, render_template, request, redirect, url_for, jsonify,session
 
 app = Flask(__name__)
 # import json data
@@ -13,9 +12,6 @@ with open('data/channel.json', 'r', encoding='utf-8') as file:
 with open('data/video.json', 'r', encoding='utf-8') as file:
     videos = json.load(file)
 
-# ------------
-# index
-# ------------
 
 
 @app.route('/')  # splash page
