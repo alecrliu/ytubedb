@@ -1,0 +1,23 @@
+image: python:3.11
+
+# services:
+#   - postgres:latest
+
+# variables:
+#   POSTGRES_DB: ytubedb
+#   POSTGRES_USER: postgres
+#   POSTGRES_PASSWORD: ""
+#   POSTGRES_HOST_AUTH_METHOD: trust
+#   DB_STRING: "postgresql://$POSTGRES_USER@postgres:5432/$POSTGRES_DB"
+
+before_script:
+    - date
+    - uname -a
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - printenv | sort
+
+# # uncomment when unittest is set up
+# test:
+#   script:
+#   - python test.py

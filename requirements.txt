@@ -1,2 +1,5 @@
 Flask==2.0.3
 gunicorn==19.7.1
+coverage
+Flask-SQLAlchemy
+psycopg2-binary

@@ -1,17 +1,25 @@
+"""Routing with queries for each page"""
+
+
 import json
-from flask import Flask, render_template, request, redirect, url_for, jsonify,session
+
+
+from flask import Flask, render_template, request, redirect, url_for, session
+# # Uncomment when done with database.py
+# from database import app, db, Channel, Playlist, Video, create_channels, create_playlists, create_videos
+
 
 app = Flask(__name__)
-# import json data
-with open('data/playlist.json', 'r', encoding='utf-8') as f:
-    playlist_data = json.load(f)
+# import json data (will remove and use database instead)
+# TODO: Move all data modification to the database.py file
+with open('data/playlists.json', 'r', encoding='utf-8') as file:
+    playlist_data = json.load(file)
 
-with open('data/channel.json', 'r', encoding='utf-8') as file:
+with open('data/channels.json', 'r', encoding='utf-8') as file:
     channel_data = json.load(file)
 
-with open('data/video.json', 'r', encoding='utf-8') as file:
+with open('data/videos.json', 'r', encoding='utf-8') as file:
     videos = json.load(file)
-
 
 
 @app.route('/')  # splash page
