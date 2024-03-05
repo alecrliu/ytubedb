@@ -1,5 +1,6 @@
 image: python:3.11
 
+# # uncomment when postgres is set up
 # services:
 #   - postgres:latest
 
