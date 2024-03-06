@@ -59,7 +59,7 @@ def get_all_videoIDs_from_playlistID(playlist_id):
     youtube = build('youtube', 'v3', developerKey=YT_KEY)
     request = youtube.playlistItems().list(
         part="snippet",
-        playlistId=playlist_ids[0],
+        playlistId=playlist_id,
         maxResults=50
     )
     response = request.execute()
