@@ -8,25 +8,22 @@ import json
 
 YT_KEY = os.getenv("YT_KEY")
 
-# # using search is 100 credits so it might be better to use other ways
-# # loop thru channels json file to get the right ids for playlists
-# # useless for videos cuz we need playlist id for videos (no filter for that)
-# def get_playlists(channel_ids):
-#     youtube = build('youtube', 'v3', developerKey=YT_KEY)
-#     request = youtube.search().list(
-#         part="snippet",
-#         channelId=channel_ids,
-#         maxResults=50,
-#         type="video"
-#     )
-#     response = request.execute()
-#     print(response)
-#     with open('data/example.json', 'w') as fp:
-#         json.dump(response, fp, indent=4)
+
+def get_multiple_channels(channel_ids):
+    channels_ids_str = ",".join(channel_ids)
+    youtube = build('youtube', 'v3', developerKey=YT_KEY)
+    request = youtube.channels().list(
+        part="snippet,contentDetails,statistics",
+        id=channels_ids_str,
+        maxResults=50
+    )
+    response = request.execute()
+    with open('data/multiple_channels.json', 'w') as fp:
+        json.dump(response, fp, indent=4)
 
 
-# channel_ids = 'UC-l1GAYzCSb8TtWqGxU2K5Q'  # Lofi Everyday
-# get_playlists(channel_ids)
+channel_ids = ['UCSJ4mUlpWv1AE6umAC4RlvQ','UC-l1GAYzCSb8TtWqGxU2K5Q']  # Lofi Everyday, Piano cover
+get_multiple_channels(channel_ids)
 
 
 def get_all_playlistsIDs_from_channelID(channel_id):

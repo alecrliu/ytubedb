@@ -1,15 +1,14 @@
 image: python:3.11
 
-# # uncomment when postgres is set up
-# services:
-#   - postgres:latest
+services:
+  - postgres:latest
 
-# variables:
-#   POSTGRES_DB: ytubedb
-#   POSTGRES_USER: postgres
-#   POSTGRES_PASSWORD: ""
-#   POSTGRES_HOST_AUTH_METHOD: trust
-#   DB_STRING: "postgresql://$POSTGRES_USER@postgres:5432/$POSTGRES_DB"
+variables:
+  POSTGRES_DB: ytubedb
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: ""
+  POSTGRES_HOST_AUTH_METHOD: trust
+  DB_STRING: "postgresql://$POSTGRES_USER@postgres:5432/$POSTGRES_DB"
 
 before_script:
     - date

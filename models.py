@@ -34,11 +34,11 @@ class Video(db.Model):
     channelID = db.Column(db.String, db.ForeignKey('channels.channelID'))
     # playlistID = db.Column(db.String, db.ForeignKey('playlists.playlistID'))
     title = db.Column(db.String, nullable=False)
-    description = db.Column(db.Text, nullable=True)
-    views = db.Column(db.BigInteger, nullable=True)
-    likes = db.Column(db.Integer, nullable=True)
-    commentCount = db.Column(db.Integer, nullable=True)
-    thumbnail = db.Column(db.Text, nullable=True)
+    description = db.Column(db.Text, nullable=False)
+    views = db.Column(db.BigInteger, nullable=False)
+    likes = db.Column(db.Integer, nullable=False)
+    commentCount = db.Column(db.Integer, nullable=False)
+    thumbnail = db.Column(db.Text, nullable=False)
 
 
 class Channel(db.Model):
