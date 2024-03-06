@@ -1,9 +1,9 @@
 Flask==2.0.3
 gunicorn==19.7.1
 google-api-python-client==2.52.0
-Click==7.0
+Click==7.1.2
 Flask-SQLAlchemy==2.4.1
-Jinja2==2.10.3
+Jinja2==3.0
 pep8==1.7.1
 psycopg2-binary==2.8.4
 requests==2.22.0
