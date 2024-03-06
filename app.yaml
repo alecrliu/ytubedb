@@ -11,7 +11,7 @@ env_variables:
     # Replace user, password, database, and instance connection name with the values obtained
     # when configuring your Cloud SQL instance.
     DB_STRING: >-
-      postgresql+psycopg2://postgres:asd123@/postgres?host=/cloudsql/ytubedb:us-central1:ytubedb
+      postgresql+psycopg2://postgres:yt@/postgres?host=/cloudsql/ytubedb:us-central1:ytubedb
 #[END env]
 
 #[START cloudsql_settings]
