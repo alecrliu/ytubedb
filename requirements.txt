@@ -1,5 +1,6 @@
 Flask==2.0.3
 gunicorn==19.7.1
+google-api-python-client
 Click==7.0
 Flask-SQLAlchemy==2.4.1
 Jinja2==2.10.3
