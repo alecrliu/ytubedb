@@ -8,31 +8,26 @@ import json
 
 YT_KEY = os.getenv("YT_KEY")
 
-# # dump data into json file and change number of results
-# # repeat for all other api methods you need to use
 # # using search is 100 credits so it might be better to use other ways
-
-
-
-def get_playlists(channel_ids):
-    youtube = build('youtube', 'v3', developerKey=YT_KEY)
-    request = youtube.search().list(
-        part="snippet",
-        channelId=channel_ids,  # filter can be a string of channel ids
-        maxResults=50,  # does not matter since list will limit results
-        type="playlist"
-    )
-    response = request.execute()
-    print(response)
-    '''with open('data/example.json', 'w') as fp:
-        json.dump(response, fp, indent=4)'''
-
-
-# # use a list of ids in other methods to get multiple data
 # # loop thru channels json file to get the right ids for playlists
 # # useless for videos cuz we need playlist id for videos (no filter for that)
-channel_ids = 'UC-l1GAYzCSb8TtWqGxU2K5Q' # Lofi Everyday
-get_playlists(channel_ids)
+# def get_playlists(channel_ids):
+#     youtube = build('youtube', 'v3', developerKey=YT_KEY)
+#     request = youtube.search().list(
+#         part="snippet",
+#         channelId=channel_ids,
+#         maxResults=50,
+#         type="video"
+#     )
+#     response = request.execute()
+#     print(response)
+#     with open('data/example.json', 'w') as fp:
+#         json.dump(response, fp, indent=4)
+
+
+# channel_ids = 'UC-l1GAYzCSb8TtWqGxU2K5Q'  # Lofi Everyday
+# get_playlists(channel_ids)
+
 
 def get_all_playlistsIDs_from_channelID(channel_id):
     youtube = build('youtube', 'v3', developerKey=YT_KEY)
@@ -45,7 +40,7 @@ def get_all_playlistsIDs_from_channelID(channel_id):
     playlist_ids = []
     for item in response["items"]:
         playlist_ids.append(item["id"])
-    
+
     # Next page if any
     next_page_token = response.get("nextPageToken")
     while next_page_token:
@@ -59,8 +54,9 @@ def get_all_playlistsIDs_from_channelID(channel_id):
         for item in response["items"]:
             playlist_ids.append(item["id"])
         next_page_token = response.get("nextPageToken")
-    
+
     return playlist_ids
+
 
 def get_all_videoIDs_from_playlistID(playlist_id):
     youtube = build('youtube', 'v3', developerKey=YT_KEY)
@@ -73,7 +69,7 @@ def get_all_videoIDs_from_playlistID(playlist_id):
     video_ids = []
     for item in response["items"]:
         video_ids.append(item["snippet"]["resourceId"]["videoId"])
-    
+
     # Next page if any
     next_page_token = response.get("nextPageToken")
     while next_page_token:
@@ -87,7 +83,7 @@ def get_all_videoIDs_from_playlistID(playlist_id):
         for item in response["items"]:
             video_ids.append(item["snippet"]["resourceId"]["videoId"])
         next_page_token = response.get("nextPageToken")
-    
+
     return channel_ids
 
 
