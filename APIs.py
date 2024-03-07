@@ -8,19 +8,6 @@ import json
 
 YT_KEY = os.getenv("YT_KEY")
 
-'''
-
-Workflow
-
-1)  Get all channel IDs manually (Fill channel table)
-2)  Get all playlist IDs for each channel from the channel IDs (Fill playlist table)
-3)  Get all video IDs for each channel from the channel IDs (Fill video table)
-4)  Get all video IDs for each playlist from the playlist IDs (Fill videoplaylist junction table)
-5)  From the videoplaylist junction table, remove video IDs (and associated playlist IDs) 
-    that are not in video table
-
-'''
-
 channel_ids = [
 	'UC-lHJZR3Gqxm24_Vd_AJ5Yw', 
 	'UCIPPMRA040LQr5QPyJEbmXA', 
@@ -43,64 +30,51 @@ channel_ids = [
 	'UCojyGFb8W2xxSsJ5c_XburQ'
 ]
 
-def get_all_playlistsIDs_from_channelID(channel_id):
-    youtube = build('youtube', 'v3', developerKey=YT_KEY)
-    request = youtube.playlists().list(
-        part="snippet",
-        channelId=channel_id,
-        maxResults=50
-    )
-    response = request.execute()
-    playlist_ids = []
-    for item in response["items"]:
-        playlist_ids.append(item["id"])
+def get_channelID_of_videoID(video_id):
+	youtube = build("youtube", "v3", developerKey=YT_KEY)
+	request = youtube.videos().list(
+		part="snippet",
+		id=video_id
+	)
+	response = request.execute()
+	if not response.get("items"):
+		return None
+	channel_id = response["items"][0]["snippet"]["channelId"]
 
-    # Next page if any
-    next_page_token = response.get("nextPageToken")
-    while next_page_token:
-        request = youtube.playlists().list(
-            part="snippet",
-            channelId=channel_id,
-            maxResults=50,
-            pageToken=next_page_token
-        )
-        response = request.execute()
-        for item in response["items"]:
-            playlist_ids.append(item["id"])
-        next_page_token = response.get("nextPageToken")
+	return channel_id
 
-    return playlist_ids
+def get_all_videoIDs_from_playlistID(channel_id, playlist_id):
+	youtube = build('youtube', 'v3', developerKey=YT_KEY)
+	request = youtube.playlistItems().list(
+		part="snippet",
+		playlistId=playlist_id,
+		maxResults=50
+	)
+	response = request.execute()
+	video_ids = []
+	for item in response["items"]:
+		if get_channelID_of_videoID(item["snippet"]["resourceId"]["videoId"]) == channel_id:
+			video_ids.append(item["snippet"]["resourceId"]["videoId"])
 
-def get_all_videoIDs_from_playlistID(playlist_id):
-    youtube = build('youtube', 'v3', developerKey=YT_KEY)
-    request = youtube.playlistItems().list(
-        part="snippet",
-        playlistId=playlist_id,
-        maxResults=50
-    )
-    response = request.execute()
-    video_ids = []
-    for item in response["items"]:
-        video_ids.append(item["snippet"]["resourceId"]["videoId"])
+	# Next page if any
+	next_page_token = response.get("nextPageToken")
+	while next_page_token:
+		request = youtube.playlistItems().list(
+			part="snippet",
+			playlistId=playlist_id,
+			maxResults=50,
+			pageToken=next_page_token
+		)
+		response = request.execute()
+		for item in response["items"]:
+			if get_channelID_of_videoID(item["snippet"]["resourceId"]["videoId"]) == channel_id:
+				video_ids.append(item["snippet"]["resourceId"]["videoId"])
+		next_page_token = response.get("nextPageToken")
 
-    # Next page if any
-    next_page_token = response.get("nextPageToken")
-    while next_page_token:
-        request = youtube.playlistItems().list(
-            part="snippet",
-            playlistId=playlist_id,
-            maxResults=50,
-            pageToken=next_page_token
-        )
-        response = request.execute()
-        for item in response["items"]:
-            video_ids.append(item["snippet"]["resourceId"]["videoId"])
-        next_page_token = response.get("nextPageToken")
-
-    return video_ids
+	return video_ids
 
 def get_all_videoIDs_from_channelID(channel_id):
-	youtube = build("youtube", "v3", developerKey="AIzaSyCKzJGAupHgrCSsv0KUdPJo2cEl_MG3zWU")
+	youtube = build("youtube", "v3", developerKey=YT_KEY)
 	request = youtube.search().list(
 		part="snippet",
 		channelId=channel_id,
@@ -130,5 +104,36 @@ def get_all_videoIDs_from_channelID(channel_id):
 
 	return video_ids
 
-demo_video_ids = get_all_playlistIDs_from_channelID_demo('UCIPPMRA040LQr5QPyJEbmXA')
-print(len(demo_video_ids))
+def get_all_playlistsIDs_from_channelID(channel_id):
+	youtube = build('youtube', 'v3', developerKey=YT_KEY)
+	request = youtube.playlists().list(
+		part="snippet",
+		channelId=channel_id,
+		maxResults=50
+	)
+	response = request.execute()
+	playlist_ids = {}
+	for item in response["items"]:
+		video_list = get_all_videoIDs_from_playlistID(channel_id, item["id"])
+		if len(video_list) > 0:
+			playlist_ids[item["id"]] = video_list
+
+	# Next page if any
+	next_page_token = response.get("nextPageToken")
+	while next_page_token:
+		request = youtube.playlists().list(
+			part="snippet",
+			channelId=channel_id,
+			maxResults=50,
+			pageToken=next_page_token
+		)
+		response = request.execute()
+		for item in response["items"]:
+			video_list = get_all_videoIDs_from_playlistID(channel_id, item["id"])
+			if len(video_list) > 0:
+				playlist_ids[item["id"]] = video_list
+		next_page_token = response.get("nextPageToken")
+
+	return playlist_ids
+
+print(get_all_playlistsIDs_from_channelID("UC-l1GAYzCSb8TtWqGxU2K5Q"))
