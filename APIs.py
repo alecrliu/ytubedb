@@ -85,22 +85,6 @@ def get_all_videoIDs_from_channelID(channel_id):
 	video_ids = []
 	for item in response["items"]:
 		video_ids.append(item["id"]["videoId"])
-	next_page_token = None
-
-	# Next page if any
-	next_page_token = response.get("nextPageToken")
-	while next_page_token:
-		request = youtube.search().list(
-			part="snippet",
-			channelId=channel_id,
-			maxResults=50,
-			type="video",
-			pageToken=next_page_token
-		)
-		response = request.execute()
-		for item in response["items"]:
-			video_ids.append(item["id"]["videoId"])
-		next_page_token = response.get("nextPageToken")
 
 	return video_ids
 
@@ -136,4 +120,4 @@ def get_all_playlistsIDs_from_channelID(channel_id):
 
 	return playlist_ids
 
-print(get_all_playlistsIDs_from_channelID("UC-l1GAYzCSb8TtWqGxU2K5Q"))
+#print(get_all_playlistsIDs_from_channelID("UC-l1GAYzCSb8TtWqGxU2K5Q"))
