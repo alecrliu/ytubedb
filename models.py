@@ -41,7 +41,7 @@ class Channel(db.Model):
 	playlists = db.relationship('Playlist', backref = 'channels')
 
 # Video table
-# One-to-Many with VideoPlaylist table => Many-to-Many with Playlist table
+# Many-to-Many with Playlist table
 class Video(db.Model):
 	__tablename__ = 'videos'
 
@@ -54,10 +54,8 @@ class Video(db.Model):
 	commentCount = db.Column(db.Integer, nullable=False)
 	thumbnail = db.Column(db.Text, nullable=True)
 
-	playlists = db.relationship('VideoPlaylist', backref = 'videos')
-
 # Playlist table
-# One-to-Many with VideoPlaylist table => Many-to-Many with Video table
+# Many-to-Many with Video table
 class Playlist(db.Model):
 	__tablename__ = 'playlists'
 
@@ -69,13 +67,12 @@ class Playlist(db.Model):
 	videoCount = db.Column(db.Integer, nullable=False)
 	thumbnail = db.Column(db.Text, nullable=True)
 
-	videos = db.relationship('VideoPlaylist', backref = 'playlists')
+	videos = db.relationship('Video', secondary = 'VideoPlaylist', backref='in')
 
 # Video-Playlist association table
-class VideoPlaylist(db.Model):
-	__tablename__ = 'videoplaylist'
-
-	videoID = db.Column(db.String, db.ForeignKey('videos.videoID'), primary_key=True)
-	playlistID = db.Column(db.String, db.ForeignKey('playlists.playlistID'), primary_key=True)
+VideoPlaylist = db.Table('videoplaylist',
+   db.Column('videoID', db.String, db.ForeignKey('videos.videoID')), 
+   db.Column('playlistID', db.String, db.ForeignKey('playlists.playlistID'))
+   )
 
 db.create_all()
