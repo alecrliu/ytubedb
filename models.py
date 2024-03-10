@@ -10,14 +10,13 @@ app = Flask(__name__)
 app.app_context().push()
 
 # Change this accordingly
-USER = "postgres"
 PASSWORD = ""
 PUBLIC_IP_ADDRESS = "localhost:5432"
 DBNAME = "ytubedb"
 
 # Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-	"DB_STRING", f'postgresql://{USER}:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}'
+	"DB_STRING", f'postgresql://postgres:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}'
 	)
 # To suppress a warning message
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -39,6 +38,12 @@ class Channel(db.Model):
 
 	videos = db.relationship('Video', backref = 'channels')
 	playlists = db.relationship('Playlist', backref = 'channels')
+
+# Video-Playlist association table
+VideoPlaylist = db.Table('videoplaylist',
+   db.Column('videoID', db.String, db.ForeignKey('videos.videoID')), 
+   db.Column('playlistID', db.String, db.ForeignKey('playlists.playlistID'))
+)
 
 # Video table
 # Many-to-Many with Playlist table
@@ -71,10 +76,5 @@ class Playlist(db.Model):
 
 	videos = db.relationship('Video', secondary='VideoPlaylist', backref='inPlaylist')
 
-# Video-Playlist association table
-VideoPlaylist = db.Table('videoplaylist',
-   db.Column('videoID', db.String, db.ForeignKey('videos.videoID')), 
-   db.Column('playlistID', db.String, db.ForeignKey('playlists.playlistID'))
-   )
-
+db.drop_all()
 db.create_all()

@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 import os
 import json
 
-YT_KEY = os.getenv("YT_KEY")
+YT_KEY = "AIzaSyCKzJGAupHgrCSsv0KUdPJo2cEl_MG3zWU"#os.getenv("YT_KEY")
 
 channel_ids = [
 	'UC-lHJZR3Gqxm24_Vd_AJ5Yw', 
@@ -87,7 +87,7 @@ def push_one_video(db, video_id, video_obj, checkFirst=True):
 # Get playlist data
 def get_one_playlist(playlist_id, channel_obj):
 	playlistData = None
-	youtube = googleapiclient.discovery.build("youtube", "v3", developerKey=API_KEY)
+	youtube = build("youtube", "v3", developerKey=YT_KEY)
 	request = youtube.playlists().list(
 		part="snippet",
 		id=playlist_id
@@ -123,7 +123,7 @@ def push_one_playlist(db, playlist_obj):
 # Get channel data
 def get_one_channel(channel_id):
 	channelData = None
-	youtube = googleapiclient.discovery.build("youtube", "v3", developerKey=API_KEY)
+	youtube = build("youtube", "v3", developerKey=YT_KEY)
 	request = youtube.channels().list(
 		part="snippet,statistics",
 		id=channel_id
@@ -273,3 +273,5 @@ def push_all_channels(db, channel_ids):
 		currChannelObj = push_all_playlists_from_channel(db, channel_id)
 		push_one_channel(db, currChannelObj)
 	return True
+
+push_all_channels(db, channel_ids)
