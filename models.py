@@ -10,13 +10,14 @@ app = Flask(__name__)
 app.app_context().push()
 
 # Change this accordingly
+USER = "postgres"
 PASSWORD = ""
 PUBLIC_IP_ADDRESS = "localhost:5432"
 DBNAME = "ytubedb"
 
 # Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-	"DB_STRING", f'postgresql://postgres:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}'
+	"DB_STRING", f'postgresql://{USER}:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}'
 	)
 # To suppress a warning message
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
