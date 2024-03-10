@@ -46,7 +46,6 @@ class Video(db.Model):
 	__tablename__ = 'videos'
 
 	videoID = db.Column(db.String, primary_key=True)
-	channelID = db.Column(db.String, db.ForeignKey('channels.channelID'))
 	title = db.Column(db.String, nullable=False)
 	description = db.Column(db.Text, nullable=True)
 	viewCount = db.Column(db.BigInteger, nullable=False)
@@ -54,20 +53,23 @@ class Video(db.Model):
 	commentCount = db.Column(db.Integer, nullable=False)
 	thumbnail = db.Column(db.Text, nullable=True)
 
+	channelID = db.Column(db.String, db.ForeignKey('channels.channelID'))
+
 # Playlist table
 # Many-to-Many with Video table
 class Playlist(db.Model):
 	__tablename__ = 'playlists'
 
 	playlistID = db.Column(db.String, primary_key=True)
-	channelID = db.Column(db.String, db.ForeignKey('channels.channelID'))
 	title = db.Column(db.String, nullable=False)
 	description = db.Column(db.Text, nullable=True)
 	publishedAt = db.Column(db.DateTime(timezone=False), nullable=False)
 	videoCount = db.Column(db.Integer, nullable=False)
 	thumbnail = db.Column(db.Text, nullable=True)
 
-	videos = db.relationship('Video', secondary = 'VideoPlaylist', backref='in')
+	channelID = db.Column(db.String, db.ForeignKey('channels.channelID'))
+
+	videos = db.relationship('Video', secondary='VideoPlaylist', backref='inPlaylist')
 
 # Video-Playlist association table
 VideoPlaylist = db.Table('videoplaylist',
