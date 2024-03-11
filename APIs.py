@@ -16,7 +16,8 @@ playlist = Dict(playlistID, channelID, title, description, publishedAt, thumbnai
 					Dict(videoID, channelID, title, description, viewCount, likeCount, commentCount, thumbnail)
 					
 					...
-				])
+				]
+			)
 
 video = Dict(videoID, channelID, title, description, viewCount, likeCount, commentCount, thumbnail)
 
@@ -206,14 +207,20 @@ def get_all_videoIDs_from_channelID(channel_id, curr_videos, youtube):
 
 	return new_videos_data
 
+channelsJSON = {}
+playlistsJSON = {}
+videosJSON = {}
+
+for channel_id in channel_ids:
+	currChannelDict = get_one_channel(channel_id, YOUTUBE)
+	if currChannelDict:
+		channelsJSON[channel_id] = currChannelDict
+		currPlaylistsList, currVideoIDs = get_all_playlistsIDs_from_channelID(channel_id, YOUTUBE)
+		playlistsJSON[channel_id] = currPlaylistsList
+		newVideos = list(get_all_videoIDs_from_channelID(channel_id, currVideoIDs, YOUTUBE))
+		videosJSON[channel_id] = newVideos
+
 with open("allData/channels.json", "w+") as channelFile, open("allData/playlists.json", "w+") as playlistFile, open("allData/videos.json", "w+") as videoFile:
-	for channel_id in channel_ids:
-		currChannelDict = get_one_channel(channel_id, YOUTUBE)
-		if currChannelDict:
-			currPlaylistsList, currVideoIDs = get_all_playlistsIDs_from_channelID(channel_id, YOUTUBE)
-			newVideos = list(get_all_videoIDs_from_channelID(channel_id, currVideoIDs, YOUTUBE))
-			for currPlaylist in currPlaylistsList:
-				json.dump(currPlaylist, playlistFile)
-			for currVideo in newVideos:
-				json.dump(currVideo, videoFile)
-			json.dump(currChannelDict, channelFile)
+	json.dump(channelsJSON, channelFile, indent=4, ensure_ascii=False)
+	json.dump(playlistsJSON, playlistFile, indent=4, ensure_ascii=False)
+	json.dump(videosJSON, videoFile, indent=4, ensure_ascii=False)
