@@ -76,5 +76,5 @@ class Playlist(db.Model):
 
 	videos = db.relationship('Video', secondary='videoplaylist', backref='inPlaylist')
 
-# db.drop_all()
+db.drop_all()
 db.create_all()
