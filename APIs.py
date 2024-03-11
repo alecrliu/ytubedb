@@ -5,6 +5,23 @@ import json
 YT_KEY = os.getenv("YT_KEY")
 YOUTUBE = build("youtube", "v3", developerKey=YT_KEY)
 
+'''
+
+channel = Dict(channelID, channelName, description, subCount, viewCount, videoCount, thumbnail)
+
+playlist = Dict(playlistID, channelID, title, description, publishedAt, thumbnail, videoCount, 
+				videos = [
+					List of ...
+
+					Dict(videoID, channelID, title, description, viewCount, likeCount, commentCount, thumbnail)
+					
+					...
+				])
+
+video = Dict(videoID, channelID, title, description, viewCount, likeCount, commentCount, thumbnail)
+
+'''
+
 channel_ids = [
 	'UC-lHJZR3Gqxm24_Vd_AJ5Yw', 
 	'UCIPPMRA040LQr5QPyJEbmXA', 
@@ -27,18 +44,7 @@ channel_ids = [
 	'UCojyGFb8W2xxSsJ5c_XburQ'
 ]
 
-# Get channel id of a video
-def get_channelID_of_videoID(video_id, youtube):
-	request = youtube.videos().list(
-		part="snippet",
-		id=video_id
-	)
-	response = request.execute()
-	channel_id = ""
-	if response.get("items"):
-		channel_id = response["items"][0]["snippet"]["channelId"]
-
-	return channel_id
+channel_ids = ['UC-l1GAYzCSb8TtWqGxU2K5Q']
 
 # Get channel data
 def get_one_channel(channel_id, youtube):
@@ -68,7 +74,35 @@ def get_one_channel(channel_id, youtube):
 		channelData["thumbnail"] = thumbnail_url
 	return channelData
 
-# Get all video ids of a playlist sharing same channel id
+# Get channel id and video json of a video
+def get_one_video(video_id, channel_id, youtube, checkChannelID=True):
+	videoData = {}
+	request = youtube.videos().list(
+		part="snippet,statistics",
+		id=video_id
+	)
+	response = request.execute()
+	if response.get("items") and (not checkChannelID or response["items"][0]["snippet"]["channelId"] == channel_id):
+		video_data = response["items"][0]
+		title = video_data["snippet"]["title"]
+		description = video_data["snippet"].get("description", "No description available")
+		view_count = video_data["statistics"].get("viewCount", 0)
+		like_count = video_data["statistics"].get("likeCount", 0)
+		comment_count = video_data["statistics"].get("commentCount", 0)
+		thumbnail_url = "No thumbnail available"
+		if video_data["snippet"].get("thumbnails"):
+			thumbnail_url = video_data["snippet"].get("thumbnails")["default"]["url"]
+		videoData["videoID"] = video_id
+		videoData["channelID"] = channel_id
+		videoData["title"] = title
+		videoData["description"] = description
+		videoData["viewCount"] = view_count
+		videoData["likeCount"] = like_count
+		videoData["commentCount"] = comment_count
+		videoData["thumbnail"] = thumbnail_url
+	return videoData
+
+# Get all video ids and their data sharing same channel id with the playlist
 def get_all_videoIDs_from_playlistID(channel_id, playlist_id, youtube):
 	request = youtube.playlistItems().list(
 		part="snippet",
@@ -77,11 +111,14 @@ def get_all_videoIDs_from_playlistID(channel_id, playlist_id, youtube):
 	)
 	response = request.execute()
 	video_ids = set()
+	video_dicts = set()
 	if response.get("items", []):
 		for item in response["items"]:
 			video_id = item["snippet"]["resourceId"]["videoId"]
-			if get_channelID_of_videoID(video_id, youtube) == channel_id:
+			video_dict = get_one_video(video_id, channel_id, youtube)
+			if video_dict:
 				video_ids.add(video_id)
+				video_dicts.add(video_dict)
 
 		# Next page if any
 		next_page_token = response.get("nextPageToken")
@@ -95,13 +132,34 @@ def get_all_videoIDs_from_playlistID(channel_id, playlist_id, youtube):
 			response = request.execute()
 			for item in response["items"]:
 				video_id = item["snippet"]["resourceId"]["videoId"]
-				if get_channelID_of_videoID(video_id, youtube) == channel_id:
+				video_dict = get_one_video(video_id, channel_id, youtube)
+				if video_dict:
 					video_ids.add(video_id)
+					video_dicts.add(video_dict)
 			next_page_token = response.get("nextPageToken")
 
-	return video_ids
+	return video_ids, video_dicts
 
-# Get at most 10 playlist ids and their video ids of a channel
+# Get one playlist dictionary from youtube api response
+def get_one_playlist(playlist_response, channel_id):
+	playlistData = {}
+	if playlist_response:
+		playlist_id = playlist_response["id"]
+		title = playlist_response["snippet"]["title"]
+		description = playlist_response["snippet"].get("description", "No description available")
+		published_at = playlist_response["snippet"]["publishedAt"]
+		thumbnail_url = "No thumbnail available"
+		if playlist_response["snippet"].get("thumbnails"):
+			thumbnail_url = playlist_response["snippet"].get("thumbnails")["default"]["url"]
+		playlistData["playlistID"] = playlist_id
+		playlistData["channelID"] = channel_id
+		playlistData["title"] = title
+		playlistData["description"] = description
+		playlistData["publishedAt"] = published_at
+		playlistData["thumbnail"] = thumbnail_url
+	return playlistData
+
+# Get at most 10 playlist data (contains individual playlist's videos data) and their video ids of a channel
 def get_all_playlistsIDs_from_channelID(channel_id, youtube):
 	request = youtube.playlists().list(
 		part="snippet",
@@ -109,22 +167,27 @@ def get_all_playlistsIDs_from_channelID(channel_id, youtube):
 		maxResults=10
 	)
 	response = request.execute()
-	playlist_ids = {}
+	playlists_data = []
 	channel_playlist_video_ids = set()
 	if response.get("items", []):
 		for item in response["items"]:
 			playlist_id = item["id"]
-			video_set = get_all_videoIDs_from_playlistID(channel_id, playlist_id, youtube)
-			if len(video_set) > 0:
-				playlist_ids[playlist_id] = list(video_set)
-				channel_playlist_video_ids.update(video_set)
+			video_ids, video_dicts = get_all_videoIDs_from_playlistID(channel_id, playlist_id, youtube)
+			if len(video_ids) > 0:
+				playlistData = get_one_playlist(item)
+				if playlistData:
+					playlistData["videoCount"] = len(video_ids)
+					playlistData["videos"] = list(video_dicts)
+					playlists_data.append(playlistData)
+					channel_playlist_video_ids.update(video_ids)
 
-	return playlist_ids, channel_playlist_video_ids
+	return playlists_data, channel_playlist_video_ids
 
 # Get remaining at most 25 video ids of a channel only if current 
 # video count is less than 25
 # Max videos per channel if current video count < 25 will be 50
 def get_all_videoIDs_from_channelID(channel_id, curr_videos, youtube):
+	new_videos_data = set()
 	if len(curr_videos) < 25:
 		request = youtube.search().list(
 			part="snippet",
@@ -136,16 +199,21 @@ def get_all_videoIDs_from_channelID(channel_id, curr_videos, youtube):
 		if response.get("items", []):
 			for item in response["items"]:
 				video_id = item["id"]["videoId"]
-				curr_videos.add(video_id)
+				if video_id not in curr_videos:
+					video_dict = get_one_video(video_id, channel_id, youtube, checkChannelID=False)
+					if video_dict:
+						new_videos_data.add(video_dict)
 
-	return curr_videos
+	return new_videos_data
 
-with open("allData/channels.json", "w+") as channelFile:
+with open("allData/channels.json", "w+") as channelFile, open("allData/playlists.json", "w+") as playlistFile, open("allData/videos.json", "w+") as videoFile:
 	for channel_id in channel_ids:
 		currChannelDict = get_one_channel(channel_id, YOUTUBE)
 		if currChannelDict:
-			currPlaylists, currVideos = get_all_playlistsIDs_from_channelID(channel_id, YOUTUBE)
-			currVideos = get_all_videoIDs_from_channelID(channel_id, currVideos, YOUTUBE)
-			currChannelDict["videos"] = list(currVideos)
-			currChannelDict["playlists"] = currPlaylists
+			currPlaylistsList, currVideoIDs = get_all_playlistsIDs_from_channelID(channel_id, YOUTUBE)
+			newVideos = list(get_all_videoIDs_from_channelID(channel_id, currVideoIDs, YOUTUBE))
+			for currPlaylist in currPlaylistsList:
+				json.dump(currPlaylist, playlistFile)
+			for currVideo in newVideos:
+				json.dump(currVideo, videoFile)
 			json.dump(currChannelDict, channelFile)
