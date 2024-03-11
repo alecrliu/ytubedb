@@ -45,7 +45,7 @@ channel_ids = [
 	'UCojyGFb8W2xxSsJ5c_XburQ'
 ]
 
-channel_ids = ['UC-l1GAYzCSb8TtWqGxU2K5Q']
+channel_ids = ['UC-lHJZR3Gqxm24_Vd_AJ5Yw']
 
 # Get channel data
 def get_one_channel(channel_id, youtube):
@@ -59,7 +59,9 @@ def get_one_channel(channel_id, youtube):
 	if items:
 		channel_data = items[0]
 		channel_name = channel_data["snippet"]["title"]
-		description = channel_data["snippet"].get("description", "No description available")
+		description = channel_data["snippet"].get("description")
+		if not description:
+			description = "No description available"
 		subscriber_count = channel_data["statistics"].get("subscriberCount", 0)
 		view_count = channel_data["statistics"].get("viewCount", 0)
 		video_count = channel_data["statistics"].get("videoCount", 0)
@@ -86,7 +88,9 @@ def get_one_video(video_id, channel_id, youtube, checkChannelID=True):
 	if response.get("items") and (not checkChannelID or response["items"][0]["snippet"]["channelId"] == channel_id):
 		video_data = response["items"][0]
 		title = video_data["snippet"]["title"]
-		description = video_data["snippet"].get("description", "No description available")
+		description = video_data["snippet"].get("description")
+		if not description:
+			description = "No description available"
 		view_count = video_data["statistics"].get("viewCount", 0)
 		like_count = video_data["statistics"].get("likeCount", 0)
 		comment_count = video_data["statistics"].get("commentCount", 0)
@@ -112,14 +116,14 @@ def get_all_videoIDs_from_playlistID(channel_id, playlist_id, youtube):
 	)
 	response = request.execute()
 	video_ids = set()
-	video_dicts = set()
+	video_dicts = []
 	if response.get("items", []):
 		for item in response["items"]:
 			video_id = item["snippet"]["resourceId"]["videoId"]
 			video_dict = get_one_video(video_id, channel_id, youtube)
 			if video_dict:
 				video_ids.add(video_id)
-				video_dicts.add(video_dict)
+				video_dicts.append(video_dict)
 
 		# Next page if any
 		next_page_token = response.get("nextPageToken")
@@ -136,7 +140,7 @@ def get_all_videoIDs_from_playlistID(channel_id, playlist_id, youtube):
 				video_dict = get_one_video(video_id, channel_id, youtube)
 				if video_dict:
 					video_ids.add(video_id)
-					video_dicts.add(video_dict)
+					video_dicts.append(video_dict)
 			next_page_token = response.get("nextPageToken")
 
 	return video_ids, video_dicts
@@ -147,7 +151,9 @@ def get_one_playlist(playlist_response, channel_id):
 	if playlist_response:
 		playlist_id = playlist_response["id"]
 		title = playlist_response["snippet"]["title"]
-		description = playlist_response["snippet"].get("description", "No description available")
+		description = playlist_response["snippet"].get("description")
+		if not description:
+			description = "No description available"
 		published_at = playlist_response["snippet"]["publishedAt"]
 		thumbnail_url = "No thumbnail available"
 		if playlist_response["snippet"].get("thumbnails"):
@@ -175,10 +181,10 @@ def get_all_playlistsIDs_from_channelID(channel_id, youtube):
 			playlist_id = item["id"]
 			video_ids, video_dicts = get_all_videoIDs_from_playlistID(channel_id, playlist_id, youtube)
 			if len(video_ids) > 0:
-				playlistData = get_one_playlist(item)
+				playlistData = get_one_playlist(item, channel_id)
 				if playlistData:
 					playlistData["videoCount"] = len(video_ids)
-					playlistData["videos"] = list(video_dicts)
+					playlistData["videos"] = video_dicts
 					playlists_data.append(playlistData)
 					channel_playlist_video_ids.update(video_ids)
 
@@ -188,7 +194,7 @@ def get_all_playlistsIDs_from_channelID(channel_id, youtube):
 # video count is less than 25
 # Max videos per channel if current video count < 25 will be 50
 def get_all_videoIDs_from_channelID(channel_id, curr_videos, youtube):
-	new_videos_data = set()
+	new_videos_data = []
 	if len(curr_videos) < 25:
 		request = youtube.search().list(
 			part="snippet",
@@ -203,7 +209,7 @@ def get_all_videoIDs_from_channelID(channel_id, curr_videos, youtube):
 				if video_id not in curr_videos:
 					video_dict = get_one_video(video_id, channel_id, youtube, checkChannelID=False)
 					if video_dict:
-						new_videos_data.add(video_dict)
+						new_videos_data.append(video_dict)
 
 	return new_videos_data
 
@@ -217,7 +223,7 @@ for channel_id in channel_ids:
 		channelsJSON[channel_id] = currChannelDict
 		currPlaylistsList, currVideoIDs = get_all_playlistsIDs_from_channelID(channel_id, YOUTUBE)
 		playlistsJSON[channel_id] = currPlaylistsList
-		newVideos = list(get_all_videoIDs_from_channelID(channel_id, currVideoIDs, YOUTUBE))
+		newVideos = get_all_videoIDs_from_channelID(channel_id, currVideoIDs, YOUTUBE)
 		videosJSON[channel_id] = newVideos
 
 with open("allData/channels.json", "w+") as channelFile, open("allData/playlists.json", "w+") as playlistFile, open("allData/videos.json", "w+") as videoFile:
