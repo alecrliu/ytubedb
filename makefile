@@ -1,24 +1,24 @@
 ifeq ($(shell uname), Darwin)          # Apple
-    PYTHON   := python3
-    PIP      := pip3
-    PYLINT   := pylint
-    COVERAGE := coverage
-    PYDOC    := pydoc3
-    AUTOPEP8 := autopep8
+	PYTHON   := python3
+	PIP      := pip3
+	PYLINT   := pylint
+	COVERAGE := coverage
+	PYDOC    := pydoc3
+	AUTOPEP8 := autopep8
 else ifeq ($(shell uname -p), unknown) # Windows
-    PYTHON   := python                 
-    PIP      := pip3
-    PYLINT   := pylint
-    COVERAGE := coverage
-    PYDOC    := python -m pydoc       
-    AUTOPEP8 := autopep8
+	PYTHON   := python
+	PIP      := pip3
+	PYLINT   := pylint
+	COVERAGE := coverage
+	PYDOC    := python -m pydoc
+	AUTOPEP8 := autopep8
 else                                   # UTCS
-    PYTHON   := python3
-    PIP      := pip3
-    PYLINT   := pylint3
-    COVERAGE := coverage
-    PYDOC    := pydoc3
-    AUTOPEP8 := autopep8
+	PYTHON   := python3
+	PIP      := pip3
+	PYLINT   := pylint3
+	COVERAGE := coverage
+	PYDOC    := pydoc3
+	AUTOPEP8 := autopep8
 endif
 
 versions:
@@ -28,6 +28,10 @@ versions:
 	$(COVERAGE) --version
 	$(PYDOC) --version
 	$(AUTOPEP8) --version
+
+createDB: models.py database.py
+	$(PYTHON) models.py
+	$(PYTHON) database.py
 
 models.html: models.py
 	$(PYDOC) -w  models
