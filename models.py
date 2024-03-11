@@ -74,7 +74,7 @@ class Playlist(db.Model):
 
 	channelID = db.Column(db.String, db.ForeignKey('channels.channelID'))
 
-	videos = db.relationship('Video', secondary='VideoPlaylist', backref='inPlaylist')
+	videos = db.relationship('Video', secondary='videoplaylist', backref='inPlaylist')
 
-db.drop_all()
+# db.drop_all()
 db.create_all()
