@@ -29,7 +29,7 @@ versions:
 	$(PYDOC) --version
 	$(AUTOPEP8) --version
 
-createDB: models.py database.py
+DB: models.py database.py
 	$(PYTHON) models.py
 	$(PYTHON) database.py
 
