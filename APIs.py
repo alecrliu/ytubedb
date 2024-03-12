@@ -5,48 +5,6 @@ import json
 YT_KEY = os.getenv("YT_KEY")
 YOUTUBE = build("youtube", "v3", developerKey=YT_KEY)
 
-'''
-
-channel = Dict(channelID, channelName, description, subCount, viewCount, videoCount, thumbnail)
-
-playlist = Dict(playlistID, channelID, title, description, publishedAt, thumbnail, videoCount, 
-				videos = [
-					List of ...
-
-					Dict(videoID, channelID, title, description, viewCount, likeCount, commentCount, thumbnail)
-					
-					...
-				]
-			)
-
-video = Dict(videoID, channelID, title, description, viewCount, likeCount, commentCount, thumbnail)
-
-'''
-
-channel_ids = [
-	'UC-lHJZR3Gqxm24_Vd_AJ5Yw', 
-	'UCIPPMRA040LQr5QPyJEbmXA', 
-	'UCYiGq8XF7YQD00x7wAd62Zg', 
-	'UCV4xOVpbcV8SdueDCOxLXtQ', 
-	'UCJFp8uSYCjXOMnkUyb3CQ3Q', 
-	'UCpSgg_ECBj25s9moCDfSTsA', 
-	'UCNbngWUqL2eqRw12yAwcICg', 
-	'UCJHA_jMfCvEnv-3kRjTCQXw', 
-	'UC1dVfl5-I98WX3yCy8IJQMg', 
-	'UCNlfGuzOAKM1sycPuM_QTHg', 
-	'UC-l1GAYzCSb8TtWqGxU2K5Q', 
-	'UC1bjWVLp2aaJmPcNbi9OOsw', 
-	'UChTHJT8xRQ0ghLjpXu-RgSg', 
-	'UCk1HnZpqA3HDHkiAbMnGFaA', 
-	'UClQubH2NeMmGLTLgNdLBwXg', 
-	'UC63mNFJR8EAb8wAIJwoCmTA', 
-	'UC_zgOsTPdML6tol9hLYh4fQ', 
-	'UCiWLfSweyRNmLpgEHekhoAg', 
-	'UCojyGFb8W2xxSsJ5c_XburQ'
-]
-
-channel_ids = ['UC-lHJZR3Gqxm24_Vd_AJ5Yw']
-
 # Get channel data
 def get_one_channel(channel_id, youtube):
 	channelData = {}
@@ -213,19 +171,54 @@ def get_all_videoIDs_from_channelID(channel_id, curr_videos, youtube):
 
 	return new_videos_data
 
+channel_ids = [
+	'UC-lHJZR3Gqxm24_Vd_AJ5Yw', 
+	'UCIPPMRA040LQr5QPyJEbmXA', 
+	'UCYiGq8XF7YQD00x7wAd62Zg', 
+	'UCV4xOVpbcV8SdueDCOxLXtQ', 
+	'UCJFp8uSYCjXOMnkUyb3CQ3Q', 
+	'UCpSgg_ECBj25s9moCDfSTsA', 
+	'UCNbngWUqL2eqRw12yAwcICg', 
+	'UCJHA_jMfCvEnv-3kRjTCQXw', 
+	'UC1dVfl5-I98WX3yCy8IJQMg', 
+	'UCNlfGuzOAKM1sycPuM_QTHg', 
+	'UC-l1GAYzCSb8TtWqGxU2K5Q', 
+	'UC1bjWVLp2aaJmPcNbi9OOsw', 
+	'UChTHJT8xRQ0ghLjpXu-RgSg', 
+	'UCk1HnZpqA3HDHkiAbMnGFaA', 
+	'UClQubH2NeMmGLTLgNdLBwXg', 
+	'UC63mNFJR8EAb8wAIJwoCmTA', 
+	'UC_zgOsTPdML6tol9hLYh4fQ', 
+	'UCiWLfSweyRNmLpgEHekhoAg', 
+	'UCojyGFb8W2xxSsJ5c_XburQ'
+]
+
+# Uncomment to run
+# Protection from accidental code run
+channel_ids = []
+
 channelsJSON = {}
 playlistsJSON = {}
 videosJSON = {}
 
-for channel_id in channel_ids:
-	currChannelDict = get_one_channel(channel_id, YOUTUBE)
-	if currChannelDict:
-		channelsJSON[channel_id] = currChannelDict
-		currPlaylistsList, currVideoIDs = get_all_playlistsIDs_from_channelID(channel_id, YOUTUBE)
-		playlistsJSON[channel_id] = currPlaylistsList
-		newVideos = get_all_videoIDs_from_channelID(channel_id, currVideoIDs, YOUTUBE)
-		videosJSON[channel_id] = newVideos
+# Retrieve existing data
+with open("allData/channels.json", "r") as channelFile, open("allData/playlists.json", "r") as playlistFile, open("allData/videos.json", "r") as videoFile:
+	channelsJSON = json.load(channelFile)
+	playlistsJSON = json.load(playlistFile)
+	videosJSON = json.load(videoFile)
 
+for channel_id in channel_ids:
+	if channel_id not in channelsJSON:
+		currChannelDict = get_one_channel(channel_id, YOUTUBE)
+		print(currChannelDict["channelName"])
+		if currChannelDict:
+			channelsJSON[channel_id] = currChannelDict
+			currPlaylistsList, currVideoIDs = get_all_playlistsIDs_from_channelID(channel_id, YOUTUBE)
+			playlistsJSON[channel_id] = currPlaylistsList
+			newVideos = get_all_videoIDs_from_channelID(channel_id, currVideoIDs, YOUTUBE)
+			videosJSON[channel_id] = newVideos
+
+# Push/Update data
 with open("allData/channels.json", "w+") as channelFile, open("allData/playlists.json", "w+") as playlistFile, open("allData/videos.json", "w+") as videoFile:
 	json.dump(channelsJSON, channelFile, indent=4, ensure_ascii=False)
 	json.dump(playlistsJSON, playlistFile, indent=4, ensure_ascii=False)
