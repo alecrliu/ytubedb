@@ -7,6 +7,7 @@ import json
 from flask import Flask, render_template, request, redirect, url_for, session
 # # Uncomment when done with database.py
 # from database import app, db, Channel, Playlist, Video, create_channels, create_playlists, create_videos
+from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
 
 
 app = Flask(__name__)
@@ -29,7 +30,21 @@ def index():
 
 @app.route('/about')  # about page
 def about():
-    return render_template('about.html')
+    curr_commits = getCommits(root_url, gitlab_ids)
+    curr_issues = getIssues(root_url, gitlab_ids)
+    return render_template(
+        'about.html', 
+        nirmalCommits=curr_commits["Nirmal"], 
+        nirmalIssues=curr_issues["Nirmal"], 
+        adrianCommits=curr_commits["Adrian"], 
+        adrianIssues=curr_issues["Adrian"], 
+        alecCommits=curr_commits["Alec"], 
+        alecIssues=curr_issues["Alec"], 
+        junyuCommits=curr_commits["Junyu"], 
+        junyuIssues=curr_issues["Junyu"], 
+        totalCommits=sum(curr_commits.values()),
+        totalIssues=sum(curr_issues.values())
+    )
 
 
 @app.route('/channels')  # channels page displays multiple channels
