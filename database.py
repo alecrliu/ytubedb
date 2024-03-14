@@ -40,7 +40,7 @@ def create_Video(video_data):
 	return video_obj
 
 def process_channelJSON(db, channelJSONfilepath):
-	with open(channelJSONfilepath, "r") as channelFile:
+	with open(channelJSONfilepath, "r",  encoding='utf-8') as channelFile:
 		channelsDict = json.load(channelFile)
 		for curr_channel_id in channelsDict:
 			curr_channel_data = channelsDict[curr_channel_id]
@@ -49,7 +49,7 @@ def process_channelJSON(db, channelJSONfilepath):
 		db.session.commit()
 
 def process_playlistJSON(db, playlistJSONfilepath):
-	with open(playlistJSONfilepath, "r") as playlistFile:
+	with open(playlistJSONfilepath, "r",  encoding='utf-8') as playlistFile:
 		playlistsDict = json.load(playlistFile)
 		for curr_channel_id in playlistsDict:
 			curr_playlists = playlistsDict[curr_channel_id]
@@ -68,7 +68,7 @@ def process_playlistJSON(db, playlistJSONfilepath):
 		db.session.commit()
 
 def process_videoJSON(db, videoJSONfilepath):
-	with open(videoJSONfilepath, "r") as videoFIle:
+	with open(videoJSONfilepath, "r" ,  encoding='utf-8') as videoFIle:
 		videosDict = json.load(videoFIle)
 		for curr_channel_id in videosDict:
 			curr_videos = videosDict[curr_channel_id]
