@@ -10,14 +10,14 @@ app = Flask(__name__)
 app.app_context().push()
 
 # Change this accordingly
-PASSWORD = ""
-PUBLIC_IP_ADDRESS = "localhost:5432"
+PASSWORD = os.getenv('DB_PASSWORD')  # set local and cloud to same password
+PUBLIC_IP_ADDRESS = "localhost:5432"  # use for local database
 DBNAME = "ytubedb"
 
 # Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-	"DB_STRING", f'postgresql://postgres:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}'
-	)
+    "DB_STRING", f'postgresql://postgres:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}'
+)
 # To suppress a warning message
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
@@ -25,56 +25,63 @@ db = SQLAlchemy(app)
 # Channel table
 # One-to-Many with Video table
 # One-to-Many with Playlist table
+
+
 class Channel(db.Model):
-	__tablename__ = 'channels'
+    __tablename__ = 'channels'
 
-	channelID = db.Column(db.String, primary_key=True)
-	channelName = db.Column(db.String, nullable=False)
-	description = db.Column(db.Text, nullable=True)
-	subscriberCount = db.Column(db.Integer, nullable=False)
-	viewCount = db.Column(db.BigInteger, nullable=False)
-	videoCount = db.Column(db.Integer, nullable=False)
-	thumbnail = db.Column(db.Text, nullable=True)
+    channel_id = db.Column(db.String, primary_key=True)
+    channelName = db.Column(db.String, nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    subscriberCount = db.Column(db.Integer, nullable=False)
+    viewCount = db.Column(db.BigInteger, nullable=False)
+    videoCount = db.Column(db.Integer, nullable=False)
+    thumbnail = db.Column(db.Text, nullable=True)
 
-	videos = db.relationship('Video', backref = 'channels')
-	playlists = db.relationship('Playlist', backref = 'channels')
+    videos = db.relationship('Video', backref='channels')
+    playlists = db.relationship('Playlist', backref='channels')
+
 
 # Video-Playlist association table
 VideoPlaylist = db.Table('videoplaylist',
-   db.Column('videoID', db.String, db.ForeignKey('videos.videoID')), 
-   db.Column('playlistID', db.String, db.ForeignKey('playlists.playlistID'))
-)
+                         db.Column('video_id', db.String,
+                                   db.ForeignKey('videos.video_id')),
+                         db.Column('playlist_id', db.String,
+                                   db.ForeignKey('playlists.playlist_id'))
+                         )
 
 # Video table
 # Many-to-Many with Playlist table
+
+
 class Video(db.Model):
-	__tablename__ = 'videos'
+    __tablename__ = 'videos'
 
-	videoID = db.Column(db.String, primary_key=True)
-	title = db.Column(db.String, nullable=False)
-	description = db.Column(db.Text, nullable=True)
-	viewCount = db.Column(db.BigInteger, nullable=False)
-	likeCount = db.Column(db.Integer, nullable=False)
-	commentCount = db.Column(db.Integer, nullable=False)
-	thumbnail = db.Column(db.Text, nullable=True)
+    video_id = db.Column(db.String, primary_key=True)
+    title = db.Column(db.String, nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    viewCount = db.Column(db.BigInteger, nullable=False)
+    likeCount = db.Column(db.Integer, nullable=False)
+    commentCount = db.Column(db.Integer, nullable=False)
+    thumbnail = db.Column(db.Text, nullable=True)
 
-	channelID = db.Column(db.String, db.ForeignKey('channels.channelID'))
+    channel_id = db.Column(db.String, db.ForeignKey('channels.channel_id'))
 
 # Playlist table
 # Many-to-Many with Video table
+
+
 class Playlist(db.Model):
-	__tablename__ = 'playlists'
+    __tablename__ = 'playlists'
 
-	playlistID = db.Column(db.String, primary_key=True)
-	title = db.Column(db.String, nullable=False)
-	description = db.Column(db.Text, nullable=True)
-	publishedAt = db.Column(db.DateTime(timezone=False), nullable=False)
-	videoCount = db.Column(db.Integer, nullable=False)
-	thumbnail = db.Column(db.Text, nullable=True)
+    playlist_id = db.Column(db.String, primary_key=True)
+    title = db.Column(db.String, nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    publishedAt = db.Column(db.DateTime(timezone=False), nullable=False)
+    videoCount = db.Column(db.Integer, nullable=False)
+    thumbnail = db.Column(db.Text, nullable=True)
 
-	channelID = db.Column(db.String, db.ForeignKey('channels.channelID'))
+    channel_id = db.Column(db.String, db.ForeignKey('channels.channel_id'))
 
-	videos = db.relationship('Video', secondary='videoplaylist', backref='inPlaylist')
-
-db.drop_all()
-db.create_all()
+    videos = db.relationship(
+        'Video', secondary='videoplaylist', backref='inPlaylist')

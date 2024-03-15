@@ -3,7 +3,7 @@ ifeq ($(shell uname), Darwin)          # Apple
 	PIP      := pip3
 	PYLINT   := pylint
 	COVERAGE := coverage
-	PYDOC    := pydoc3
+	PYDOC    := python -m pydoc
 	AUTOPEP8 := autopep8
 else ifeq ($(shell uname -p), unknown) # Windows
 	PYTHON   := python
@@ -29,21 +29,15 @@ versions:
 	$(PYDOC) --version
 	$(AUTOPEP8) --version
 
-DB: models.py database.py
-	$(PYTHON) models.py
+DB: database.py
 	$(PYTHON) database.py
 
-models.html: models.py
-	$(PYDOC) -w  models
-IDB1.log:
-	git log > IDB1.log
-IDB2.log:
-	git log > IDB2.log
-IDB3.log:
-	git log > IDB3.log
+# for some reason, error generating docs for flask_sqlalchemy
+# models: models.py
+# 	$(PYDOC) -w models > models.html
 
-clean:
-	rm -f models.html
-	rm -f IDB1.log
-	rm -f IDB2.log
-	rm -f IDB3.log
+IDB2:
+	git log > IDB2.log
+
+IDB3:
+	git log > IDB3.log
