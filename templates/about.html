@@ -208,7 +208,7 @@
 				<h2 class="accordion-header">
 					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 						data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-						Stats
+						<b>Stats</b>
 					</button>
 				</h2>
 				<div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordion">
@@ -248,38 +248,40 @@
 				<h2 class="accordion-header">
 					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 						data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-						Data
+						<b>Data</b>
 					</button>
 				</h2>
 				<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordion">
 					<div class="accordion-body">
-						<ul>
+						<p>
+							We used <a class="link-opacity-50-hover" href="https://developers.google.com/youtube/v3">YouTube Data API v3</a> for our website data. YouTube API has a daily limit of 10k units. Retrieving information of either a channel, video, or playlist or getting playlists of a channel (max 50 results per page) costs 1 unit. And getting videos of a channel (max 50 results per page) costs 100 units. Thus, we had to optimize API calls to extract maximum information without exceeding the limit.
+						</p>
+						<p>
+							Our strategy was to get various channel IDs manually and then make a streamlined process of collecting all information related to that channel ID (including playlists and videos) and storing it in separate JSON files: channelsJSON for channel information, playlistsJSON for playlist and associated videos information, and videosJSON for stray videos of channels. The process is as follows:
+						</p>
+						<ol>
 							<li>
-								<ul>
-									<li>
-										<a class="link-opacity-50-hover"
-											href="https://developers.google.com/youtube/v3/docs/channels">Youtube
-											Channels Data</a>
-									</li>
-									<li>
-										<a class="link-opacity-50-hover"
-											href="https://developers.google.com/youtube/v3/docs/videos">Youtube Videos
-											Data</a>
-									</li>
-									<li>
-										<a class="link-opacity-50-hover"
-											href="https://developers.google.com/youtube/v3/docs/playlists">Youtube
-											Playlists Data</a>
-									</li>
-								</ul>
+								Load the current JSON files. 
 							</li>
 							<li>
-								a link to your published postman collection
+								Check if a channel ID is not present in the channelsJSON. 
 							</li>
 							<li>
-								description of how each was scraped
+								Get channel information using channel ID. 
 							</li>
-						</ul>
+							<li>
+								Get at most 10 playlists of that channel using channel ID. 
+							</li>
+							<li>
+								While getting the playlists, remove all videos from the playlists that aren't from that channel. If all videos of the playlists are from different channels then that playlist is discarded. 
+							</li>
+							<li>
+								Get another batch of at most 25 videos from that channel if the videos of playlists don't sum up more than 25. 
+							</li>
+							<li>
+								Store all the information in the JSON files. 
+							</li>
+						</ol>
 					</div>
 				</div>
 			</div>
@@ -288,7 +290,7 @@
 				<h2 class="accordion-header">
 					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 						data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-						Tools
+						<b>Tools</b>
 					</button>
 				</h2>
 				<div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordion">
