@@ -85,6 +85,56 @@
                 </div>
             </div>
         </div>
+        <!-- Videos Accordion -->
+<div class="accordion mb-3" id="videosAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingVideos">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVideos" aria-expanded="true" aria-controls="collapseVideos">
+                View Videos
+            </button>
+        </h2>
+        <div id="collapseVideos" class="accordion-collapse collapse show" aria-labelledby="headingVideos" data-bs-parent="#videosAccordion">
+            <div class="accordion-body">
+                {% if videos %}
+                    {% for video in videos %}
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="{{ video.thumbnail }}" alt="Thumbnail" class="img-thumbnail" style="width: 120px; height: auto;">
+                            <a href="{{ url_for('oneVideo', videoId=video.videoID) }}" class="ms-3">{{ video.title }}</a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No videos found for this channel.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Playlists Accordion -->
+<div class="accordion" id="playlistsAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingPlaylists">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlaylists" aria-expanded="false" aria-controls="collapsePlaylists">
+                View Playlists
+            </button>
+        </h2>
+        <div id="collapsePlaylists" class="accordion-collapse collapse" aria-labelledby="headingPlaylists" data-bs-parent="#playlistsAccordion">
+            <div class="accordion-body">
+                {% if playlists %}
+                    {% for playlist in playlists %}
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="{{ playlist.thumbnail }}" alt="Thumbnail" class="img-thumbnail" style="width: 120px; height: auto;">
+                            <a href="{{ url_for('playList', playlistId=playlist.playlistID) }}" class="ms-3">{{ playlist.title }}</a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>This channel does not have any playlists.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
     </main>
 </body>
 

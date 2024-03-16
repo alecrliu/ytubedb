@@ -62,6 +62,11 @@ def showChannel(channelId):
     if channel_info is None:
         return "Channel not found", 404
     return render_template('channel.html', channel=channel_info)
+    # Fetch videos and playlists associated with the channel from the database
+    # Placeholder for actual database query
+    #videos = Video.query.filter_by(channel_id=channelId).all()
+    #playlists = Playlist.query.filter_by(channel_id=channelId).all()
+    #return render_template('channel.html', channel=channel_info, videos=videos, playlists=playlists)
 
 
 @app.route('/videos')  # videos page displays multiple videos
