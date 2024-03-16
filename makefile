@@ -32,6 +32,9 @@ versions:
 DB: database.py
 	$(PYTHON) database.py
 
+cleanCodePY: APIs.py
+	$(AUTOPEP8) --in-place APIs.py
+
 # for some reason, error generating docs for flask_sqlalchemy
 # models: models.py
 # 	$(PYDOC) -w models > models.html
