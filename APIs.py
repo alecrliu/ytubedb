@@ -189,31 +189,37 @@ def get_all_videoIDs_from_channelID(channel_id, curr_videos, youtube):
     return new_videos_data
 
 
-channel_ids = [  # 19 channels
-    'UC-lHJZR3Gqxm24_Vd_AJ5Yw',
-    'UCIPPMRA040LQr5QPyJEbmXA',
-    'UCYiGq8XF7YQD00x7wAd62Zg',
-    'UCV4xOVpbcV8SdueDCOxLXtQ',
-    'UCJFp8uSYCjXOMnkUyb3CQ3Q',
-    'UCpSgg_ECBj25s9moCDfSTsA',
-    'UCNbngWUqL2eqRw12yAwcICg',
-    'UCJHA_jMfCvEnv-3kRjTCQXw',
-    'UC1dVfl5-I98WX3yCy8IJQMg',
-    'UCNlfGuzOAKM1sycPuM_QTHg',
-    'UC-l1GAYzCSb8TtWqGxU2K5Q',
-    'UC1bjWVLp2aaJmPcNbi9OOsw',
-    'UChTHJT8xRQ0ghLjpXu-RgSg',
-    'UCk1HnZpqA3HDHkiAbMnGFaA',
-    'UClQubH2NeMmGLTLgNdLBwXg',
-    'UC63mNFJR8EAb8wAIJwoCmTA',
-    'UC_zgOsTPdML6tol9hLYh4fQ',
-    'UCiWLfSweyRNmLpgEHekhoAg',
-    'UCojyGFb8W2xxSsJ5c_XburQ'
+# Source: https://blog.hubspot.com/marketing/best-youtube-channels
+channel_ids = [
+    'UC-lHJZR3Gqxm24_Vd_AJ5Yw',     # PewDiePie
+    'UCIPPMRA040LQr5QPyJEbmXA',     # MrBeast Gaming
+    'UCYiGq8XF7YQD00x7wAd62Zg',     # JuegaGerman
+    'UCV4xOVpbcV8SdueDCOxLXtQ',     # Fernanfloo
+    'UCJFp8uSYCjXOMnkUyb3CQ3Q',     # Tasty
+    'UCpSgg_ECBj25s9moCDfSTsA',     # Jamie Oliver
+    'UCNbngWUqL2eqRw12yAwcICg',     # Laura in the Kitchen
+    'UCJHA_jMfCvEnv-3kRjTCQXw',     # Babish Culinary Universe
+    'UC1dVfl5-I98WX3yCy8IJQMg',     # Quiet Quest - Study Music
+    'UCNlfGuzOAKM1sycPuM_QTHg',     # 4K Video Nature - Focus Music
+    'UC-l1GAYzCSb8TtWqGxU2K5Q',     # Lofi Everyday
+    'UC1bjWVLp2aaJmPcNbi9OOsw',     # Greenred Productions - Relaxing Music
+    'UChTHJT8xRQ0ghLjpXu-RgSg',     # StainedHands
+    'UCk1HnZpqA3HDHkiAbMnGFaA',     # Yasmin Art Drawing
+    'UClQubH2NeMmGLTLgNdLBwXg',     # ZHC
+    'UC63mNFJR8EAb8wAIJwoCmTA',     # 5-Minute Crafts FAMILY
+    'UC_zgOsTPdML6tol9hLYh4fQ',     # Ballislife
+    'UCiWLfSweyRNmLpgEHekhoAg',     # ESPN
+    'UCojyGFb8W2xxSsJ5c_XburQ',     # The Fumble
+    'UCpVm7bg6pXKo1Pr6k5kxG9A',     # Nat Geo
+    'UCsooa4yRKGN_zEE8iknghZA',     # Ted Ed
+    'UCHnyfMqiRRG1u-2MsSQLbXA',     # Veritasium
+    'UCFKE7WVJfvaHW5q283SxchA',     # Yoga With Adriene
+    'UC9MAhZQQd9egwWCxrwSIsJQ',     # HISTORY
+    'UCsXVk37bltHxD1rDPwtNM8Q',     # Kurzgesagt – In a Nutshell
+    'UCC552Sd-3nyi_tk2BudLUzA',     # AsapSCIENCE
 ]
 
-# Uncomment to run
-# Protection from accidental code run
-channel_ids = []
+# Initalizing JSON dicts placeholders
 channelsJSON = {}
 playlistsJSON = {}
 videosJSON = {}
