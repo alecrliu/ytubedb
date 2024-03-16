@@ -32,8 +32,13 @@ versions:
 DB: database.py
 	$(PYTHON) database.py
 
-cleanCodePY: APIs.py
+cleanCodePY: APIs.py models.py database.py test.py gitlabStats.py main.py
 	$(AUTOPEP8) --in-place APIs.py
+	$(AUTOPEP8) --in-place models.py
+	$(AUTOPEP8) --in-place database.py
+	$(AUTOPEP8) --in-place test.py
+	$(AUTOPEP8) --in-place gitlabStats.py
+	$(AUTOPEP8) --in-place main.py
 
 # for some reason, error generating docs for flask_sqlalchemy
 # models: models.py
