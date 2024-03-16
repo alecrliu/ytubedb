@@ -3,6 +3,7 @@ import os
 import json
 
 YT_KEY = os.getenv("YT_KEY")
+YT_KEY = "AIzaSyCoqtTnI5f6DlY9WBmZqnM7_qQ7iD6TSrg"
 YOUTUBE = build("youtube", "v3", developerKey=YT_KEY)
 
 # Get channel data
@@ -217,6 +218,10 @@ channel_ids = [
     'UC9MAhZQQd9egwWCxrwSIsJQ',     # HISTORY
     'UCsXVk37bltHxD1rDPwtNM8Q',     # Kurzgesagt – In a Nutshell
     'UCC552Sd-3nyi_tk2BudLUzA',     # AsapSCIENCE
+    'UCn8zNIfYAQNdrFRrr8oibKw',     # VICE
+    'UCupvZG-5ko_eiXAupbDfxWw',     # CNN
+    'UCa10nxShhzNrCE1o2ZOPztg',     # Trap Nation
+    'UCpDJl2EmP7Oh90Vylx0dZtA',     # Spinnin' Records
 ]
 
 # Initalizing JSON dicts placeholders
@@ -230,7 +235,7 @@ with open("allData/channels.json", "r") as channelFile, open("allData/playlists.
     playlistsJSON = json.load(playlistFile)
     videosJSON = json.load(videoFile)
 
-for channel_id in channel_ids:
+for ind, channel_id in enumerate(channel_ids):
     if channel_id not in channelsJSON:
         currChannelDict = get_one_channel(channel_id, YOUTUBE)
         print(currChannelDict["channelName"])
@@ -242,6 +247,11 @@ for channel_id in channel_ids:
             newVideos = get_all_videoIDs_from_channelID(
                 channel_id, currVideoIDs, YOUTUBE)
             videosJSON[channel_id] = newVideos
+    else:
+        print(channelsJSON[channel_id]["channelName"])
+    print()
+    print(f"{ind + 1}/{len(channel_ids)} DONE")
+    print("-" * 50)
 
 # Push/Update data
 with open("allData/channels.json", "w+") as channelFile, open("allData/playlists.json", "w+") as playlistFile, open("allData/videos.json", "w+") as videoFile:
