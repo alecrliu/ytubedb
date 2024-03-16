@@ -9,8 +9,8 @@ from models import db, Channel, Playlist, Video
 
 class DBTestCases(unittest.TestCase):
     def test_source_insert_1(self):
-    #     s = Book(id='20', title='C++')
-    #     db.session.add(s)
+        #     s = Book(id='20', title='C++')
+        #     db.session.add(s)
         db.session.commit()
     #     r = db.session.query(Book).filter_by(id='20').one()
     #     self.assertEqual(str(r.id), '20')

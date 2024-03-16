@@ -33,15 +33,15 @@ def about():
     curr_commits = getCommits(root_url, gitlab_ids)
     curr_issues = getIssues(root_url, gitlab_ids)
     return render_template(
-        'about.html', 
-        nirmalCommits=curr_commits["Nirmal"], 
-        nirmalIssues=curr_issues["Nirmal"], 
-        adrianCommits=curr_commits["Adrian"], 
-        adrianIssues=curr_issues["Adrian"], 
-        alecCommits=curr_commits["Alec"], 
-        alecIssues=curr_issues["Alec"], 
-        junyuCommits=curr_commits["Junyu"], 
-        junyuIssues=curr_issues["Junyu"], 
+        'about.html',
+        nirmalCommits=curr_commits["Nirmal"],
+        nirmalIssues=curr_issues["Nirmal"],
+        adrianCommits=curr_commits["Adrian"],
+        adrianIssues=curr_issues["Adrian"],
+        alecCommits=curr_commits["Alec"],
+        alecIssues=curr_issues["Alec"],
+        junyuCommits=curr_commits["Junyu"],
+        junyuIssues=curr_issues["Junyu"],
         totalCommits=sum(curr_commits.values()),
         totalIssues=sum(curr_issues.values())
     )
