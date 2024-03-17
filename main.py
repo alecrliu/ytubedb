@@ -6,11 +6,11 @@ import json
 
 from flask import Flask, render_template, request, redirect, url_for, session
 # # Uncomment when done with database.py
-# from database import app, db, Channel, Playlist, Video, create_channels, create_playlists, create_videos
+from database import app, db, Channel, Playlist, Video
 from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
 # import json data (will remove and use database instead)
 # TODO: Move all data modification to the database.py file
 with open('data/playlists.json', 'r', encoding='utf-8') as file:
@@ -47,9 +47,10 @@ def about():
     )
 
 
-@app.route('/channels')  # channels page displays multiple channels
-def showChannels():
-    channels_info = channel_data['items']
+@app.route('/channels/<int:page_num>')  # channels page displays multiple channels
+def showChannels(page_num):
+    #channels_info = channel_data['items']
+    channels_info = Channel.query.paginate(per_page=9, page=page_num, error_out=True)
     return render_template('channels.html', channels=channels_info)
 
 
@@ -69,9 +70,10 @@ def showChannel(channelId):
     #return render_template('channel.html', channel=channel_info, videos=videos, playlists=playlists)
 
 
-@app.route('/videos')  # videos page displays multiple videos
-def showVideos():
-    return render_template('videos.html', videos=videos["items"])
+@app.route('/videos/<int:page_num>')  # videos page displays multiple videos
+def showVideos(page_num):
+    videos_info = Video.query.paginate(per_page=9, page=page_num, error_out=True)
+    return render_template('videos.html', videos=videos_info)
 
 
 @app.route('/video/<string:videoId>')  # video page displays single video
@@ -85,9 +87,10 @@ def oneVideo(videoId):
 
 
 # playlists page display multiple videos
-@app.route('/playlists')
-def showPlaylist():
-    return render_template('playlists.html', playlists=playlist_data['items'])
+@app.route('/playlists/<int:page_num>')
+def showPlaylist(page_num):
+    playlists_info = Playlist.query.paginate(per_page=9, page=page_num, error_out=True)
+    return render_template('playlists.html', playlists=playlists_info)
 
 
 # playlists page display single playlist
