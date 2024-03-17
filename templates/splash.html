@@ -28,13 +28,13 @@
 						<a class="nav-link" href="{{url_for('about')}}">About</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{url_for('showChannels')}}">Channels</a>
+						<a class="nav-link" href="{{url_for('showChannels', page_num=1)}}">Channels</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{url_for('showVideos')}}">Videos</a>
+						<a class="nav-link" href="{{url_for('showVideos', page_num=1)}}">Videos</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{url_for('showPlaylist')}}">Playlists</a>
+						<a class="nav-link" href="{{url_for('showPlaylist', page_num=1)}}">Playlists</a>
 					</li>
 				</ul>
 			</div>
@@ -47,9 +47,9 @@
 			<div class="d-flex">
 				<div class="list-group" style="text-align: center;font-size: 24px;min-width: 200px;">
 					<a href="{{url_for('about')}}" class="list-group-item list-group-item-action">About</a>
-					<a href="{{url_for('showChannels')}}" class="list-group-item list-group-item-action">Channels</a>
-					<a href="{{url_for('showVideos')}}" class="list-group-item list-group-item-action">Videos</a>
-					<a href="{{url_for('showPlaylist')}}" class="list-group-item list-group-item-action">Playlists</a>
+					<a href="{{url_for('showChannels', page_num=1)}}" class="list-group-item list-group-item-action">Channels</a>
+					<a href="{{url_for('showVideos', page_num=1)}}" class="list-group-item list-group-item-action">Videos</a>
+					<a href="{{url_for('showPlaylist', page_num=1)}}" class="list-group-item list-group-item-action">Playlists</a>
 				</div>
 			</div>
 		</section>
