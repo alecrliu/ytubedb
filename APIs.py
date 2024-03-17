@@ -3,6 +3,7 @@ import os
 import json
 
 YT_KEY = os.getenv("YT_KEY")
+YT_KEY = "AIzaSyCKzJGAupHgrCSsv0KUdPJo2cEl_MG3zWU"
 YOUTUBE = build("youtube", "v3", developerKey=YT_KEY)
 
 # Get channel data
@@ -27,8 +28,7 @@ def get_one_channel(channel_id, youtube):
         video_count = channel_data["statistics"].get("videoCount", 0)
         thumbnail_url = "No thumbnail available"
         if channel_data["snippet"].get("thumbnails"):
-            thumbnail_url = channel_data["snippet"].get("thumbnails")[
-                "default"]["url"]
+            thumbnail_url = channel_data["snippet"].get("thumbnails")["high"]["url"]
         channelData["channelID"] = channel_id
         channelData["channelName"] = channel_name
         channelData["description"] = description
@@ -59,8 +59,7 @@ def get_one_video(video_id, channel_id, youtube, checkChannelID=True):
         comment_count = video_data["statistics"].get("commentCount", 0)
         thumbnail_url = "No thumbnail available"
         if video_data["snippet"].get("thumbnails"):
-            thumbnail_url = video_data["snippet"].get("thumbnails")[
-                "default"]["url"]
+            thumbnail_url = video_data["snippet"].get("thumbnails")["high"]["url"]
         videoData["videoID"] = video_id
         videoData["channelID"] = channel_id
         videoData["title"] = title
@@ -125,8 +124,7 @@ def get_one_playlist(playlist_response, channel_id):
         published_at = playlist_response["snippet"]["publishedAt"]
         thumbnail_url = "No thumbnail available"
         if playlist_response["snippet"].get("thumbnails"):
-            thumbnail_url = playlist_response["snippet"].get("thumbnails")[
-                "default"]["url"]
+            thumbnail_url = playlist_response["snippet"].get("thumbnails")["high"]["url"]
         playlistData["playlistID"] = playlist_id
         playlistData["channelID"] = channel_id
         playlistData["title"] = title
@@ -191,48 +189,48 @@ def get_all_videoIDs_from_channelID(channel_id, curr_videos, youtube):
 
 # Source: https://blog.hubspot.com/marketing/best-youtube-channels
 channel_ids = [
-    'UC-lHJZR3Gqxm24_Vd_AJ5Yw',     # PewDiePie
-    'UCIPPMRA040LQr5QPyJEbmXA',     # MrBeast Gaming
-    'UCYiGq8XF7YQD00x7wAd62Zg',     # JuegaGerman
-    'UCV4xOVpbcV8SdueDCOxLXtQ',     # Fernanfloo
-    'UCJFp8uSYCjXOMnkUyb3CQ3Q',     # Tasty
-    'UCpSgg_ECBj25s9moCDfSTsA',     # Jamie Oliver
-    'UCNbngWUqL2eqRw12yAwcICg',     # Laura in the Kitchen
-    'UCJHA_jMfCvEnv-3kRjTCQXw',     # Babish Culinary Universe
-    'UC1dVfl5-I98WX3yCy8IJQMg',     # Quiet Quest - Study Music
-    'UCNlfGuzOAKM1sycPuM_QTHg',     # 4K Video Nature - Focus Music
-    'UC-l1GAYzCSb8TtWqGxU2K5Q',     # Lofi Everyday
-    'UC1bjWVLp2aaJmPcNbi9OOsw',     # Greenred Productions - Relaxing Music
-    'UChTHJT8xRQ0ghLjpXu-RgSg',     # StainedHands
-    'UCk1HnZpqA3HDHkiAbMnGFaA',     # Yasmin Art Drawing
-    'UClQubH2NeMmGLTLgNdLBwXg',     # ZHC
-    'UC63mNFJR8EAb8wAIJwoCmTA',     # 5-Minute Crafts FAMILY
-    'UC_zgOsTPdML6tol9hLYh4fQ',     # Ballislife
-    'UCiWLfSweyRNmLpgEHekhoAg',     # ESPN
-    'UCojyGFb8W2xxSsJ5c_XburQ',     # The Fumble
-    'UCpVm7bg6pXKo1Pr6k5kxG9A',     # Nat Geo
-    'UCsooa4yRKGN_zEE8iknghZA',     # Ted Ed
-    'UCHnyfMqiRRG1u-2MsSQLbXA',     # Veritasium
-    'UCFKE7WVJfvaHW5q283SxchA',     # Yoga With Adriene
-    'UC9MAhZQQd9egwWCxrwSIsJQ',     # HISTORY
-    'UCsXVk37bltHxD1rDPwtNM8Q',     # Kurzgesagt – In a Nutshell
-    'UCC552Sd-3nyi_tk2BudLUzA',     # AsapSCIENCE
-    'UCn8zNIfYAQNdrFRrr8oibKw',     # VICE
-    'UCupvZG-5ko_eiXAupbDfxWw',     # CNN
-    'UCa10nxShhzNrCE1o2ZOPztg',     # Trap Nation
-    'UCpDJl2EmP7Oh90Vylx0dZtA',     # Spinnin' Records
+    'UC-lHJZR3Gqxm24_Vd_AJ5Yw',     # 1. PewDiePie
+    'UCIPPMRA040LQr5QPyJEbmXA',     # 2. MrBeast Gaming
+    'UCYiGq8XF7YQD00x7wAd62Zg',     # 3. JuegaGerman
+    'UCV4xOVpbcV8SdueDCOxLXtQ',     # 4. Fernanfloo
+    'UCJFp8uSYCjXOMnkUyb3CQ3Q',     # 5. Tasty
+    'UCpSgg_ECBj25s9moCDfSTsA',     # 6. Jamie Oliver
+    'UCNbngWUqL2eqRw12yAwcICg',     # 7. Laura in the Kitchen
+    'UCJHA_jMfCvEnv-3kRjTCQXw',     # 8. Babish Culinary Universe
+    'UC1dVfl5-I98WX3yCy8IJQMg',     # 9. Quiet Quest - Study Music
+    'UCNlfGuzOAKM1sycPuM_QTHg',     # 10. 4K Video Nature - Focus Music
+    'UC-l1GAYzCSb8TtWqGxU2K5Q',     # 11. Lofi Everyday
+    'UC1bjWVLp2aaJmPcNbi9OOsw',     # 12. Greenred Productions - Relaxing Music
+    'UChTHJT8xRQ0ghLjpXu-RgSg',     # 13. StainedHands
+    'UCk1HnZpqA3HDHkiAbMnGFaA',     # 14. Yasmin Art Drawing
+    'UClQubH2NeMmGLTLgNdLBwXg',     # 15. ZHC
+    'UC63mNFJR8EAb8wAIJwoCmTA',     # 16. 5-Minute Crafts FAMILY
+    'UC_zgOsTPdML6tol9hLYh4fQ',     # 17. Ballislife
+    'UCiWLfSweyRNmLpgEHekhoAg',     # 18. ESPN
+    'UCojyGFb8W2xxSsJ5c_XburQ',     # 19. The Fumble
+    'UCpVm7bg6pXKo1Pr6k5kxG9A',     # 20. Nat Geo
+    'UCsooa4yRKGN_zEE8iknghZA',     # 21. Ted Ed
+    'UCHnyfMqiRRG1u-2MsSQLbXA',     # 22. Veritasium
+    'UCFKE7WVJfvaHW5q283SxchA',     # 23. Yoga With Adriene
+    'UC9MAhZQQd9egwWCxrwSIsJQ',     # 24. HISTORY
+    'UCsXVk37bltHxD1rDPwtNM8Q',     # 25. Kurzgesagt – In a Nutshell
+    'UCC552Sd-3nyi_tk2BudLUzA',     # 26. AsapSCIENCE
+    'UCn8zNIfYAQNdrFRrr8oibKw',     # 27. VICE
+    'UCupvZG-5ko_eiXAupbDfxWw',     # 28. CNN
+    'UCa10nxShhzNrCE1o2ZOPztg',     # 29. Trap Nation
+    'UCpDJl2EmP7Oh90Vylx0dZtA',     # 30. Spinnin' Records
 ]
 
-# Initalizing JSON dicts placeholders
-channelsJSON = {}
-playlistsJSON = {}
-videosJSON = {}
-
 # Retrieve existing data
-with open("allData/channels.json", "r") as channelFile, open("allData/playlists.json", "r") as playlistFile, open("allData/videos.json", "r") as videoFile:
-    channelsJSON = json.load(channelFile)
-    playlistsJSON = json.load(playlistFile)
-    videosJSON = json.load(videoFile)
+try:
+    with open("allData/channels.json", "r") as channelFile, open("allData/playlists.json", "r") as playlistFile, open("allData/videos.json", "r") as videoFile:
+        channelsJSON = json.load(channelFile)
+        playlistsJSON = json.load(playlistFile)
+        videosJSON = json.load(videoFile)
+except FileNotFoundError:
+    channelsJSON = {}
+    playlistsJSON = {}
+    videosJSON = {}
 
 for ind, channel_id in enumerate(channel_ids):
     if channel_id not in channelsJSON:
