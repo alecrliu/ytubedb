@@ -50,38 +50,24 @@ def about():
 @app.route('/channels/<int:page_num>')  # channels page displays multiple channels
 def showChannels(page_num):
     #channels_info = channel_data['items']
-    channels_info = Channel.query.paginate(per_page=9, page=page_num, error_out=True)
+    channels_info = Channel.query.paginate(per_page=12, page=page_num, error_out=True)
     return render_template('channels.html', channels=channels_info)
 
 
 # channel page displays detail channel info
-'''
-@app.route('/channel/<string:channelId>')
-def showChannel(channelId):
-    # Directly use channel_data['items'] if channels is not defined elsewhere
-    channel_info = next(
-        (channel for channel in channel_data['items'] if channel['id'] == channelId), None)
-    if channel_info is None:
-        return "Channel not found", 404
-    return render_template('channel.html', channel=channel_info)
-'''
 @app.route('/channel/<string:channelId>')
 def showChannel(channelId):
     channel_info = Channel.query.filter_by(channel_id=channelId).first()
     if channel_info is None:
         return "Channel not found", 404
-    return render_template('channel.html', channel=channel_info)
-
-    # Fetch videos and playlists associated with the channel from the database
-    # Placeholder for actual database query
-    #videos = Video.query.filter_by(channel_id=channelId).all()
-    #playlists = Playlist.query.filter_by(channel_id=channelId).all()
-    #return render_template('channel.html', channel=channel_info, videos=videos, playlists=playlists)
+    videos = Video.query.filter_by(channel_id=channelId).all()
+    playlists = Playlist.query.filter_by(channel_id=channelId).all()
+    return render_template('channel.html', channel=channel_info, videos=videos, playlists=playlists)
 
 
 @app.route('/videos/<int:page_num>')  # videos page displays multiple videos
 def showVideos(page_num):
-    videos_info = Video.query.paginate(per_page=9, page=page_num, error_out=True)
+    videos_info = Video.query.paginate(per_page=12, page=page_num, error_out=True)
     return render_template('videos.html', videos=videos_info)
 
 
@@ -98,7 +84,7 @@ def oneVideo(videoId):
 # playlists page display multiple videos
 @app.route('/playlists/<int:page_num>')
 def showPlaylist(page_num):
-    playlists_info = Playlist.query.paginate(per_page=9, page=page_num, error_out=True)
+    playlists_info = Playlist.query.paginate(per_page=12, page=page_num, error_out=True)
     return render_template('playlists.html', playlists=playlists_info)
 
 
