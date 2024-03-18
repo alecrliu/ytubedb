@@ -40,23 +40,21 @@
             <div class="container">
                 <h1 class="fw-light text-center">YouTube Channels</h1>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
+                    
                     {% for channel in channels.items %}
                         <div class="col">
                             <div class="card shadow-sm">
-                                <a href="">
-                                <img class="bd-placeholder-img card-img-top" src="{{ channel.thumbnail }}"
-                                    alt="Channel Thumbnail">
+                                <a href="{{ url_for('showChannel', channelId=channel.channel_id) }}">
+                                <img class="bd-placeholder-img card-img-top" src="{{ channel.thumbnail }}" alt="Channel Thumbnail">
                                 </a>
                                 <h6>{{channel.channelName}}</h6>
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href=""
-                                            class="btn btn-sm btn-outline-secondary">View Channel</a>
-                                    </div>
+                                 <div class="card-body">
+                                    <a href="{{ url_for('showChannel', channelId=channel.channel_id) }}" class="btn btn-sm btn-outline-secondary">View Channel</a>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
+
                 </div>
                 <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-center">

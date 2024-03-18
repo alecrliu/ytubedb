@@ -40,17 +40,12 @@
     </nav>
     <main class="py-5 mt-5">
         <div class="container">
-            <h1 class="fw-light text-center">{{ channel.snippet.title }}</h1>
+            <h1 class="fw-light text-center">{{ channel.channelName }}</h1>
             <div class="card mb-3">
-
                 <div class="text-center">
-                    <img src="https://i.ytimg.com/vi/KOEfDvr4DcQ/hqdefault.jpg" alt="MrBeast Video Thumbnail"
-                        class="img-fluid" style="width: 750px; height: auto;">
-
-                </div>
-
-
-
+                    <img src="{{ channel.thumbnail }}" alt="Channel Banner" class="img-fluid" style="max-width: 100%; height: auto; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                </div>    
+                
                 <div class="card-body">
                     <div class="row align-items-center">
                         <!-- Column for the Description Button -->
@@ -65,15 +60,15 @@
                         <!-- Column for the Statistics, centered -->
                         <div class="col d-flex justify-content-center">
                             <p class="mb-0 me-3"><small class="text-muted">Subscribers: {{
-                                    channel.statistics.subscriberCount }}</small></p>
-                            <p class="mb-0 me-3">Total Views: {{ channel.statistics.viewCount }}</p>
-                            <p class="mb-0">Videos: {{ channel.statistics.videoCount }}</p>
+                                    channel.subscriberCount }}</small></p>
+                            <p class="mb-0 me-3">Total Views: {{ channel.viewCount }}</p>
+                            <p class="mb-0">Videos: {{ channel.videoCount }}</p>
                         </div>
                     </div>
                     <!-- Collapsible description -->
                     <div class="collapse" id="descriptionCollapse">
                         <div class="card card-body mt-3">
-                            {{ channel.snippet.description }}
+                            {{ channel.description }}
                         </div>
                     </div>
                     

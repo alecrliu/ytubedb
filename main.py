@@ -15,10 +15,10 @@ from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
 # TODO: Move all data modification to the database.py file
 with open('data/playlists.json', 'r', encoding='utf-8') as file:
     playlist_data = json.load(file)
-
+'''
 with open('data/channels.json', 'r', encoding='utf-8') as file:
     channel_data = json.load(file)
-
+'''
 with open('data/videos.json', 'r', encoding='utf-8') as file:
     videos = json.load(file)
 
@@ -55,6 +55,7 @@ def showChannels(page_num):
 
 
 # channel page displays detail channel info
+'''
 @app.route('/channel/<string:channelId>')
 def showChannel(channelId):
     # Directly use channel_data['items'] if channels is not defined elsewhere
@@ -63,6 +64,14 @@ def showChannel(channelId):
     if channel_info is None:
         return "Channel not found", 404
     return render_template('channel.html', channel=channel_info)
+'''
+@app.route('/channel/<string:channelId>')
+def showChannel(channelId):
+    channel_info = Channel.query.filter_by(channel_id=channelId).first()
+    if channel_info is None:
+        return "Channel not found", 404
+    return render_template('channel.html', channel=channel_info)
+
     # Fetch videos and playlists associated with the channel from the database
     # Placeholder for actual database query
     #videos = Video.query.filter_by(channel_id=channelId).all()
