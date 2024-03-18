@@ -58,18 +58,18 @@ def process_playlistJSON(db, playlistJSONfilepath):
         playlistsDict = json.load(playlistFile)
         for curr_channel_id in playlistsDict:
             curr_playlists = playlistsDict[curr_channel_id]
-            # To keep check of videos shared between playlists
-            curr_playlist_videos_set = set()
             for curr_playlist_data in curr_playlists:
                 curr_playlist_obj = create_Playlist(curr_playlist_data)
-                for curr_video_data in curr_playlist_data["videos"]:
-                    curr_video_obj = create_Video(curr_video_data)
-                    curr_video_id = curr_video_data["videoID"]
-                    if curr_video_id not in curr_playlist_videos_set:
-                        curr_playlist_videos_set.add(curr_video_id)
-                        curr_video_obj.inPlaylist.append(curr_playlist_obj)
-                        db.session.add(curr_video_obj)
                 db.session.add(curr_playlist_obj)
+                for curr_video_data in curr_playlist_data["videos"]:
+                    curr_video_id = curr_video_data["videoID"]
+                    # Check if video already exists in database
+                    curr_video_obj = db.session.query(Video).filter_by(
+                        video_id=curr_video_id).first()
+                    if not curr_video_obj:
+                        curr_video_obj = create_Video(curr_video_data)
+                        db.session.add(curr_video_obj)
+                    curr_playlist_obj.videos.append(curr_video_obj)
         db.session.commit()
 
 

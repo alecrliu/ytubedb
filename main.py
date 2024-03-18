@@ -47,10 +47,12 @@ def about():
     )
 
 
-@app.route('/channels/<int:page_num>')  # channels page displays multiple channels
+# channels page displays multiple channels
+@app.route('/channels/<int:page_num>')
 def showChannels(page_num):
-    #channels_info = channel_data['items']
-    channels_info = Channel.query.paginate(per_page=12, page=page_num, error_out=True)
+    # channels_info = channel_data['items']
+    channels_info = Channel.query.paginate(
+        per_page=12, page=page_num, error_out=True)
     return render_template('channels.html', channels=channels_info)
 
 
@@ -67,37 +69,38 @@ def showChannel(channelId):
 
 @app.route('/videos/<int:page_num>')  # videos page displays multiple videos
 def showVideos(page_num):
-    videos_info = Video.query.paginate(per_page=12, page=page_num, error_out=True)
+    videos_info = Video.query.paginate(
+        per_page=12, page=page_num, error_out=True)
     return render_template('videos.html', videos=videos_info)
 
 
 @app.route('/video/<string:videoId>')  # video page displays single video
 def oneVideo(videoId):
-    video = None
-    for vid in videos["items"]:
-        if vid['id'] == videoId:
-            video = vid
-            break
-    return render_template('video.html', video=video, videoId=videoId)
+    video_info = Video.query.filter_by(video_id=videoId).first()
+    if video_info is None:
+        return "Video not found", 404
+    channel = video_info.channels
+    playlists = video_info.inPlaylist
+    return render_template('video.html', video=video_info, channel=channel, playlists=playlists)
 
 
 # playlists page display multiple videos
 @app.route('/playlists/<int:page_num>')
 def showPlaylist(page_num):
-    playlists_info = Playlist.query.paginate(per_page=12, page=page_num, error_out=True)
+    playlists_info = Playlist.query.paginate(
+        per_page=12, page=page_num, error_out=True)
     return render_template('playlists.html', playlists=playlists_info)
 
 
 # playlists page display single playlist
 @app.route('/playlist/<string:playlistId>')
 def playList(playlistId):
-    playlist_info = None
-    playlist_list = playlist_data["items"]
-    for playlist in playlist_list:
-        if playlist['id'] == playlistId:
-            playlist_info = playlist
-            break
-    return render_template('playlist.html', playlist=playlist_info, playlistId=playlistId)
+    playlist_info = Playlist.query.filter_by(playlist_id=playlistId).first()
+    if playlist_info is None:
+        return "Playlist not found", 404
+    channel = playlist_info.channels
+    videos = playlist_info.videos
+    return render_template('playlist.html', playlist=playlist_info, channel=channel, videos=videos)
 
 
 # debug=True to avoid restart the local development server manually after each change to your code.
