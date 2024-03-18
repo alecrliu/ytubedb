@@ -1,123 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/nohyperlinks.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
-
-</head>
-
-<body>
-    <nav class="navbar navbar-expand sticky-top navbar-dark bg-dark" aria-label="Main navigation">
-        <div class="container-fluid">
-            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('index')}}">Splash</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('about')}}">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('showChannels', page_num=1)}}">Channels</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url_for('showVideos', page_num=1)}}">Videos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('showPlaylist', page_num=1)}}">Playlists</a>
-                    </li>
-                </ul>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Video</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+        <!-- link rel="stylesheet" href="../static/css/nohyperlinks.css" -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand sticky-top navbar-dark bg-dark" aria-label="Main navigation">
+            <div class="container-fluid">
+                <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('index')}}">Splash</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('about')}}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('showChannels', page_num=1)}}">Channels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{url_for('showVideos', page_num=1)}}">Videos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('showPlaylist', page_num=1)}}">Playlists</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-    {% if video is none %}
-    <main class="py-5 mt-5">
-        <div class="container">
-            <h1 class="fw-light text-center">Sorry, this video is not in our database.</h1>
-            <h1 class="fw-light text-center">If only we had more storage...</h1>
-            <br>
-            <img src="../static/images/missingVideo.png" class="img-fluid mx-auto d-block" alt="missingVideo"
-                style="width: 30%; height: auto;">
-            <br>
-
-            <br>
-            <a class="nav-link" href="{{url_for('showVideos')}}">
-                <h1 class="text-center">• Check out another video?</h1>
-            </a>
-            <br>
-            <a class="nav-link" href="https://www.youtube.com/watch?v={{videoId}}">
-                <h1 class="text-center">• Watch on YouTube?</h1>
-            </a>
-        </div>
-    </main>
-    {% else %}
-    <main class="py-5 mt-5">
-        <div class="container">
-            <h1 class="fw-light text-center">{{video.snippet.title}}</h1>
-            <br>
-            <div class="row">
-                <div class="col-9 mx-auto">
-                    <div class="card shadow-sm">
-                        <iframe id="player" type="text/html" width="100%" height="500px"
-                            src="https://www.youtube.com/embed/{{ video.id }}" frameborder="0" allowfullscreen></iframe>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <!-- hard coded UC_x5XG1OV2P6uZZ5FSM9Ttw for each video's channel for now-->
-                                <h5 class="card-title"><a
-                                        href="{{url_for('showChannel', channelId='UC_x5XG1OV2P6uZZ5FSM9Ttw')}}">{{
-                                        video.snippet.channelTitle }}</a></h5>
-                                <!-- should really be {{ video.snippet.channelId }}-->
+        </nav>
+        <main class="py-5 mt-5">
+            <div class="container">
+                <h1 class="fw-light text-center">{{ video.title }}</h1>
+                <div class="card mb-3">
+                    <iframe id="player" type="text/html" width="100%" height="500px" src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <!-- Column for the Description Button -->
+                            <div class="col-md-auto">
+                                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#descriptionCollapse" aria-expanded="false"
+                                    aria-controls="descriptionCollapse">
+                                Description
+                                </button>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="card-title"><i class="far fa-eye"></i> {{ video.statistics.viewCount }}</h6>
-                                <h6 class="card-title"><i class="far fa-thumbs-up"></i>{{ video.statistics.likeCount }}
-                                </h6>
-                                <h6 class="card-title"><i class="far fa-comment"></i> {{ video.statistics.commentCount}}
-                                </h6>
+                            <!-- Column for the Statistics, centered -->
+                            <div class="col d-flex justify-content-center">
+                                <p><a href="{{url_for('showChannel',channelId=channel.channel_id)}}" class="btn btn-sm btn-outline-secondary">{{ channel.channelName }}</a></p>
+                                <p class="mb-0 me-3"><b>Views:</b> {{ video.viewCount }}</p>
+                                <p class="mb-0 me-3"><b>Likes:</b> {{ video.likeCount }}</p>
+                                <p class="mb-0 me-3"><b>Comments:</b> {{ video.commentCount }}</p>
                             </div>
-                            <hr>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary"
-                                        data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false"
-                                        aria-controls="collapse">
-                                        Description
+                        </div>
+                        <!-- Collapsible description -->
+                        <div class="collapse" id="descriptionCollapse">
+                            <div class="card card-body mt-3">
+                                {{ video.description }}
+                            </div>
+                        </div>
+                        <br>
+                        <!-- Playlists Accordion -->
+                        <div class="accordion mb-3" id="playlistsAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingPlaylists">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlaylists" aria-expanded="false" aria-controls="collapsePlaylists">
+                                    View Playlists
                                     </button>
-                                </div>
-                                <div class="btn-group">
-                                    <a href="{{url_for('playList',playlistId='PLOU2XLYxmsILxbiyDRGC94XuT2dBXNY3n')}}"
-                                        class="btn btn-sm btn-outline-secondary">
-                                        <i class="fas fa-list"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="collapse" id="collapse">
-                                <div class="card-body">
-                                    <p class="card-text">
-                                        {% set lines = video.snippet.description.split('\n') %}
-                                        {% for line in lines %}
-                                        {{ line }}
-                                        {% endfor %}
-                                    </p>
+                                </h2>
+                                <div id="collapsePlaylists" class="accordion-collapse collapse" aria-labelledby="headingPlaylists" data-bs-parent="#playlistsAccordion">
+                                    <div class="accordion-body">
+                                        {% if playlists %}
+                                        <ul>
+                                            {% for playlist in playlists %}
+                                            <li>
+                                                <a href="{{ url_for('playList', playlistId=playlist.playlist_id) }}" class="ms-3">{{ playlist.title }}</a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% else %}
+                                        <p>No playlists found for this video.</p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    </main>
-    {% endif %}
-</body>
-
+        </main>
+    </body>
 </html>
