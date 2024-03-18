@@ -3,7 +3,6 @@ import os
 import json
 
 YT_KEY = os.getenv("YT_KEY")
-YT_KEY = "AIzaSyCKzJGAupHgrCSsv0KUdPJo2cEl_MG3zWU"
 YOUTUBE = build("youtube", "v3", developerKey=YT_KEY)
 
 # Get channel data
