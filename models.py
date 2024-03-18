@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.app_context().push()
 
 # Change this accordingly
-PASSWORD = os.getenv('')  # set local and cloud to same password
+PASSWORD = os.getenv("DB_PASSWORD")
 PUBLIC_IP_ADDRESS = "localhost:5432"  # use for local database
 DBNAME = "ytubedb"
 

@@ -15,12 +15,6 @@ from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
 # TODO: Move all data modification to the database.py file
 with open('data/playlists.json', 'r', encoding='utf-8') as file:
     playlist_data = json.load(file)
-'''
-with open('data/channels.json', 'r', encoding='utf-8') as file:
-    channel_data = json.load(file)
-'''
-with open('data/videos.json', 'r', encoding='utf-8') as file:
-    videos = json.load(file)
 
 
 @app.route('/')  # splash page
@@ -49,7 +43,12 @@ def about():
 
 # channels page displays multiple channels
 @app.route('/channels/<int:page_num>')
+# channels page displays multiple channels
+@app.route('/channels/<int:page_num>')
 def showChannels(page_num):
+    # channels_info = channel_data['items']
+    channels_info = Channel.query.paginate(
+        per_page=12, page=page_num, error_out=True)
     # channels_info = channel_data['items']
     channels_info = Channel.query.paginate(
         per_page=12, page=page_num, error_out=True)
@@ -71,17 +70,20 @@ def showChannel(channelId):
 def showVideos(page_num):
     videos_info = Video.query.paginate(
         per_page=12, page=page_num, error_out=True)
+    videos_info = Video.query.paginate(
+        per_page=12, page=page_num, error_out=True)
     return render_template('videos.html', videos=videos_info)
 
 
 @app.route('/video/<string:videoId>')  # video page displays single video
 def oneVideo(videoId):
-    video_info = Video.query.filter_by(video_id=videoId).first()
-    if video_info is None:
-        return "Video not found", 404
-    channel = video_info.channels
-    playlists = video_info.inPlaylist
-    return render_template('video.html', video=video_info, channel=channel, playlists=playlists)
+    video = Video.query.filter_by(video_id=videoId).first()
+    channel = None
+    playlists = []
+    if video is not None:
+        channel = video.channels
+        playlists = video.inPlaylist
+    return render_template('video.html', video=video, channel=channel, playlists=playlists)
 
 
 # playlists page display multiple videos

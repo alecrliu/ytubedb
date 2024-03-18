@@ -74,8 +74,8 @@ def process_playlistJSON(db, playlistJSONfilepath):
 
 
 def process_videoJSON(db, videoJSONfilepath):
-    with open(videoJSONfilepath, "r",  encoding='utf-8') as videoFIle:
-        videosDict = json.load(videoFIle)
+    with open(videoJSONfilepath, "r",  encoding='utf-8') as videoFile:
+        videosDict = json.load(videoFile)
         for curr_channel_id in videosDict:
             curr_videos = videosDict[curr_channel_id]
             for curr_video_data in curr_videos:
