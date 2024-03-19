@@ -2,19 +2,9 @@
 
 
 import json
-
-
 from flask import Flask, render_template, request, redirect, url_for, session
-# # Uncomment when done with database.py
 from database import app, db, Channel, Playlist, Video
 from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
-
-
-# app = Flask(__name__)
-# import json data (will remove and use database instead)
-# TODO: Move all data modification to the database.py file
-with open('data/playlists.json', 'r', encoding='utf-8') as file:
-    playlist_data = json.load(file)
 
 
 @app.route('/')  # splash page

@@ -6,8 +6,6 @@ YT_KEY = os.getenv("YT_KEY")
 YOUTUBE = build("youtube", "v3", developerKey=YT_KEY)
 
 # Get channel data
-
-
 def get_one_channel(channel_id, youtube):
     channelData = {}
     request = youtube.channels().list(
@@ -39,8 +37,6 @@ def get_one_channel(channel_id, youtube):
     return channelData
 
 # Get channel id and video json of a video
-
-
 def get_one_video(video_id, channel_id, youtube, checkChannelID=True):
     videoData = {}
     request = youtube.videos().list(
@@ -112,8 +108,6 @@ def get_all_videoIDs_from_playlistID(channel_id, playlist_id, youtube):
     return video_ids, video_dicts
 
 # Get one playlist dictionary from youtube api response
-
-
 def get_one_playlist(playlist_response, channel_id):
     playlistData = {}
     if playlist_response:
@@ -136,8 +130,6 @@ def get_one_playlist(playlist_response, channel_id):
     return playlistData
 
 # Get at most 10 playlist data (contains individual playlist's videos data) and their video ids of a channel
-
-
 def get_all_playlistsIDs_from_channelID(channel_id, youtube):
     request = youtube.playlists().list(
         part="snippet",
@@ -165,8 +157,6 @@ def get_all_playlistsIDs_from_channelID(channel_id, youtube):
 # Get remaining at most 25 video ids of a channel only if current
 # video count is less than 25
 # Max videos per channel if current video count < 25 will be 50
-
-
 def get_all_videoIDs_from_channelID(channel_id, curr_videos, youtube):
     new_videos_data = []
     if len(curr_videos) < 25:
@@ -225,7 +215,7 @@ channel_ids = [
 
 # Retrieve existing data
 try:
-    with open("allData/channels.json", "r") as channelFile, open("allData/playlists.json", "r") as playlistFile, open("allData/videos.json", "r") as videoFile:
+    with open("data/channels.json", "r") as channelFile, open("data/playlists.json", "r") as playlistFile, open("data/videos.json", "r") as videoFile:
         channelsJSON = json.load(channelFile)
         playlistsJSON = json.load(playlistFile)
         videosJSON = json.load(videoFile)
@@ -253,7 +243,7 @@ for ind, channel_id in enumerate(channel_ids):
     print("-" * 50)
 
 # Push/Update data
-with open("allData/channels.json", "w+") as channelFile, open("allData/playlists.json", "w+") as playlistFile, open("allData/videos.json", "w+") as videoFile:
+with open("data/channels.json", "w+") as channelFile, open("data/playlists.json", "w+") as playlistFile, open("data/videos.json", "w+") as videoFile:
     json.dump(channelsJSON, channelFile, indent=4, ensure_ascii=False)
     json.dump(playlistsJSON, playlistFile, indent=4, ensure_ascii=False)
     json.dump(videosJSON, videoFile, indent=4, ensure_ascii=False)

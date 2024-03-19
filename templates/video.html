@@ -51,11 +51,11 @@
                     <a href="{{ url_for('showChannel', channelId=video.channel_id) }}">
                         <h5>{{ video.channels.channelName }}</h5>
                     </a>
-                    <div class="row align-items-center">
+                    <div class="row">
                         <!-- Column for the Description Button -->
                         <div class="d-flex justify-content-between align-items-center">
                             <h6 class="card-title"><i class="far fa-eye"></i> {{ video.viewCount }}</h6>
-                            <h6 class="card-title"><i class="far fa-thumbs-up"></i>{{ video.likeCount }}
+                            <h6 class="card-title"><i class="far fa-thumbs-up"></i> {{ video.likeCount }}
                             </h6>
                             <h6 class="card-title"><i class="far fa-comment"></i> {{ video.commentCount}}
                             </h6>
@@ -65,42 +65,45 @@
                     <div class="col-md-auto">
                         <button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse"
                             data-bs-target="#descriptionCollapse" aria-expanded="false"
-                            aria-controls="descriptionCollapse">
-                            <i class="fas fa-list"></i>
+                            aria-controls="descriptionCollapse" style="border-color: gray;">
+                            <i class="fas fa-align-left"></i>
                         </button>
                     </div>
                     <!-- Collapsible description -->
                     <div class="collapse" id="descriptionCollapse">
                         <div class="card card-body mt-3">
+                            <h5> Description</h5>
                             {{ video.description }}
+                            <br>
                         </div>
-                        <br>
-                        <!-- Playlists Accordion -->
-                        <div class="accordion mb-3" id="playlistsAccordion">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingPlaylists">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapsePlaylists" aria-expanded="false"
-                                        aria-controls="collapsePlaylists">
-                                        Playlists
-                                    </button>
-                                </h2>
-                                <div id="collapsePlaylists" class="accordion-collapse collapse"
-                                    aria-labelledby="headingPlaylists" data-bs-parent="#playlistsAccordion">
-                                    <div class="accordion-body">
-                                        {% if playlists %}
-                                        <ul>
-                                            {% for playlist in playlists %}
-                                            <li>
-                                                <a href="{{ url_for('playList', playlistId=playlist.playlist_id) }}"
-                                                    class="ms-3">{{ playlist.title }}</a>
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                        {% else %}
-                                        <p>No playlists found for this video.</p>
-                                        {% endif %}
-                                    </div>
+                    </div>
+                    <br>
+                    <!-- Playlists Accordion -->
+                    <div class="accordion" id="playlistsAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingPlaylists">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapsePlaylists" aria-expanded="false"
+                                    aria-controls="collapsePlaylists" style="border-color: gray;">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </h2>
+                            <div id="collapsePlaylists" class="accordion-collapse collapse"
+                                aria-labelledby="headingPlaylists" data-bs-parent="#playlistsAccordion">
+                                <div class="accordion-body">
+                                    <h5>Playlists</h5>
+                                    {% if playlists %}
+                                    <ul>
+                                        {% for playlist in playlists %}
+                                        <li>
+                                            <a href="{{ url_for('playList', playlistId=playlist.playlist_id) }}"
+                                                class="ms-3">{{ playlist.title }}</a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                    <p>No playlists found for this video.</p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

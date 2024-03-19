@@ -88,9 +88,9 @@ def process_videoJSON(db, videoJSONfilepath):
 db.drop_all()
 db.create_all()
 
-channelJSONfilepath = "allData/channels.json"
+channelJSONfilepath = "data/channels.json"
 process_channelJSON(db, channelJSONfilepath)
-playlistJSONfilepath = "allData/playlists.json"
+playlistJSONfilepath = "data/playlists.json"
 process_playlistJSON(db, playlistJSONfilepath)
-videoJSONfilepath = "allData/videos.json"
+videoJSONfilepath = "data/videos.json"
 process_videoJSON(db, videoJSONfilepath)
