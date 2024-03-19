@@ -66,23 +66,25 @@
             </nav>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
                 {% for video in videos.items %}
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <a href="{{url_for('oneVideo', videoId=video.video_id)}}">
-                                <img class="bd-placeholder-img card-img-top" src="{{ video.thumbnail }}"
-                                    alt="Video Thumbnail" style="height:auto; width: 100%; object-fit: cover;">
-                            </a>
-                            <a href="{{url_for('oneVideo', videoId=video.video_id)}}">
-                                <h5>{{video.title}}</h5>
-                            </a>
-                            <div class="d-flex justify-content-between align-items-center" style="color: gray;">
-                                <h6><a href="{{url_for('showChannel', channelId=video.channel_id)}}"
-                                        style="color: gray;">{{video.channels.channelName}}</a>
-                                </h6>
-                                <h7 class="card-title"><i class="far fa-eye"></i> {{ video.viewCount }}</h7>
-                            </div>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <a href="{{url_for('oneVideo', videoId=video.video_id)}}">
+                            <img class="bd-placeholder-img card-img-top" src="{{ video.thumbnail }}"
+                                alt="Video Thumbnail" style="height:auto; width: 100%; object-fit: cover;">
+                        </a>
+                        <a href="{{url_for('oneVideo', videoId=video.video_id)}}" style="padding:10px">
+                            <h5>{{video.title}}</h5>
+                        </a>
+                        <div class="d-flex justify-content-between align-items-center"
+                            style="color: gray; padding:10px">
+
+                            <h6><a href="{{url_for('showChannel', channelId=video.channel_id)}}"
+                                    style="color: gray;">{{video.channels.channelName}}</a>
+                            </h6>
+                            <h7 class="card-title"><i class="far fa-eye"></i> {{ video.viewCount }}</h7>
                         </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
             <br>
