@@ -1,55 +1,90 @@
 import json
 from flask import Flask, jsonify
 from flask_cors import CORS
+from database import app, db, Channel, Playlist, Video
+from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
 
-app = Flask(__name__)
 CORS(app)
 
-# Load JSON data
-with open('data/playlists.json', 'r', encoding='utf-8') as f:
-    playlist_data = json.load(f)
 
-with open('data/channels.json', 'r', encoding='utf-8') as file:
-    channel_data = json.load(file)
+def Channel_to_dict(self):
+        return {
+            "channelID": self.channel_id,
+            "channelName": self.channelName,
+            "description": self.description,
+            "subscriberCount": self.subscriberCount,
+            "viewCount": self.viewCount,
+            "videoCount": self.videoCount,
+            "thumbnail": self.thumbnail
+        },
 
-with open('data/videos.json', 'r', encoding='utf-8') as file:
-    videos = json.load(file)
+@app.route('/api/about', methods=['GET'])
+def about():
+    curr_commits = getCommits(root_url, gitlab_ids)
+    curr_issues = getIssues(root_url, gitlab_ids)
+    response = {
+        'nirmalCommits': curr_commits["Nirmal"],
+        'nirmalIssues': curr_issues["Nirmal"],
+        'adrianCommits':curr_commits["Adrian"],
+        'adrianIssues':curr_issues["Adrian"],
+        'alecCommits':curr_commits["Alec"],
+        'alecIssues':curr_issues["Alec"],
+        'junyuCommits':curr_commits["Junyu"],
+        'junyuIssues':curr_issues["Junyu"],
+        'totalCommits': sum(curr_commits.values()),
+        'totalIssues': sum(curr_issues.values())
+    }
+    return jsonify(response)
 
-# Routes to serve JSON data
-@app.route('/api/playlists', methods=['GET'])
-def get_playlists():
-    return jsonify(playlist_data)
+@app.route('/api/channels/<int:page_num>', methods=['GET'])
+def showChannels(page_num):
+    channels_info = Channel.query.paginate(per_page=12, page=page_num, error_out=False)
+    print(channels_info)
+    channels = [Channel_to_dict(channel) for channel in channels_info.items]  # Assuming a to_dict method on your model
+    return jsonify(channels=channels, current_page=page_num)
 
-@app.route('/api/channels', methods=['GET'])
-def get_channels():
-    return jsonify(channel_data)
-
-@app.route('/api/videos', methods=['GET'])
-def get_videos():
-    return jsonify(videos)
-
-# Dynamic routes for single items
 @app.route('/api/channel/<string:channelId>', methods=['GET'])
-def get_channel(channelId):
-    channel_info = next((item for item in channel_data['items'] if item['id'] == channelId), None)
-    if channel_info:
-        return jsonify(channel_info)
-    return jsonify({'error': 'Channel not found'}), 404
+def showChannel(channelId):
+    channel_info = Channel.query.filter_by(channel_id=channelId).first()
+    if channel_info is None:
+        return jsonify({'error': 'Channel not found'}), 404
+    videos = [video.to_dict() for video in Video.query.filter_by(channel_id=channelId).all()]
+    playlists = [playlist.to_dict() for playlist in Playlist.query.filter_by(channel_id=channelId).all()]
+    return jsonify(channel=channel_info.to_dict(), videos=videos, playlists=playlists)
 
-@app.route('/api/video/<string:videoId>', methods=['GET'])
-def get_video(videoId):
-    video_info = next((item for item in videos['items'] if item['id'] == videoId), None)
-    if video_info:
-        return jsonify(video_info)
-    return jsonify({'error': 'Video not found'}), 404
+@app.route('/api/videos/<int:page_num>', methods=['GET'])  # videos page displays multiple videos
+def showVideos(page_num):
+    videos_info = Video.query.paginate(per_page=12, page=page_num, error_out=True)
+    videos_info = [videos.to_dict() for videos in videos_info.items]
+    return jsonify(videos=videos_info, current_page=page_num)
 
+@app.route('/api/video/<string:videoId>', methods=['GET'])  # video page displays single video
+def oneVideo(videoId):
+    video = Video.query.filter_by(video_id=videoId).first()
+    channel = None
+    playlists = []
+    if video is not None:
+        channel = video.channels
+        playlists = video.inPlaylist
+    return jsonify(video=video, channel=channel, playlists=playlists)
+
+# playlists page display multiple videos
+@app.route('/api/playlists/<int:page_num>', methods=['GET'])
+def showPlaylist(page_num):
+    playlists_info = Playlist.query.paginate(per_page=12, page=page_num, error_out=True)
+    playlists_info = [playlists.to_dict() for playlists in playlists_info.items]
+    return jsonify(playlists=playlists_info, current_page=page_num)
+
+
+# playlists page display single playlist
 @app.route('/api/playlist/<string:playlistId>', methods=['GET'])
-def get_playlist(playlistId):
-    playlist_info = next((item for item in playlist_data['items'] if item['id'] == playlistId),None)
-    if playlist_info:
-        return jsonify(playlist_info)
-    return jsonify({'error': 'playlist not found'}), 404
-
+def playList(playlistId):
+    playlist_info = Playlist.query.filter_by(playlist_id=playlistId).first()
+    if playlist_info is None:
+        return "Playlist not found", 404
+    channel = playlist_info.channels
+    videos = playlist_info.videos
+    return jsonify(playlist=playlist_info, channel=channel, videos=videos)
 
 # debug=True to avoid restart the local development server manually after each change to your code.
 # host='0.0.0.0' to make the server publicly available.
