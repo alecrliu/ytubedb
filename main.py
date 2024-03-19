@@ -42,7 +42,7 @@ def showChannels(page_num):
     # channels_info = channel_data['items']
     channels_info = Channel.query.paginate(
         per_page=12, page=page_num, error_out=True)
-    return render_template('channels.html', channels=channels_info)
+    return render_template('channels.html', channels=channels_info, current_page=page_num)
 
 
 # channel page displays detail channel info
@@ -62,7 +62,7 @@ def showVideos(page_num):
         per_page=12, page=page_num, error_out=True)
     videos_info = Video.query.paginate(
         per_page=12, page=page_num, error_out=True)
-    return render_template('videos.html', videos=videos_info)
+    return render_template('videos.html', videos=videos_info, current_page=page_num)
 
 
 @app.route('/video/<string:videoId>')  # video page displays single video
@@ -81,7 +81,7 @@ def oneVideo(videoId):
 def showPlaylist(page_num):
     playlists_info = Playlist.query.paginate(
         per_page=12, page=page_num, error_out=True)
-    return render_template('playlists.html', playlists=playlists_info)
+    return render_template('playlists.html', playlists=playlists_info, current_page=page_num)
 
 
 # playlists page display single playlist
