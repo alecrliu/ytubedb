@@ -6,7 +6,6 @@ from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
 
 CORS(app)
 
-
 def Channel_to_dict(self):
         return {
             "channelID": self.channel_id,
@@ -14,6 +13,29 @@ def Channel_to_dict(self):
             "description": self.description,
             "subscriberCount": self.subscriberCount,
             "viewCount": self.viewCount,
+            "videoCount": self.videoCount,
+            "thumbnail": self.thumbnail
+        },
+
+def Video_to_dict(self):
+        return {
+            "videoID": self.video_id,
+            "title": self.title,
+            "description": self.description,
+            "viewCount": self.viewCount,
+            "likeCount": self.likeCount,
+            "thumbnail": self.thumbnail,
+            "commentCount":self.commentCount,
+            "channelID":self.channel_id
+        },
+
+def Playlist_to_dict(self):
+        return {
+            "playlistID": self.playlist_id,
+            "channelID": self.channel_id,
+            "title": self.title,
+            "publishedAt": self.publishedAt,
+            "description": self.description,
             "videoCount": self.videoCount,
             "thumbnail": self.thumbnail
         },
@@ -48,9 +70,9 @@ def showChannel(channelId):
     channel_info = Channel.query.filter_by(channel_id=channelId).first()
     if channel_info is None:
         return jsonify({'error': 'Channel not found'}), 404
-    videos = [video.to_dict() for video in Video.query.filter_by(channel_id=channelId).all()]
-    playlists = [playlist.to_dict() for playlist in Playlist.query.filter_by(channel_id=channelId).all()]
-    return jsonify(channel=channel_info.to_dict(), videos=videos, playlists=playlists)
+    videos = [Video_to_dict(video) for video in Video.query.filter_by(channel_id=channelId).all()]
+    playlists = [Playlist_to_dict(playlist) for playlist in Playlist.query.filter_by(channel_id=channelId).all()]
+    return jsonify(channel=Channel_to_dict(channel_info), videos=videos, playlists=playlists)
 
 @app.route('/api/videos/<int:page_num>', methods=['GET'])  # videos page displays multiple videos
 def showVideos(page_num):
