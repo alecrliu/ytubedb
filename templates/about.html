@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <!-- navbar section -->
+        <nav class="navbar navbar-expand sticky-top navbar-dark bg-dark" aria-label="Main navigation">
+            <div class="container-fluid">
+                <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('index')}}">Splash</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('showChannels', page_num=1)}}">Channels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('showVideos', page_num=1)}}">Videos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('showPlaylist', page_num=1)}}">Playlists</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- main section -->
+        <main>
+            <section class="py-5 text-center container">
+                <div class="row py-lg-5">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <h1 class="fw-light">YoutubeStats</h1>
+                        <p class="lead text-body-secondary">Our website provides unique YouTube statistics based on
+                            channels, videos, and playlists.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <!-- Members -->
+            <div class="album py-5 bg-body-tertiary">
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-3">
+                        <!-- Nirmal Patel -->
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img src="../static/images/Nirmal.png" class="bd-placeholder-img card-img-top"
+                                    max-width="100%" height="auto" alt="Nirmal Patel Image">
+                                <div class="card-body">
+                                    <h3>Nirmal Patel</h3>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <div class="collapse" id="collapseNirmal">
+                                                <div class="card-body">
+                                                    <p class="card-text">Nirmal Patel is a Physics senior pursuing Elements
+                                                        of Computing certificate. He took on the leadership role for CS331E
+                                                        project. 
+                                                    </p>
+                                                    <ul>
+                                                        <li>#Commits: {{nirmalCommits}}</li>
+                                                        <li>#Issues: {{nirmalIssues}}</li>
+                                                        <li>#Unit Tests: 0</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseNirmal"
+                                                        aria-expanded="false" aria-controls="collapseNirmal">
+                                                    View
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Alec Liu -->
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img src="../static/images/Alec.png" class="bd-placeholder-img card-img-top"
+                                    max-width="100%" height="auto" alt="Alec Liu Image">
+                                <div class="card-body">
+                                    <h3>Alec Liu</h3>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <div class="collapse" id="collapseAlec">
+                                                <div class="card-body">
+                                                    <p class="card-text">Alec is a Mechanical Engineering senior
+                                                        pursuing the Elements of Computing Certificate. He took on
+                                                        the full-stack role for the project. 
+                                                    </p>
+                                                    <ul>
+                                                        <li>#Commits: {{alecCommits}}</li>
+                                                        <li>#Issues: {{alecIssues}}</li>
+                                                        <li>#Unit Tests: 0</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseAlec"
+                                                        aria-expanded="false" aria-controls="collapseAlec">
+                                                    View
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Adrian Barajas -->
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img src="../static/images/Adrian.png" class="bd-placeholder-img card-img-top"
+                                    max-width="100%" height="auto" alt="Adrian Barajas Image">
+                                <div class="card-body">
+                                    <h3>Adrian Barajas</h3>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <div class="collapse" id="collapseAdrian">
+                                                <div class="card-body">
+                                                    <p class="card-text">Adrian is a Mechanical Engineering senior pursuing
+                                                        Elements of Computing Certificate. He took on the full-stack role
+                                                        for CS331E project. 
+                                                    </p>
+                                                    <ul>
+                                                        <li>#Commits: {{adrianCommits}}</li>
+                                                        <li>#Issues: {{adrianIssues}}</li>
+                                                        <li>#Unit Tests: 0</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseAdrian"
+                                                        aria-expanded="false" aria-controls="collapseAdrian">
+                                                    View
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Junyu Yao -->
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img src="../static/images/Junyu.png" class="bd-placeholder-img card-img-top"
+                                    max-width="100%" height="auto" alt="Junyu Yao Image">
+                                <div class="card-body">
+                                    <h3>Junyu Yao</h3>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <div class="collapse" id="collapseJunyu">
+                                                <div class="card-body">
+                                                    <p class="card-text">Junyu is a Physics senior pursuing Elements of
+                                                        Computing certificate. He took on the Front-end and UI role for
+                                                        CS331E project.
+                                                    </p>
+                                                    <ul>
+                                                        <li>#Commits: {{junyuCommits}}</li>
+                                                        <li>#Issues: {{junyuIssues}}</li>
+                                                        <li>#Unit Tests: 0</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseJunyu"
+                                                        aria-expanded="false" aria-controls="collapseJunyu">
+                                                    View
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Other Info -->
+            <div class="accordion" id="accordion">
+                <!-- Stats -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <b>Stats</b>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>
+                                    Total #Commits: {{totalCommits}}
+                                </li>
+                                <li>
+                                    Total #Issues: {{totalIssues}}
+                                </li>
+                                <li>
+                                    Total #Unit Tests: 0
+                                </li>
+                                <li>
+                                    Postman API: NA
+                                </li>
+                                <li>
+                                    <a class="link-opacity-75-hover"
+                                        href="https://gitlab.com/cs331e1/ytubedb/-/issues/?sort=created_date&state=all&first_page_size=20">Issue
+                                    Tracker</a>
+                                </li>
+                                <li>
+                                    <a class="link-opacity-75-hover" href="https://gitlab.com/cs331e1/ytubedb">Gitlab
+                                    Repo</a>
+                                </li>
+                                <li>
+                                    <a class="link-opacity-75-hover"
+                                        href="https://gitlab.com/cs331e1/ytubedb/-/wikis/Technical-Report">Gitlab Wiki</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Data -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <b>Data</b>
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            <p>
+                                We used <a class="link-opacity-50-hover" href="https://developers.google.com/youtube/v3">YouTube Data API v3</a> for our website data. YouTube API has a daily limit of 10k units. Retrieving information of either a channel, video, or playlist or getting playlists of a channel (max 50 results per page) costs 1 unit. And getting videos of a channel (max 50 results per page) costs 100 units. Thus, we had to optimize API calls to extract maximum information without exceeding the limit.
+                            </p>
+                            <p>
+                                Our strategy was to get various channel IDs manually and then make a streamlined process of collecting all information related to that channel ID (including playlists and videos) and storing it in separate JSON files: channelsJSON for channel information, playlistsJSON for playlist and associated videos information, and videosJSON for stray videos of channels. The process is as follows:
+                            </p>
+                            <ol>
+                                <li>
+                                    Load the current JSON files. 
+                                </li>
+                                <li>
+                                    Check if a channel ID is not present in the channelsJSON. 
+                                </li>
+                                <li>
+                                    Get channel information using channel ID. 
+                                </li>
+                                <li>
+                                    Get at most 10 playlists of that channel using channel ID. 
+                                </li>
+                                <li>
+                                    While getting the playlists, remove all videos from the playlists that aren't from that channel. If all videos of the playlists are from different channels then that playlist is discarded. 
+                                </li>
+                                <li>
+                                    Get another batch of at most 25 videos from that channel if the videos of playlists don't sum up more than 25. 
+                                </li>
+                                <li>
+                                    Store all the information in the JSON files. 
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tools -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <b>Tools</b>
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>HTML</li>
+                                <li>CSS (Bootstrap v5.3.2)</li>
+                                <li>Javascript</li>
+                                <li>Python</li>
+                                <li>Flask</li>
+                                <li>Git</li>
+                                <li>Makefile</li>
+                                <li>Google Cloud Platform</li>
+                                <li>JSON</li>
+                                <li>YouTube APIs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- footer section -->
+        <footer class="text-body-secondary py-5">
+            <div class="container text-center">
+                <p class="mb-1">
+                    <a href="#" style="color: black"> Back to top</a>
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,1057 @@
+commit cf01b64a2713d467434ec2575b695fea1ae0825c
+Merge: 331b979 ed06016
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Mon Mar 18 21:15:47 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Improved querying
+    
+    See merge request cs331e1/ytubedb!33
+
+commit ed06016a642b12ea6bd299127173cb0a90b79135
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 18 16:15:02 2024 -0500
+
+    Improved querying
+
+commit 331b979eaf63c895316b6804228ad7a13f1b8e36
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 18 15:54:43 2024 -0500
+
+    finished channel and video connections, frontend formatting
+
+commit ef6286a6db67f552a5090c31fc97e2fae577df6d
+Merge: 132215a 0151c2f
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Mon Mar 18 20:02:51 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Main
+    
+    See merge request cs331e1/ytubedb!32
+
+commit 0151c2fe656c45dabc0b10dd5dab53d870befbba
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 18 15:01:32 2024 -0500
+
+    Connections done
+
+commit 539fea4c35035867f8d2d1748ae8ee5ccaa69e16
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 18 14:29:44 2024 -0500
+
+    Debugged videoplaylist insertion
+
+commit 132215af77995ee18651928e4cacc08246caab62
+Merge: b7c94bb 25b8273
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Mon Mar 18 14:50:21 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Channels done. href bw videos playlists remaining
+    
+    See merge request cs331e1/ytubedb!31
+
+commit 25b8273526b4ec90c564b3aa6f38d614d9394b50
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 18 09:49:41 2024 -0500
+
+    Channels done. href bw videos playlists remaining
+
+commit b7c94bb90e9229bd7cb032eccd9a0ed1aa7a6aef
+Merge: 3a0c5b1 52c1821
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Mon Mar 18 14:26:10 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    YEAH
+    
+    See merge request cs331e1/ytubedb!30
+
+commit 52c1821ea9b7f9535a0b84cbc2374c10b4106267
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 18 09:25:32 2024 -0500
+
+    YEAH
+
+commit 3a0c5b16b9382a280d756af8d8ad569046113f8c
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Sun Mar 17 21:12:20 2024 -0500
+
+    Successfully connected channels.html and channel.html in main.py to database and modified associated attributes for successful linkage
+
+commit 44edd3d8225c6d4eede595864f0bfbb9c7bc9700
+Merge: e128c99 493245e
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Sun Mar 17 21:03:53 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Initiated api calls in server.py
+    
+    See merge request cs331e1/ytubedb!29
+
+commit 493245e2643252205f9b7a9cb798a43489a907ac
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Sun Mar 17 16:03:09 2024 -0500
+
+    Initiated api calls in server.py
+
+commit e128c9923957b2bd8b6dde0ecf556e757a009c6b
+Merge: 04c7d23 6ad8e68
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sun Mar 17 20:51:37 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Pagination added. Needs formatting
+    
+    See merge request cs331e1/ytubedb!28
+
+commit 6ad8e68e600ae97b09b0c78959e7b29f3e7de8c4
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sun Mar 17 15:49:38 2024 -0500
+
+    Pagination added. Needs formatting
+
+commit 04c7d2300002b8dbb43442855844d3b446deb97c
+Merge: 579ed8f 01dbfb4
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sun Mar 17 20:15:55 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    HD thumbnails
+    
+    See merge request cs331e1/ytubedb!27
+
+commit 01dbfb4eedc95449f31167217c6abe5c45bd2771
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sun Mar 17 15:15:24 2024 -0500
+
+    HD thumbnails
+
+commit 579ed8f60b73f884cf7b86af5e43973eae9faeab
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Sat Mar 16 18:10:01 2024 -0500
+
+    Added placeholder video and playlist accordion
+
+commit 9f2114a37226491e92596c8b42cd078150030bb3
+Merge: f8fd1d6 7269bbb
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 20:05:42 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Data collection added
+    
+    See merge request cs331e1/ytubedb!26
+
+commit 7269bbb57be191d0b2a6db8518f7dc512653a24f
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 15:03:28 2024 -0500
+
+    Data collection added
+
+commit f8fd1d616fee5c2daec180c443cda4c7b94db71f
+Merge: cd8b107 2042b08
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 19:40:53 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    30 channels done
+    
+    See merge request cs331e1/ytubedb!25
+
+commit 2042b085427577eda18d4d1c6646feb513acb185
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 14:40:26 2024 -0500
+
+    30 channels done
+
+commit cd8b10739e52f75a4949f07472935c59427c8671
+Merge: fc5ff39 83e5d05
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 19:38:54 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    30 channels done
+    
+    See merge request cs331e1/ytubedb!24
+
+commit 83e5d053e8fb74886ae975524bb50a79e40dfbc9
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 14:37:59 2024 -0500
+
+    30 channels done
+
+commit fc5ff399b2caa1c0603975d998428f6cf6a4128e
+Merge: 5cdac2d a41ab6a
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 19:16:11 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Main
+    
+    See merge request cs331e1/ytubedb!23
+
+commit a41ab6ad8590a77e43feb0bf6ddc7efda64a05eb
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 14:15:22 2024 -0500
+
+    autopep8ed
+
+commit 647b230616d25fda8c9110b1340da0511c103d01
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 14:14:53 2024 -0500
+
+    autopep8 on all py files
+
+commit 549737aa8c484cd9726402dd1b190e83a60b2055
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 13:54:47 2024 -0500
+
+    autopep8 added
+
+commit 92b4c4dd64f8c368a929897385d6dbf12db548bf
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 16 13:54:24 2024 -0500
+
+    New channels added
+
+commit 5cdac2d7c95f64dfa28534eab8275bfc3a8a2246
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Fri Mar 15 16:25:31 2024 -0500
+
+    local database creation working
+
+commit a2b48064197939c4a3ae2d90003fbdc571f73585
+Merge: ce1e501 b078ef3
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Thu Mar 14 05:11:44 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Main
+    
+    See merge request cs331e1/ytubedb!22
+
+commit b078ef34383318e03b46e024c92c7e59f386b367
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Thu Mar 14 00:10:53 2024 -0500
+
+    git stats added
+
+commit e34c9ff184dd35be0c8686906822d476d2be228c
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Thu Mar 14 00:10:17 2024 -0500
+
+    git stats added
+
+commit ce1e501de450d23089a3c833a4d1db6b60b79c2e
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Wed Mar 13 19:13:27 2024 -0500
+
+    Fixed encoding bug for database.py
+
+commit 1c4034a8bea6e3a5c48268721813c7c96c12c665
+Merge: 99da777 c51b362
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Tue Mar 12 05:22:08 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Renamed createDB to DB
+    
+    See merge request cs331e1/ytubedb!21
+
+commit c51b3629d7f2cdeec6614f99330c895ceac4c212
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Tue Mar 12 00:21:10 2024 -0500
+
+    Renamed createDB to DB
+
+commit 99da77767ff7dbc506a69e2c7c88903b7816c8a3
+Merge: d2602f6 ed7dec9
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Tue Mar 12 01:44:41 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Main
+    
+    See merge request cs331e1/ytubedb!20
+
+commit ed7dec9a00b56aa075190a746db396f96594bd9c
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 11 20:43:28 2024 -0500
+
+    Database ready to create
+
+commit 380968fe4da682bbef5d758e4a1a4e6ab4ce98b9
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 11 18:37:13 2024 -0500
+
+    All data collected
+
+commit d2602f6eaa47eac03ecffed8778613374a775a48
+Merge: 2cfabe0 c85d6d2
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Mon Mar 11 20:32:58 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Main
+    
+    See merge request cs331e1/ytubedb!19
+
+commit c85d6d2fee3317f707f9f6c37b220887e00ca34d
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 11 15:31:54 2024 -0500
+
+    Database ready to create
+
+commit c2e64b9a0f1beb4357f67799aa6912fec6f13517
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 11 14:27:09 2024 -0500
+
+    Channel table working
+
+commit 2cfabe0a4e333650b24807702b226e239be31a5e
+Merge: 7d736a9 e3c1482
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Mon Mar 11 18:14:59 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    JSON successfully created
+    
+    See merge request cs331e1/ytubedb!18
+
+commit e3c14826770b2cfb4b6656d3c31520e363a09f67
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 11 12:58:52 2024 -0500
+
+    JSON successfully created
+
+commit 7d736a9d2ce0cbe872b50cd9d7f26f975dd25125
+Merge: ae5b58e 52af468
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Mon Mar 11 06:42:04 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Debugged JSON file saving
+    
+    See merge request cs331e1/ytubedb!17
+
+commit 52af4689d040f1f1ea34a1b08a4d2933de93afcd
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 11 01:40:20 2024 -0500
+
+    Debugged JSON file saving
+
+commit ae5b58ebf2f559db2909b3651c1f06f4923b7700
+Merge: 31edf4b bacae69
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Mon Mar 11 01:08:00 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Main
+    
+    See merge request cs331e1/ytubedb!16
+
+commit bacae69319ce43b6aef9f652113c7fef8dd55fcc
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sun Mar 10 20:06:14 2024 -0500
+
+    LMAO NO IDEA
+
+commit dad6bd108074bc62fe71c2b98383d32d67e37cfd
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sun Mar 10 20:05:46 2024 -0500
+
+    All three json files will be created
+
+commit 31edf4b307a4c149126ca4bebe774c3ca65e532e
+Merge: 13fbae5 c0be54c
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sun Mar 10 20:26:35 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Main
+    
+    See merge request cs331e1/ytubedb!15
+
+commit c0be54c41041362b2be8650531235d7cd4b9b3ab
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sun Mar 10 15:25:36 2024 -0500
+
+    Not working for now
+
+commit 94215b1df79b7e356ad4fef1c1378dedee2921d0
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sun Mar 10 15:25:15 2024 -0500
+
+    channel JSON ready to create
+
+commit d6734eac556c1c6e3c4abc352a76dcf87957084f
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 9 23:10:05 2024 -0600
+
+    Rebased
+
+commit 5e821c90bf4e61988d1c6e493eff502ed158f8d0
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 9 23:02:53 2024 -0600
+
+    USER is reserved keyword in psql
+
+commit 13fbae51f66691e5e1c7a4529963b7bd845a9630
+Merge: 85c9281 5776594
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sun Mar 10 04:36:08 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Main
+    
+    See merge request cs331e1/ytubedb!14
+
+commit 57765944fdf69d367b045a536c0b450b1e972d8a
+Merge: b2b8489 85c9281
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sun Mar 10 04:35:04 2024 +0000
+
+    Merge branch ytubedb:main into main
+
+commit b2b8489172d0f1726114bc09649f6ac9bf343175
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 9 22:33:38 2024 -0600
+
+    Needs review
+
+commit 082d18b521583d3cccbc4aee9e95d9fd1197f65d
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 9 22:33:00 2024 -0600
+
+    Refactored
+
+commit 85c928111e912a3b316da3bed64895acd6aa5125
+Merge: c39aad1 89271b6
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Mar 9 21:16:49 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Refactored
+    
+    See merge request cs331e1/ytubedb!13
+
+commit 89271b6aa28b7f83be7daebde11ebe0397cf68a0
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Mar 9 15:15:50 2024 -0600
+
+    Refactored
+
+commit c39aad19dfe803f8e6339761c09bbf8021fa9ec7
+Merge: 161a943 a54dcd5
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Fri Mar 8 20:08:33 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Tables defined
+    
+    See merge request cs331e1/ytubedb!12
+
+commit a54dcd553b128d47012aa30903c161053842b239
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Fri Mar 8 14:07:44 2024 -0600
+
+    Tables defined
+
+commit 161a9433b66d853b4dfd2931e5871b01f09237b4
+Merge: e4b13fc f45db1e
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Thu Mar 7 05:54:18 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    APIs.py done
+    
+    See merge request cs331e1/ytubedb!11
+
+commit f45db1e91cbf7de2d7077b61b419873b27b7169e
+Merge: e49c5e1 e4b13fc
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Thu Mar 7 05:52:56 2024 +0000
+
+    Merge branch ytubedb:main into main
+
+commit e49c5e184f5e532b9311fce85bfcd3cf9a3a05ba
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Wed Mar 6 23:51:51 2024 -0600
+
+    All necessary functions added
+
+commit e4b13fc3876cc89a2f3725945742cf85046ae95b
+Merge: 0f087f4 98ee15d
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Thu Mar 7 02:19:13 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Added workflow and methods
+    
+    See merge request cs331e1/ytubedb!10
+
+commit 98ee15dfe421bc129f216b6554aeae07f0d5803a
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Wed Mar 6 20:18:03 2024 -0600
+
+    Added workflow and methods
+
+commit 0f087f4d50facda87c807eb86b4ea429b3dd7f6c
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 6 13:13:24 2024 -0600
+
+    tried connecting to another database
+
+commit f22f3c55710363a087e045265f8e35ab7b7d145f
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 6 12:34:48 2024 -0600
+
+    put password for gcloud
+
+commit b450cc704fe533ba9d0b0826ad02573411bf5d38
+Merge: 6621e5f 9f5c1e5
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 6 11:04:57 2024 -0600
+
+    Merge branch 'main' of https://gitlab.com/cs331e1/ytubedb
+
+commit 6621e5f6a429fb5e22bccf1045f164405b71c5da
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 6 11:04:53 2024 -0600
+
+    click and jinja requirements
+
+commit 9f5c1e5e1fdd4a3c10cea7304fe436463704b1b1
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Mar 6 11:04:22 2024 -0600
+
+    Fix api.py
+
+commit 3d566aa14baaf9815df550a0a78a74d9faf93b0e
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 6 10:59:36 2024 -0600
+
+    removed python requirement
+
+commit a958b5e3d6ce97d5fa398dfe5cb08202bc06dea3
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 6 10:56:12 2024 -0600
+
+    changed requirement
+
+commit b5ac5cb401ab1cfddc2c04218b794ce639a35c1c
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 6 10:51:40 2024 -0600
+
+    changed tabs
+
+commit 017c4450b94bdbf5f71d89479902d1cd4aa140d9
+Merge: fe07fe6 6780425
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 6 10:35:32 2024 -0600
+
+    Merge branch 'main' of https://gitlab.com/cs331e1/ytubedb
+
+commit fe07fe684f9b00fd7bea4dd31bd4d3c84726296b
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 6 10:32:44 2024 -0600
+
+    hopefully connects to database
+
+commit 6780425bf97693d9c86365c589fcd7cf92768529
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Mar 6 10:13:36 2024 -0600
+
+    Add dependency to requirement.txt
+
+commit 7e181ae2d204b401ebcbe333237437acd5843a6d
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Mar 5 21:31:36 2024 -0600
+
+    updated comments, added videos database model
+
+commit 8076e727658913d374ca2c3e4fbfea664adeb91a
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Tue Mar 5 17:55:22 2024 -0600
+
+    Implemented channels table in models.py
+
+commit 6752b2f2838eae1b312feb15419b60eb9bcb0132
+Merge: 2e08265 14c0e23
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Tue Mar 5 03:19:16 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    get playlistIDs and videoIDs added
+    
+    See merge request cs331e1/ytubedb!9
+
+commit 14c0e2390e10a5ac00beb6b2874451357cabb670
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Mar 4 21:16:27 2024 -0600
+
+    get playlistIDs and videoIDs added
+
+commit 2e08265175496e7596499791b56c830b3f553cef
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 4 20:38:15 2024 -0600
+
+    commented test: job fails pipeline (ok for now)
+
+commit a239fc434a3b37abaaa6b6bf6fdecdc54dda0905
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 4 20:25:56 2024 -0600
+
+    apis, added temp database files
+
+commit 3fdfa7696f2b6d3edb8dda1b894c956dbefe33c2
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Mon Feb 26 11:34:17 2024 -0600
+
+    # Establish api connection using google api key
+
+commit 59b90288d7a0ebc27539cea374d516abb0f99c4b
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Feb 21 16:22:51 2024 -0600
+
+    fixed links from videos to channel, new splash background, formatting
+
+commit 3575bd388447ab6b9cc80d62758925e18092a0dc
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Feb 21 11:34:47 2024 -0600
+
+    changed http to https for videos
+
+commit 69f5882e6445065d3aaa5a72c103ca21c8b82848
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Feb 21 11:15:05 2024 -0600
+
+    added stats, links to top, log updates
+
+commit c69fc0ad1da847c333d2f8aff4f24561b0b61943
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Feb 21 10:56:47 2024 -0600
+
+    modified makefile, log and added tools
+
+commit 48a34e7f3d003ac56a314e748bf52ef969b28aa5
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Feb 21 09:45:13 2024 -0600
+
+    updated commit log for phase 1
+
+commit d7bdb670333cb643d0df59b4d0fef9263612b2b0
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Tue Feb 20 20:55:09 2024 -0600
+
+    Linked channel.html page to playlist page
+
+commit c0d34a33cdc47255350c68277fb8063a07f53f24
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 20 19:58:50 2024 -0600
+
+    formatting, added hardcoded playlist button
+
+commit e32527ffb3f1f7844efe726a0a2c8e715f91fdf0
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Tue Feb 20 18:43:52 2024 -0600
+
+    # Add detail playlist page, link to channel and video
+
+commit 2741cca768afbf304df98e3bb8cf95293601da69
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 20 17:24:23 2024 -0600
+
+    formatting, added links, fixed video links to gallery
+
+commit da7a79352ff6a35bb37814f274c0c3f9f2daa38a
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Tue Feb 20 16:39:41 2024 -0600
+
+    Changed the Navbar link for channels in the channel.html page
+
+commit e049ee4784b72627c0c4e43ed8811ae4735ea2ac
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Tue Feb 20 13:39:26 2024 -0600
+
+    Added Channel page which includes channel specs, edited channels page to only include logos and links, and edited main.py
+
+commit 50c96de4bf116a54cfce6aec31a951407e935365
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 20 12:17:55 2024 -0600
+
+    added ability to watch missing videos on youtube
+
+commit 2e54ddbf16c3bc744a42aec6e7a64e9bae29b11d
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 20 11:52:32 2024 -0600
+
+    added icons to statistics, missing video handling, reformatted links
+
+commit 8c6676867b219840b10adecdf700c047a22f6cfd
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 20 00:02:51 2024 -0600
+
+    added single video page connection
+
+commit 29773791b64d99a02f27e38ab2f3abaa1e2707b1
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Feb 19 11:34:15 2024 -0600
+
+    added placeholder files and added solo video page
+
+commit 998e8fb413602b854b97a8a935226ee9f71e2846
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Feb 14 10:13:21 2024 -0600
+
+    moved youtubePlayer script out of video.html
+
+commit f45b8ae4f883ea0a7d05b072360f6d8019e32169
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Tue Feb 13 21:58:19 2024 -0600
+
+    Add link between pages, removed index.html
+
+commit 18f855cfae878acb32b9c5e0845e61b69cd83d57
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Tue Feb 13 17:29:52 2024 -0600
+
+    Updated Channels page to include a link from channels to videos page
+
+commit 28b2e8f5c22a1ea32aa22db2b608712f2aec4238
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Tue Feb 13 17:11:06 2024 -0600
+
+    Updated Channels page to include channels in row form and drop down description
+
+commit b464e2666814ba822f0e21e17174ea009f602359
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 13 14:29:57 2024 -0600
+
+    finished links to channel and playlist pages
+
+commit 27d273535219e61ccadb8aa4a32875c0b1603446
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Feb 13 14:10:09 2024 -0600
+
+    resized video cards, added more attributes, working on links to each channel
+
+commit 2cac97e27a91d50312325b65cc8a328d7e5275f5
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Mon Feb 12 15:29:16 2024 -0600
+
+    added more channel.json content
+
+commit 88265a2c9dae1f965aff67e54414428a405e1352
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Mon Feb 12 14:18:11 2024 -0600
+
+    specified the encoding as UTF-8 when opening the JSON files
+
+commit 6fa8708b06b9b4dddf695324e40386b241ccc887
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Feb 12 13:18:45 2024 -0600
+
+    updated video page to card ui
+
+commit 5da1c4bf09f6215fc1836e370656afb6f1fb29b4
+Merge: 1b9077e 0a07cb3
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Mon Feb 12 16:48:26 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Fixed navbar
+    
+    See merge request cs331e1/ytubedb!8
+
+commit 1b9077e9d149de05633d704681a88d51727ce5e8
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Feb 12 10:45:03 2024 -0600
+
+    update repo links
+
+commit 0a07cb3768a176b4ba52abc6b491440957b0601a
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Mon Feb 12 10:36:12 2024 -0600
+
+    Fixed navbar
+
+commit 19fc998cf69bd3b20491c2be44343f4a87d504a3
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Feb 12 10:13:15 2024 -0600
+
+    embedded videos for videos page
+
+commit fde13703402026fa5139d902d147479a12726fe5
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Mon Feb 12 10:06:40 2024 -0600
+
+    Add UI for playlist page
+
+commit 3341266979a531363754124edd31412a144edba6
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Mon Feb 12 09:41:40 2024 -0600
+
+    Adjust photos, close #2
+
+commit 41069fd36451c522406ff8ecebf5754068014b24
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Feb 12 00:43:16 2024 -0600
+
+    "formatting, added videos page, fixed links"
+
+commit 483de0d16804f6eb550f38823da837dd91afd8d2
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Sun Feb 11 20:05:57 2024 -0600
+
+    Added channel temporary JSON data and created temporary channel html doc to show that data
+
+commit e7f5959c71ca50cc7d289cf616b7a3417dd60f34
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Sun Feb 11 18:19:06 2024 -0600
+
+    Added Adrian's image and profile to about.html
+
+commit 44e0decd38773d635775fda987f0a9620a422eac
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Sun Feb 11 15:24:21 2024 -0600
+
+    Add playlist
+
+commit d580b883a95102a0499b5e998c7c359b56d52218
+Merge: 0f0a2dc 19f9f50
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sun Feb 11 20:19:51 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Index page changed
+    
+    See merge request cs331e1/ytubedb!7
+
+commit 19f9f50b47f3b99a617febf0c0009aff9870de20
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sun Feb 11 14:18:50 2024 -0600
+
+    Index page changed
+
+commit 0f0a2dccf84fa1be92f09056558c6aad34f36dbb
+Merge: 6c115d8 dc31aa1
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sun Feb 11 04:31:27 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Splash page finished
+    
+    See merge request cs331e1/ytubedb!6
+
+commit dc31aa15a4684fdf02d7618468e435a3835f0064
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 22:30:11 2024 -0600
+
+    URL fixed
+
+commit f6b65e103dc87be4aabc6d91dd8faab70580c9da
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 22:22:36 2024 -0600
+
+    Splash BG image
+
+commit e6666a2983794ce735a0dc6bf9eb5998012f487b
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 22:22:18 2024 -0600
+
+    Splash page finished
+
+commit 6c115d82169a80fe50e6227d36e4339e005b3aed
+Merge: 4e4c51d ec9c014
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sun Feb 11 02:23:41 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Splash added
+    
+    See merge request cs331e1/ytubedb!5
+
+commit ec9c0144c201139c08b9a41a81b2a0f922967738
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 20:23:01 2024 -0600
+
+    Pages linked
+
+commit 55f4f32b276e87f6541ec1ccd62c1bfd1a85730d
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 20:22:35 2024 -0600
+
+    Splash skeleton added
+
+commit 4e4c51d41afb4291de021509fdef5be52ebbebb2
+Merge: 5f247b2 559373b
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Sat Feb 10 16:05:47 2024 -0600
+
+    Merge branch 'main' of https://gitlab.com/cs331e1/ytubedb
+
+commit 5f247b220cce70d49bd9ca22f1d78be806495827
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Sat Feb 10 16:03:34 2024 -0600
+
+    fixed flask requirement version
+
+commit 559373b9b6dc5b9b37090d283ff45fd752af8289
+Merge: 1154c1d 491706a
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 21:48:52 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    About page added in.py
+    
+    See merge request cs331e1/ytubedb!4
+
+commit 491706a2802f2395f8a2c52801648763370a3e8c
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 15:47:34 2024 -0600
+
+    About page added in.py
+
+commit 1154c1d52b5945bce9347d93636a0e22dcf4b1db
+Merge: 020f3be 4afdb06
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 21:21:45 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    About skeleton done
+    
+    See merge request cs331e1/ytubedb!3
+
+commit 4afdb063d543dcd36901a03827fd94d50dd4788c
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 15:19:54 2024 -0600
+
+    About skeleton done
+
+commit eeab63bbb5d0933670e4de1f1e6560ed58989eda
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 14:59:52 2024 -0600
+
+    navbar sticky
+
+commit c3d2718ee3858936e5c6611dd661df378ab9f45b
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 14:36:07 2024 -0600
+
+    Members added
+
+commit 020f3beef584151e1993fb22a449cce6ffcd879a
+Merge: ef2e740 88b7835
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 20:24:02 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    About page added
+    
+    See merge request cs331e1/ytubedb!2
+
+commit 88b783530ed16570b36d7bca0a358c0dc4d0b5ce
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 14:23:18 2024 -0600
+
+    About page added
+
+commit ef2e7403d5af83754d4cbad85d51812130b19b3b
+Merge: eeb5c4e de3a6cb
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 20:21:58 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    About page
+    
+    See merge request cs331e1/ytubedb!1
+
+commit de3a6cb5979b4572420f092e0e63d5a7a1a11efd
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 14:15:27 2024 -0600
+
+    About page added
+
+commit d3814d726110f46b4b13cc8fdf524be36e864f3d
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 14:15:11 2024 -0600
+
+    Images folder added
+
+commit eeb5c4e1fdb6ef6b2c31fed6924b5da98d26a8fa
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Sat Feb 10 13:50:19 2024 -0600
+
+    added temporary videos page placeholder
+
+commit 88e6e2411f5f42f8f6e61c8909fecd9e210f5127
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Feb 10 18:37:52 2024 +0000
+
+    Update .gitignore
+
+commit 6a87bf8dd6a52ce2fe6025a4ac2a1ad5e590d57e
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Fri Feb 9 19:11:21 2024 -0600
+
+    new project name and path updated
+
+commit ed4195e532b8e922cfe810b21c889b7ed05fc36e
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Feb 7 11:36:47 2024 -0600
+
+    Change requirement to requirements
+
+commit 3de5bbd62692c00312a5d543391f60c85556600c
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Feb 7 11:19:19 2024 -0600
+
+    Changed port number
+
+commit 92d49809d7ccdda49ab06923f14653558be30374
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Feb 7 10:29:48 2024 -0600
+
+    Add Initial structure
+
+commit 74ebc69e6b1fcae20df519d0659483bc77ab0d61
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Mon Jan 29 16:05:59 2024 +0000
+
+    Initial commit
