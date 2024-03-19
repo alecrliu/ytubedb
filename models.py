@@ -3,6 +3,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
+from dotenv import load_dotenv
+load_dotenv() 
 
 # initializing Flask app
 app = Flask(__name__)
