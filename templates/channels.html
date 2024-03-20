@@ -67,7 +67,7 @@
                             <a href="{{ url_for('showChannel', channelId=channel.channel_id) }}">
                             <img class="bd-placeholder-img card-img-top" src="{{ channel.thumbnail }}" alt="Channel Thumbnail">
                             </a>
-                            <h6>{{channel.channelName}}</h6>
+                            <h6 style="padding-top: 10px;padding-left: 10px;">{{channel.channelName}}</h6>
                             <div class="card-body">
                                 <a href="{{ url_for('showChannel', channelId=channel.channel_id) }}" class="btn btn-sm btn-outline-secondary">View Channel</a>
                             </div>
