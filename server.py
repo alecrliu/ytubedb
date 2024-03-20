@@ -77,24 +77,25 @@ def showChannel(channelId):
 @app.route('/api/videos/<int:page_num>', methods=['GET'])  # videos page displays multiple videos
 def showVideos(page_num):
     videos_info = Video.query.paginate(per_page=12, page=page_num, error_out=True)
-    videos_info = [videos.to_dict() for videos in videos_info.items]
+    videos_info = [Video_to_dict(videos) for videos in videos_info.items]
     return jsonify(videos=videos_info, current_page=page_num)
 
 @app.route('/api/video/<string:videoId>', methods=['GET'])  # video page displays single video
 def oneVideo(videoId):
     video = Video.query.filter_by(video_id=videoId).first()
-    channel = None
-    playlists = []
-    if video is not None:
-        channel = video.channels
-        playlists = video.inPlaylist
-    return jsonify(video=video, channel=channel, playlists=playlists)
+    if video is None:
+        return jsonify({'error': 'Video not found'}), 404
+    channel_dict = Channel_to_dict(video.channels) if video.channels else None
+    playlists_dict = [Playlist_to_dict(playlist) for playlist in video.inPlaylist] if video.inPlaylist else []
+    video_dict = Video_to_dict(video)
+    return jsonify(video=video_dict, channel=channel_dict, playlists=playlists_dict)
+
 
 # playlists page display multiple videos
 @app.route('/api/playlists/<int:page_num>', methods=['GET'])
 def showPlaylist(page_num):
     playlists_info = Playlist.query.paginate(per_page=12, page=page_num, error_out=True)
-    playlists_info = [playlists.to_dict() for playlists in playlists_info.items]
+    playlists_info = [Playlist_to_dict(playlists) for playlists in playlists_info.items]
     return jsonify(playlists=playlists_info, current_page=page_num)
 
 
@@ -103,10 +104,12 @@ def showPlaylist(page_num):
 def playList(playlistId):
     playlist_info = Playlist.query.filter_by(playlist_id=playlistId).first()
     if playlist_info is None:
-        return "Playlist not found", 404
-    channel = playlist_info.channels
-    videos = playlist_info.videos
-    return jsonify(playlist=playlist_info, channel=channel, videos=videos)
+        return jsonify({'error': 'Playlist not found'}), 404
+    channel_dict = Channel_to_dict(playlist_info.channels) if playlist_info.channels else None
+    videos_dict = [Video_to_dict(video) for video in playlist_info.videos] if playlist_info.videos else []
+    playlist_dict = Playlist_to_dict(playlist_info)
+    return jsonify(playlist=playlist_dict, channel=channel_dict, videos=videos_dict)
+
 
 # debug=True to avoid restart the local development server manually after each change to your code.
 # host='0.0.0.0' to make the server publicly available.
