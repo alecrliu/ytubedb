@@ -55,7 +55,7 @@ def showChannel(channelId):
     playlists = Playlist.query.filter_by(channel_id=channelId).all()
     return render_template('channel.html', channel=channel_info, videos=videos, playlists=playlists)
 
-
+'''
 @app.route('/videos/<int:page_num>')  # videos page displays multiple videos
 def showVideos(page_num):
     videos_info = Video.query.paginate(
@@ -63,6 +63,14 @@ def showVideos(page_num):
     videos_info = Video.query.paginate(
         per_page=12, page=page_num, error_out=True)
     return render_template('videos.html', videos=videos_info, current_page=page_num)
+'''
+@app.route('/videos/<int:page_num>')  # videos page displays multiple videos
+def showVideos(page_num):
+    per_page = request.args.get('per_page', type=int, default=12)
+    videos_info = Video.query.paginate(per_page=per_page, page=page_num, error_out=True)
+    return render_template('videos.html', videos=videos_info, current_page=page_num, per_page=per_page)
+
+
 
 
 @app.route('/video/<string:videoId>')  # video page displays single video
