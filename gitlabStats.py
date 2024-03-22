@@ -6,6 +6,8 @@ gitlab_ids = {"Nirmal": 15538898, "Adrian": 15580304,
               "Alec": 15573017, "Junyu": 15554133}
 
 # Get commits for each project member
+
+
 def getCommits(root_url, gitlab_ids):
     url = root_url + '/repository/commits'
     params = {"per_page": 100, "page": 1}
@@ -31,6 +33,8 @@ def getCommits(root_url, gitlab_ids):
     return commit_tracker
 
 # Get issues for each project member
+
+
 def getIssues(root_url, gitlab_ids):
     url = root_url + '/issues_statistics?author_id='
     issue_tracker = {'Nirmal': 0, 'Adrian': 0, 'Alec': 0, 'Junyu': 0}
