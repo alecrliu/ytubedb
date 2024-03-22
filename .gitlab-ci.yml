@@ -18,6 +18,6 @@ before_script:
     - printenv | sort
 
 # # uncomment when unittest is set up
-# test:
-#   script:
-#   - python test.py
+test:
+   script:
+   - python test.py
