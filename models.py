@@ -27,8 +27,6 @@ db = SQLAlchemy(app)
 # Channel table
 # One-to-Many with Video table
 # One-to-Many with Playlist table
-
-
 class Channel(db.Model):
     __tablename__ = 'channels'
 
@@ -54,8 +52,6 @@ VideoPlaylist = db.Table('videoplaylist',
 
 # Video table
 # Many-to-Many with Playlist table
-
-
 class Video(db.Model):
     __tablename__ = 'videos'
 
@@ -71,8 +67,6 @@ class Video(db.Model):
 
 # Playlist table
 # Many-to-Many with Video table
-
-
 class Playlist(db.Model):
     __tablename__ = 'playlists'
 

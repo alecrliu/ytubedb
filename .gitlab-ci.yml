@@ -17,7 +17,6 @@ before_script:
     - pip install -r requirements.txt
     - printenv | sort
 
-# # uncomment when unittest is set up
-# test:
-#   script:
-#   - python test.py
+test:
+  script:
+  - python test.py
