@@ -65,7 +65,8 @@ def process_playlistJSON(db, playlistJSONfilepath):
                 for curr_video_data in curr_playlist_data["videos"]:
                     curr_video_id = curr_video_data["videoID"]
                     # Check if video already exists in database
-                    curr_video_obj = existing_channel_videos_dict.get(curr_video_id)
+                    curr_video_obj = existing_channel_videos_dict.get(
+                        curr_video_id)
                     if not curr_video_obj:
                         curr_video_obj = create_Video(curr_video_data)
                         existing_channel_videos_dict[curr_video_id] = curr_video_obj
