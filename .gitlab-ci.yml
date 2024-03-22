@@ -20,4 +20,4 @@ before_script:
 # # uncomment when unittest is set up
 test:
    script:
-   - python test.py
+   - python displayTest.py
