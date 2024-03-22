@@ -48,39 +48,44 @@
                     <!-- Pagination -->
                     <ul class="pagination mb-0 me-3">
                         {% for page in videos.iter_pages() %}
-                            {% if page %}
-                                {% if page == current_page %}
-                                    <li class="page-item active bg-darker">
-                                        <a class="page-link active bg-darker" href="{{ url_for('showVideos', page_num=page, per_page=per_page) }}">{{ page }}</a>
-                                    </li>
-                                {% else %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ url_for('showVideos', page_num=page, per_page=per_page) }}">{{ page }}</a>
-                                    </li>
-                                {% endif %}
-                            {% else %}
-                                <li class="page-item">
-                                    <a class="page-link"> ... </a>
-                                </li>
-                            {% endif %}
+                        {% if page %}
+                        {% if page == current_page %}
+                        <li class="page-item active bg-darker">
+                            <a class="page-link active bg-darker"
+                                href="{{ url_for('showVideos', page_num=page, per_page=per_page) }}">{{ page }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('showVideos', page_num=page, per_page=per_page) }}">{{
+                                page }}</a>
+                        </li>
+                        {% endif %}
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link"> ... </a>
+                        </li>
+                        {% endif %}
                         {% endfor %}
                     </ul>
-                    
-                    
+
+
                     <!-- Videos per page selection dropdown -->
                     <div style="display: flex; align-items: center; justify-content: flex-end;">
-                        <label for="perPageSelect" style="margin-right: 8px; white-space: nowrap;">Videos per page:</label>
-                        <select id="perPageSelect" class="form-select" onchange="window.location.href = '{{ url_for('showVideos', page_num=current_page) }}?per_page=' + this.value;">
+                        <label for="perPageSelect" style="margin-right: 8px; white-space: nowrap;">Videos per
+                            page:</label>
+                        <select id="perPageSelect" class="form-select"
+                            onchange="window.location.href = '{{ url_for('showVideos', page_num=current_page) }}?per_page=' + this.value;">
                             {% set per_page_options = [6, 12, 24, 48] %}
                             {% for num in per_page_options %}
-                                <option value="{{ num }}" {% if num|string == request.args.get('per_page', default='12') %}selected{% endif %}>{{ num }}</option>
+                            <option value="{{ num }}" {% if num|string==request.args.get('per_page', default='12' )
+                                %}selected{% endif %}>{{ num }}</option>
                             {% endfor %}
                         </select>
-                    </div>               
+                    </div>
                 </div>
             </nav>
-            
-            
+
+
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
                 {% for video in videos.items %}
                 <div class="col">
@@ -108,21 +113,22 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
                     {% for page in videos.iter_pages() %}
-                        {% if page %}
-                            {% if page == current_page %}
-                                <li class="page-item active bg-darker">
-                                    <a class="page-link active bg-darker" href="{{ url_for('showVideos', page_num=page) }}">{{ page }}</a>
-                                </li>
-                            {% else %}
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ url_for('showVideos', page_num=page) }}">{{ page }}</a>
-                                </li>
-                            {% endif %}
-                        {% else %}
-                            <li class="page-item">
-                                <a class="page-link"> ... </a>
-                            </li>
-                        {% endif %}
+                    {% if page %}
+                    {% if page == current_page %}
+                    <li class="page-item active bg-darker">
+                        <a class="page-link active bg-darker" href="{{ url_for('showVideos', page_num=page) }}">{{ page
+                            }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('showVideos', page_num=page) }}">{{ page }}</a>
+                    </li>
+                    {% endif %}
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link"> ... </a>
+                    </li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
             </nav>
