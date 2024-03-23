@@ -33,6 +33,9 @@ PLAYLIST_DATA = {
     "description": "ABC",
     "publishedAt": "2023-12-11T15:57:10Z",
     "videoCount": 0,
+    "totalViews": 0,
+    "totalLikes": 0,
+    "totalComments": 0,
     "thumbnail": "THUMBNAIL",
     "channel_id": CHANNEL_DATA["channel_id"]
 }
@@ -147,6 +150,9 @@ class DBTestCases(unittest.TestCase):
         self.assertEqual(r.description, PLAYLIST_DATA["description"])
         # self.assertEqual(r.publishedAt, PLAYLIST_DATA["publishedAt"])
         self.assertEqual(r.videoCount, PLAYLIST_DATA["videoCount"])
+        self.assertEqual(r.totalViews, PLAYLIST_DATA["totalViews"])
+        self.assertEqual(r.totalLikes, PLAYLIST_DATA["totalLikes"])
+        self.assertEqual(r.totalComments, PLAYLIST_DATA["totalComments"])
         self.assertEqual(r.thumbnail, PLAYLIST_DATA["thumbnail"])
         self.assertEqual(r.channel_id, PLAYLIST_DATA["channel_id"])
         db.session.query(Playlist).filter_by(

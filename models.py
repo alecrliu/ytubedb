@@ -75,6 +75,9 @@ class Playlist(db.Model):
     description = db.Column(db.Text, nullable=True)
     publishedAt = db.Column(db.DateTime(timezone=False), nullable=False)
     videoCount = db.Column(db.Integer, nullable=False)
+    totalViews = db.Column(db.BigInteger, nullable=False)
+    totalLikes = db.Column(db.BigInteger, nullable=False)
+    totalComments = db.Column(db.BigInteger, nullable=False)
     thumbnail = db.Column(db.Text, nullable=True)
 
     channel_id = db.Column(db.String, db.ForeignKey('channels.channel_id'))
