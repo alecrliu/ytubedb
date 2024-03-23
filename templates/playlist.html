@@ -47,38 +47,29 @@
                         <img src="{{ playlist.thumbnail }}" alt="Playlist Banner" class="img-fluid" style="max-width: 100%; height: auto; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                     </div>
                     <div class="card-body">
+                        <p>
+                            <a href="{{ url_for('showChannel', channelId=playlist.channel_id) }}">
+                                <img src="{{ channel.thumbnail }}" alt="Channel Thumbnail" class="rounded-circle img-fluid" style="width: 10%;">
+                                <h5>{{ channel.channelName }}</h5>
+                            </a>
+                        </p>
                         <div class="row align-items-center">
-                            
-                            
                             <!-- Column for the Statistics, centered -->
                             <div class="d-flex justify-content-between align-items-center">
-                                <p><a href="{{url_for('showChannel',channelId=channel.channel_id)}}"><i class="fas fa-user-circle"></i> {{ channel.channelName }}</a></p>
                                 <p class="mb-0 me-3"><i class="fas fa-calendar-alt"></i> {{ playlist.publishedAt }}</p>
-                                <!-- <p class="mb-0 me-3"><b>Total Views:</b> {{ playlist.viewCount }}</p> -->
+                                <p class="mb-0 me-3"><i class="far fa-eye"></i> {{ playlist.totalViews }}</p>
+                                <p class="mb-0 me-3"><i class="far fa-thumbs-up"></i> {{ playlist.totalLikes }}</p>
+                                <p class="mb-0 me-3"><i class="far fa-comment"></i> {{ playlist.totalComments }}</p>
                                 <p class="mb-0 me-3"><i class="fas fa-video"></i>  {{ playlist.videoCount }}</p>
                             </div>
                         </div>
                         <br>
-                        <div class="col-md-auto">
-                            <button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#descriptionCollapse" aria-expanded="false"
-                                aria-controls="descriptionCollapse">
-                                <i class="fas fa-list"></i>
-                            </button>
-                        </div>
-                        <!-- Collapsible description -->
-                        <div class="collapse" id="descriptionCollapse">
-                            <div class="card card-body mt-3">
-                                {{ playlist.description }}
-                            </div>
-
-                        <br>
-                            <!-- Videos Accordion -->
+                        <!-- Videos Accordion -->
                         <div class="accordion mb-3" id="videosAccordion">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingVideos">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVideos" aria-expanded="false" aria-controls="collapseVideos">
-                                    View Videos
+                                        View Videos
                                     </button>
                                 </h2>
                                 <div id="collapseVideos" class="accordion-collapse collapse" aria-labelledby="headingVideos" data-bs-parent="#videosAccordion">
@@ -97,7 +88,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
                        
                     </div>

@@ -17,12 +17,20 @@ def create_Channel(channel_data):
 
 
 def create_Playlist(playlist_data):
+    totalViews, totalLikes, totalComments = 0, 0, 0
+    for video in playlist_data["videos"]:
+        totalViews += int(video["viewCount"])
+        totalLikes += int(video["likeCount"])
+        totalComments += int(video["commentCount"])
     playlist_obj = Playlist(
         playlist_id=playlist_data["playlistID"],
         title=playlist_data["title"],
         description=playlist_data["description"],
         publishedAt=playlist_data["publishedAt"],
         videoCount=playlist_data["videoCount"],
+        totalViews=totalViews,
+        totalLikes=totalLikes,
+        totalComments=totalComments,
         thumbnail=playlist_data["thumbnail"],
         channel_id=playlist_data["channelID"]
     )
