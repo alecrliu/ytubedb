@@ -76,8 +76,21 @@
                         <a href="{{ url_for('showChannel', channelId=channel.channel_id) }}">
                             <h5 style="padding-top: 10px;padding-left: 10px;">{{channel.channelName}}</h5>
                         </a>
-                        <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center" style="color: gray; padding: 10px;">
+                            <a class="card-title" style="padding-left: 3px;">
+                                <i class="fas fa-user-friends"></i>
+                                {% if channel.subscriberCount >= 1000 %}
+                                    {{ "{:,.0f}".format(channel.subscriberCount / 1000) }}k+
+                                {% else %}
+                                    {{ channel.subscriberCount }}
+                                {% endif %}
+                            </a>
+                            <p class="card-title" style="padding-right: 3px;">
+                                <i class="fas fa-video"></i> {{ channel.videoCount }}
+                            </p>
                         </div>
+                        
+                        
                     </div>
                 </div>
                 {% endfor %}
