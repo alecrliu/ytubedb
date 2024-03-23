@@ -77,7 +77,20 @@
                         <a href="{{ url_for('playList', playlistId=playlist.playlist_id) }}">
                             <h5 style="padding-top: 10px;padding-left: 10px;">{{playlist.title}}</h5>
                         </a>
-                        <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center"
+                            style="color: gray; padding:10px">
+                            <h6>
+                                <a href="{{url_for('showChannel', channelId=playlist.channel_id)}}"
+                                    style="color: gray;">
+                                    <img src="{{ playlist.channels.thumbnail }}" alt="Channel Thumbnail"
+                                        class="rounded-circle img-fluid" style="width: 30px;">
+                                    {{playlist.channels.channelName}}
+                                </a>
+                            </h6>
+                            <h6>
+                                <i class="fas fa-video" style="margin-right: 5px"></i>
+                                <span>{{ playlist.videoCount }}</span>
+                            </h6>
                         </div>
                     </div>
                 </div>

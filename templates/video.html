@@ -50,8 +50,9 @@
                 <div class="card-body">
                     <p>
                         <a href="{{ url_for('showChannel', channelId=video.channel_id) }}">
-                            <img src="{{ channel.thumbnail }}" alt="Channel Thumbnail" class="rounded-circle img-fluid" style="width: 10%;">
-                            <h5>{{ video.channels.channelName }}</h5>
+                            <h5><img src="{{ channel.thumbnail }}" alt="Channel Thumbnail"
+                                    class="rounded-circle img-fluid" style="width: 40px;"> {{ channel.channelName
+                                }}</h5>
                         </a>
                     </p>
                     <div class="row">
