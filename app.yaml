@@ -3,7 +3,7 @@ env: flex
 entrypoint: bash -c 'python database.py && gunicorn -b :$PORT main:app'
 
 runtime_config:
-  python_version: 3.11
+  python_version: 3.7
 
 #[START env]
 env_variables:
