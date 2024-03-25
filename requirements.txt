@@ -3,7 +3,7 @@ gunicorn==19.7.1
 google-api-python-client==2.52.0
 pep8==1.7.1
 psycopg2-binary==2.9.8
-requests==2.31.0
+requests==2.27.1
 coverage==4.2
 flask-cors==2.0.1
 python-dotenv==1.0.1
