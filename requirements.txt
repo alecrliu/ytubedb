@@ -1,4 +1,4 @@
-Flask==2.0.0
+Flask==2.0.3
 gunicorn==19.7.1
 google-api-python-client==2.52.0
 pep8==1.7.1
@@ -9,4 +9,4 @@ flask-cors==2.0.1
 python-dotenv==1.0.1
 Flask-SQLAlchemy==2.4.1
 pylint==3.1.0
-Jinja2==3.1.1
+werkzeug==2.0.3
