@@ -108,7 +108,17 @@
                             </h6>
                             <h6>
                                 <i class="far fa-eye" style="margin-right: 5px"></i>
-                                <span>{{ video.viewCount }}</span>
+                                <span>
+                                    {% if video.viewCount >= 1000000000 %}
+                                        {{ video.viewCount // 1000000000 }}B
+                                    {% elif video.viewCount >= 1000000 %}
+                                        {{ video.viewCount // 1000000 }}M
+                                    {% elif video.viewCount >= 1000 %}
+                                        {{ video.viewCount // 1000 }}K
+                                    {% else %}
+                                        {{ video.viewCount }}
+                                    {% endif %}
+                                </span>
                             </h6>
                         </div>
                     </div>

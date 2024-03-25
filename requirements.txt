@@ -1,4 +1,4 @@
-Flask==3.0.2
+Flask==2.0.3
 gunicorn==19.7.1
 google-api-python-client==2.52.0
 pep8==1.7.1
