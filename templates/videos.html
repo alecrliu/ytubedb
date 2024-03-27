@@ -78,7 +78,7 @@
                         <label for="perPageSelect" style="margin-right: 8px; white-space: nowrap;">Videos per
                             page:</label>
                         <select id="perPageSelect" class="form-select"
-                            onchange="window.location.href = '{{ url_for('showVideos', page_num=current_page) }}?per_page=' + this.value;">
+                            onchange="window.location.href = '{{ url_for('showVideos', page_num=1) }}?per_page=' + this.value;">
                             {% set per_page_options = [6, 12, 24, 48] %}
                             {% for num in per_page_options %}
                             <option value="{{ num }}" {% if num|string==request.args.get('per_page', default='12' )
