@@ -1,3 +1,110 @@
+commit d6dcde3528da9e33c710d0950bb7daa54e63203d
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Wed Mar 27 11:33:08 2024 -0500
+
+    Implemented unittest image through a button
+
+commit 6689227d593520ec766383984865a748a09198bf
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Wed Mar 27 11:08:23 2024 -0500
+
+    modified about page stats
+
+commit 8057c213b3905ae7184683357a9c433a24be2fb1
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 27 10:57:41 2024 -0500
+
+    comment makefile
+
+commit 44da856c347b95f571eca19c68607df7bda9bffa
+Merge: 5f7874b 4c15bb8
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 27 10:39:23 2024 -0500
+
+    Merge branch 'main' of https://gitlab.com/cs331e1/ytubedb
+
+commit 5f7874b01ee500fd9fddc11820b4fbc3fb50bd49
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Wed Mar 27 10:37:50 2024 -0500
+
+    formatting, commits, added test to makefile
+
+commit 4c15bb874afe130451dff782a27767186f03de1a
+Merge: 4e50237 1e3a0d6
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Mar 27 15:11:00 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Main
+    
+    See merge request cs331e1/ytubedb!47
+
+commit 1e3a0d6ea5a0683d32109be20df8bfac85b57691
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Mar 27 10:08:08 2024 -0500
+
+    Fix requirement.txt
+
+commit 0936dbab55bf5f683162d41bb11826e4a240d1f6
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Mar 27 10:04:16 2024 -0500
+
+    Update requirement for server.py
+
+commit 57f6405c10018093489549e2db9d5362739fb93b
+Merge: 24a303a 4e50237
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Mar 27 15:03:36 2024 +0000
+
+    Merge branch ytubedb:main into main
+
+commit 24a303a9f5f34934acce9618ba33b7b56dc86930
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Tue Mar 26 23:38:30 2024 -0500
+
+    fix yaml file
+
+commit f93be5aa3eef1a1740ddbc93f0be692abb71ffb6
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Tue Mar 26 23:37:52 2024 -0500
+
+    Add yaml file for deploy
+
+commit 4e5023796af8afaf93e3821c91c38973c88dee46
+Merge: 7c0b7b7 fed5ed0
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Mar 27 04:12:37 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Test deploy for gcp
+    
+    See merge request cs331e1/ytubedb!46
+
+commit fed5ed0ca8510bb6be088f3cf3eb7717135ebbfe
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Tue Mar 26 23:10:12 2024 -0500
+
+    Test deploy for gcp
+
+commit 7c0b7b7c13c748e26e4e9fbf57c2aa96b59b0182
+Merge: d10a2eb c3e5407
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Mar 27 02:51:07 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Implement pagination
+    
+    See merge request cs331e1/ytubedb!45
+
+commit c3e540773579f659a3a26346926c5004dd4884a9
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Tue Mar 26 21:49:33 2024 -0500
+
+    Implement pagination
+
 commit d10a2ebe98f12a243b3691bd5371c01a6af1884f
 Author: Alec Liu <alec.liu@utexas.edu>
 Date:   Tue Mar 26 20:20:05 2024 -0500
