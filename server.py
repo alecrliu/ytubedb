@@ -1,5 +1,4 @@
-import json
-from flask import Flask, jsonify
+from flask import jsonify
 from flask_cors import CORS
 from database import app, db, Channel, Playlist, Video
 from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
@@ -60,10 +59,12 @@ def about():
 
 @app.route('/api/channels/<int:page_num>', methods=['GET'])
 def showChannels(page_num):
+    per_page = 12
+    total_channels = Channel.query.count()
+    total_pages = round(total_channels/ per_page)
     channels_info = Channel.query.paginate(per_page=12, page=page_num, error_out=False)
-    print(channels_info)
     channels = [Channel_to_dict(channel) for channel in channels_info.items]  # Assuming a to_dict method on your model
-    return jsonify(channels=channels, current_page=page_num)
+    return jsonify(channels=channels, current_page=page_num,total_pages=total_pages)
 
 @app.route('/api/channel/<string:channelId>', methods=['GET'])
 def showChannel(channelId):
@@ -76,9 +77,12 @@ def showChannel(channelId):
 
 @app.route('/api/videos/<int:page_num>', methods=['GET'])  # videos page displays multiple videos
 def showVideos(page_num):
+    per_page = 12
+    total_videos = Video.query.count()
+    total_pages = round(total_videos / per_page)
     videos_info = Video.query.paginate(per_page=12, page=page_num, error_out=True)
     videos_info = [Video_to_dict(videos) for videos in videos_info.items]
-    return jsonify(videos=videos_info, current_page=page_num)
+    return jsonify(videos=videos_info, current_page=page_num,total_pages=total_pages)
 
 @app.route('/api/video/<string:videoId>', methods=['GET'])  # video page displays single video
 def oneVideo(videoId):
@@ -94,9 +98,12 @@ def oneVideo(videoId):
 # playlists page display multiple videos
 @app.route('/api/playlists/<int:page_num>', methods=['GET'])
 def showPlaylist(page_num):
+    per_page = 12
+    total_playlists = Playlist.query.count()
+    total_pages = round(total_playlists / per_page)
     playlists_info = Playlist.query.paginate(per_page=12, page=page_num, error_out=True)
     playlists_info = [Playlist_to_dict(playlists) for playlists in playlists_info.items]
-    return jsonify(playlists=playlists_info, current_page=page_num)
+    return jsonify(playlists=playlists_info, current_page=page_num, total_pages=total_pages)
 
 
 # playlists page display single playlist
@@ -114,4 +121,4 @@ def playList(playlistId):
 # debug=True to avoid restart the local development server manually after each change to your code.
 # host='0.0.0.0' to make the server publicly available.
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0',port=8080)
+    app.run(debug=True, host='0.0.0.0')
