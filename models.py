@@ -24,10 +24,26 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
-# Channel table
-# One-to-Many with Video table
-# One-to-Many with Playlist table
 class Channel(db.Model):
+    """
+
+    Channel table
+
+    Primary Key: channel_id
+
+    Relationships:
+        One-to-Many with Video table
+        One-to-Many with Playlist table
+
+    Attributes:
+        channelName: Name of the channel
+        description: Desription of the channel
+        subscriberCount: Number of subscribers of the channel
+        viewCount: Sum of all the view counts of videos of the channel
+        videoCount: Number of videos of the channel
+        thumbnail: A high quality thumbnail URL of the channel
+
+    """
     __tablename__ = 'channels'
 
     channel_id = db.Column(db.String, primary_key=True)
@@ -50,9 +66,26 @@ VideoPlaylist = db.Table('videoplaylist',
                                    db.ForeignKey('playlists.playlist_id'))
                          )
 
-# Video table
-# Many-to-Many with Playlist table
 class Video(db.Model):
+    """
+
+    Video table
+
+    Primary Key: video_id
+    Foreign Key: channel_id
+
+    Relationships:
+        Many-to-Many with Playlist table
+
+    Attributes:
+        title: Title of the video
+        description: Description of the video
+        viewCount: Number of views the video has
+        likeCount: Number of likes the video has
+        commentCount: Number of comments the video has
+        thumbnail: A high quality thumbnail URL of the video
+
+    """
     __tablename__ = 'videos'
 
     video_id = db.Column(db.String, primary_key=True)
@@ -65,9 +98,28 @@ class Video(db.Model):
 
     channel_id = db.Column(db.String, db.ForeignKey('channels.channel_id'))
 
-# Playlist table
-# Many-to-Many with Video table
 class Playlist(db.Model):
+    """
+
+    Playlist table
+
+    Primary Key: playlist_id
+    Foreign Key: channel_id
+
+    Relationships:
+        Many-to-Many with Video table
+
+    Attributes:
+        title: Title of the playlist
+        description: Description of the playlist
+        publishedAt: Standard datetime when the playlist was published
+        videoCount: Number of videos the playlist has
+        totalViews: Sum of views of all the videos in the playlist
+        totalLikes: Sum of likes of all the videos in the playlist
+        totalComments: Sum of comments of all the videos in the playlist
+        thumbnail: A high quality thumbnail URL of the video
+
+    """
     __tablename__ = 'playlists'
 
     playlist_id = db.Column(db.String, primary_key=True)

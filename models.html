@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Database Documentation</title>
+</head>
+<body>
+    <h1>Models.py: Creates classes (tables) for each model in the database</h1>
+
+    <h2>Channel</h2>
+    <p>Primary Key: channel_id</p>
+    <p>Relationships:</p>
+    <ul>
+        <li>One-to-Many with Video table</li>
+        <li>One-to-Many with Playlist table</li>
+    </ul>
+    <p>Attributes:</p>
+    <ul>
+        <li>channelName: Name of the channel</li>
+        <li>description: Desription of the channel</li>
+        <li>subscriberCount: Number of subscribers of the channel</li>
+        <li>viewCount: Sum of all the view counts of videos of the channel</li>
+        <li>videoCount: Number of videos of the channel</li>
+        <li>thumbnail: A high quality thumbnail URL of the channel</li>
+    </ul>
+
+    <h2>Video</h2>
+    <p>Primary Key: video_id<br>Foreign Key: channel_id</p>
+    <p>Relationships:</p>
+    <ul>
+        <li>Many-to-Many with Playlist table</li>
+    </ul>
+    <p>Attributes:</p>
+    <ul>
+        <li>title: Title of the video</li>
+        <li>description: Description of the video</li>
+        <li>viewCount: Number of views the video has</li>
+        <li>likeCount: Number of likes the video has</li>
+        <li>commentCount: Number of comments the video has</li>
+        <li>thumbnail: A high quality thumbnail URL of the video</li>
+    </ul>
+
+    <h2>Playlist</h2>
+	<p>Primary Key: playlist_id<br>Foreign Key: channel_id</p>
+    <p>Relationships:</p>
+    <ul>
+        <li>Many-to-Many with Video table</li>
+    </ul>
+    <p>Attributes:</p>
+    <ul>
+        <li>title: Title of the playlist</li>
+        <li>description: Description of the playlist</li>
+        <li>publishedAt: Standard datetime when the playlist was published</li>
+        <li>videoCount: Number of videos the playlist has</li>
+        <li>totalViews: Sum of views of all the videos in the playlist</li>
+        <li>totalLikes: Sum of likes of all the videos in the playlist</li>
+        <li>totalComments: Sum of comments of all the videos in the playlist</li>
+        <li>thumbnail: A high quality thumbnail URL of the video</p></li>
+    </ul>
+</body>
+</html>
