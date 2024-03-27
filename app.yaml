@@ -1,32 +1,40 @@
-runtime: python
-env: flex
-entrypoint: bash -c 'python database.py && gunicorn -b :$PORT server:app'
+runtime: nodejs20
+service: front-end
 
-runtime_config:
-  python_version: 3.7
+env: standard
+instance_class: F2
 
-#[START env]
+# You can define environment variables here
 env_variables:
-    # postgresql+psycopg2://USER:PASSWORD@/DATABASE?host=/cloudsql/INSTANCE_CONNECTION_NAME
-    # Replace user, password, database, and instance connection name with the values obtained
-    # when configuring your Cloud SQL instance.
-    DB_STRING: >-
-      postgresql+psycopg2://postgres:yt@/ytubedb?host=/cloudsql/ytubedb:us-central1:ytubedb
-#[END env]
+  NODE_ENV: 'production'
 
-#[START cloudsql_settings]
-# Replace project and instance with the values obtained  when configuring your
-# Cloud SQL instance.
-beta_settings:
-    cloud_sql_instances: ytubedb:us-central1:ytubedb
+automatic_scaling:
+  min_instances: 1
+  max_instances: 5
+  target_cpu_utilization: 0.6
 
-# This sample incurs costs to run on the App Engine flexible environment. 
-# The settings below are to reduce costs during testing and are not appropriate
-# for production use. For more information, see:
-# https://cloud.google.com/appengine/docs/flexible/python/configuring-your-app-with-app-yaml
-manual_scaling:
-  instances: 1
-resources:
-  cpu: 1
-  memory_gb: 0.5
-  disk_size_gb: 10
+handlers:
+  # Serve all static files with the URL ending with a file extension from the Next.js static folder
+  - url: /_next/static/(.*\.(png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|otf|eot|json|css|js|map))$
+    static_files: dist/client/_next/static/\1
+    upload: dist/client/_next/static/.*\.(png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|otf|eot|json|css|js|map)$
+    secure: always
+    redirect_http_response_code: 301
+
+  # Next.js static files, such as favicon.ico or robots.txt in the public directory
+  - url: /(favicon\.ico|robots\.txt)$
+    static_files: dist/client/\1
+    upload: dist/client/(favicon\.ico|robots\.txt)$
+    secure: always
+    redirect_http_response_code: 301
+
+  # Next.js service worker
+  - url: /service-worker.js$
+    static_files: dist/client/service-worker.js
+    upload: dist/client/service-worker.js
+    secure: always
+    redirect_http_response_code: 301
+
+  # This configures Google App Engine to route all requests to the Node server.
+  - url: /.*
+    script: auto
