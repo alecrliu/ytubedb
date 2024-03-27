@@ -20,13 +20,13 @@
 <body>
     <nav class="navbar navbar-expand sticky-top navbar-dark bg-dark" aria-label="Main navigation">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="../static/images/ytubedblogo.png" alt="ytubeDB Logo" height="40" style="border-radius: 10px;"> 
-            </a> 
             <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center" style="font-size: 18px;">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('index')}}">Splash</a>
+                        <a class="nav-link" href="{{url_for('index')}}">
+                            <img src="../static/images/ytubedblogo.png" alt="ytubedb logo"
+                                style="height: 35px; border-radius: 10px;">
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('about')}}">About</a>
