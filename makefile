@@ -42,7 +42,7 @@ cleanCodePY: APIs.py models.py database.py test.py gitlabStats.py main.py
 	$(AUTOPEP8) --in-place test.py
 
 # for some reason, error generating docs: No Python documentation found for 'models.py'.
-# models: models.py
+# models:
 # 	$(PYDOC) -w models.py > models.html
 
 IDB2:
