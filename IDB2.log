@@ -1,3 +1,181 @@
+commit d10a2ebe98f12a243b3691bd5371c01a6af1884f
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Tue Mar 26 20:20:05 2024 -0500
+
+    replaced navbar splash with logo, reformatted playlist page
+
+commit 0cd8dcba50213b149c37a4ce8f381d3afea11e58
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Mon Mar 25 19:52:19 2024 -0500
+
+    Added logo to navbar and favicon for every template file
+
+commit 659941a342179fb506bbcefa0d55a15eeea7dadc
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 12:10:17 2024 -0500
+
+    gcloud missing libq
+
+commit 2ef313979acc58f464b1672761314cb9746954ae
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 12:05:02 2024 -0500
+
+    GCP runtime config
+
+commit 56638cd26d297d289e182690ce5db55a448ccac2
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:53:33 2024 -0500
+
+    GCP pt 4
+
+commit 905564b424f4dc0df62f23d67d050a1b2d72cbf4
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:48:25 2024 -0500
+
+    GCP req 3
+
+commit dea9c01677cab1bcb00eeb8ba68511caa57a575f
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:45:39 2024 -0500
+
+    GCP req again
+
+commit 2fa3a8a343d4bb4ef949b2026685e7ec17c03fc7
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:41:43 2024 -0500
+
+    pt 12 for gcp
+
+commit 8c862744a7dd9072d0a0d9c222ab4793063cf964
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:37:33 2024 -0500
+
+    :( pt 11
+
+commit 6130fa22f83d93192dfe5b1378a6adb51ee33482
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:35:41 2024 -0500
+
+    pt 10
+
+commit b519e4d7c7161a45ed0f55c0db0a4b11e7eb6296
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:34:06 2024 -0500
+
+    pt 9
+
+commit 59b6327c477b14b88851aaf03075298c5814992b
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:28:44 2024 -0500
+
+    requirements pt 9
+
+commit 9eba1e8c7b2bbb768104c55b6ae5604a78a063ab
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:26:44 2024 -0500
+
+    requirement pt 8
+
+commit c97c9b11176dfc3941e50c44c5997a109a6b02f8
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:21:57 2024 -0500
+
+    req pt 7
+
+commit 4eab408d92a8d051df6ca005451bc2082e80768a
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:19:06 2024 -0500
+
+    req pt 6
+
+commit e3477163a146d1a8b858f7b8639de72ebae6713f
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:12:09 2024 -0500
+
+    requirements v5
+
+commit fdd14dab126c3727d1547ae4569394503f2977e2
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:07:12 2024 -0500
+
+    try requirements part 4
+
+commit 6f04a374208f14c43d5fb9cbcb11fce3cf0ce649
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:04:51 2024 -0500
+
+    try again requirements
+
+commit be9af6de5a242586b187860d58a59744a4e99a82
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 11:00:31 2024 -0500
+
+    try requirements
+
+commit e18ef7126aed388d42ddfc40a87087c66ef501ef
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Mar 25 10:54:17 2024 -0500
+
+    simplified video and channel gallery stats, changed version
+
+commit 569a5b94cd90494a51dc1413c749b90b402a0c19
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Sat Mar 23 16:35:59 2024 -0500
+
+    Added statistics to channels.html
+
+commit 5edd24bf169556d1ab0f14739045488c86bff90f
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Sat Mar 23 15:16:33 2024 -0500
+
+    added stats to some galleries, added more channel logos
+
+commit 2b0817927637609bde69efd7addf2bfbdb6599af
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Sat Mar 23 13:55:38 2024 -0500
+
+    Fixed bottom pagination navigation bar for videos.html
+
+commit 25ba5b6db5fbb20320c30744e667ad586cc09b12
+Merge: 7cd668e 45f13e4
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Mar 23 01:33:18 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Back to top arrow
+    
+    See merge request cs331e1/ytubedb!44
+
+commit 45f13e4d88d68cb88079332033ecc43f638327e6
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Fri Mar 22 20:31:57 2024 -0500
+
+    Back to top arrow
+
+commit 7cd668e9c516617db805a639ec045a62e763a8ed
+Merge: fe8179c 87cea3d
+Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>
+Date:   Sat Mar 23 01:23:29 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Playlist table updated
+    
+    See merge request cs331e1/ytubedb!43
+
+commit 87cea3df642af519f58ea2cab43c243fe6ff9c53
+Author: nirmpatel <nirmpatel@utexas.edu>
+Date:   Fri Mar 22 20:21:54 2024 -0500
+
+    Playlist table updated
+
+commit fe8179c0d2eab82e0cfa7e0d835b92bf40c6eb85
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Fri Mar 22 19:51:45 2024 -0500
+
+    GCP database command, back to top
+
 commit a587a789ab3a383288509808af844af517571ed7
 Author: Alec Liu <alec.liu@utexas.edu>
 Date:   Fri Mar 22 19:17:10 2024 -0500
