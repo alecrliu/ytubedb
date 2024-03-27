@@ -1,5 +1,4 @@
-import json
-from flask import Flask, jsonify
+from flask import jsonify
 from flask_cors import CORS
 from database import app, db, Channel, Playlist, Video
 from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
