@@ -44,6 +44,9 @@ cleanCodePY: APIs.py models.py database.py test.py gitlabStats.py main.py
 # for some reason, error generating docs: No Python documentation found for 'models.py'.
 # models:
 # 	$(PYDOC) -w models.py > models.html
+# for some reason, error generating docs for flask_sqlalchemy
+#models.html: models.py
+#	$(PYDOC) -w models.py > models.html
 
 IDB2:
 	git log > IDB2.log

@@ -31,17 +31,14 @@ def about():
     )
 
 
-# channels page displays multiple channels
-@app.route('/channels/<int:page_num>')
+
 # channels page displays multiple channels
 @app.route('/channels/<int:page_num>')
 def showChannels(page_num):
     # channels_info = channel_data['items']
     channels_info = Channel.query.paginate(
         per_page=12, page=page_num, error_out=True)
-    # channels_info = channel_data['items']
-    channels_info = Channel.query.paginate(
-        per_page=12, page=page_num, error_out=True)
+
     return render_template('channels.html', channels=channels_info, current_page=page_num)
 
 
