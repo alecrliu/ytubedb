@@ -4,7 +4,7 @@
 import json
 from flask import Flask, render_template, request, redirect, url_for, session
 from database import app, db, Channel, Playlist, Video
-from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
+from gitlabStats import commit_counts, issue_counts
 
 
 @app.route('/')  # splash page
@@ -14,31 +14,32 @@ def index():
 
 @app.route('/about')  # about page
 def about():
-    curr_commits = getCommits(root_url, gitlab_ids)
-    curr_issues = getIssues(root_url, gitlab_ids)
     return render_template(
         'about.html',
-        nirmalCommits=curr_commits["Nirmal"],
-        nirmalIssues=curr_issues["Nirmal"],
-        adrianCommits=curr_commits["Adrian"],
-        adrianIssues=curr_issues["Adrian"],
-        alecCommits=curr_commits["Alec"],
-        alecIssues=curr_issues["Alec"],
-        junyuCommits=curr_commits["Junyu"],
-        junyuIssues=curr_issues["Junyu"],
-        totalCommits=sum(curr_commits.values()),
-        totalIssues=sum(curr_issues.values())
+        nirmalCommits=commit_counts["Nirmal"],
+        nirmalIssues=issue_counts["Nirmal"],
+        adrianCommits=commit_counts["Adrian"],
+        adrianIssues=issue_counts["Adrian"],
+        alecCommits=commit_counts["Alec"],
+        alecIssues=issue_counts["Alec"],
+        junyuCommits=commit_counts["Junyu"],
+        junyuIssues=issue_counts["Junyu"],
+        totalCommits=sum(commit_counts.values()),
+        totalIssues=sum(issue_counts.values())
     )
 
 
-
+# channels page displays multiple channels
+@app.route('/channels/<int:page_num>')
 # channels page displays multiple channels
 @app.route('/channels/<int:page_num>')
 def showChannels(page_num):
     # channels_info = channel_data['items']
     channels_info = Channel.query.paginate(
         per_page=12, page=page_num, error_out=True)
-
+    # channels_info = channel_data['items']
+    channels_info = Channel.query.paginate(
+        per_page=12, page=page_num, error_out=True)
     return render_template('channels.html', channels=channels_info, current_page=page_num)
 
 
@@ -51,17 +52,6 @@ def showChannel(channelId):
     videos = Video.query.filter_by(channel_id=channelId).all()
     playlists = Playlist.query.filter_by(channel_id=channelId).all()
     return render_template('channel.html', channel=channel_info, videos=videos, playlists=playlists)
-
-
-'''
-@app.route('/videos/<int:page_num>')  # videos page displays multiple videos
-def showVideos(page_num):
-    videos_info = Video.query.paginate(
-        per_page=12, page=page_num, error_out=True)
-    videos_info = Video.query.paginate(
-        per_page=12, page=page_num, error_out=True)
-    return render_template('videos.html', videos=videos_info, current_page=page_num)
-'''
 
 
 @app.route('/videos/<int:page_num>')  # videos page displays multiple videos

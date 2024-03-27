@@ -1,3 +1,26 @@
+commit 9227a7867bc6c5a6cb3e84bbc0a4ab571f707ae8
+Author: Adrian Barajas <adrian.barajas@utexas.edu>
+Date:   Wed Mar 27 13:09:34 2024 -0500
+
+    Fixed pagination bug
+
+commit 0928d5ebc08546f2dd00e95baf19881d41532d23
+Merge: d6dcde3 664337b
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Mar 27 16:40:05 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Final commit for phase 2
+    
+    See merge request cs331e1/ytubedb!48
+
+commit 664337b1d69ccd81e82904d549c05e6816b86ed6
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Wed Mar 27 11:38:53 2024 -0500
+
+    Final commit for phase 2
+
 commit d6dcde3528da9e33c710d0950bb7daa54e63203d
 Author: Adrian Barajas <adrian.barajas@utexas.edu>
 Date:   Wed Mar 27 11:33:08 2024 -0500

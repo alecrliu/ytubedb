@@ -24,11 +24,12 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center" style="font-size: 18px;">
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('index')}}">
-                            <img src="../static/images/ytubedblogo.png" alt="ytubedb logo" style= "height: 35px; border-radius: 10px;">
+                            <img src="../static/images/ytubedblogo.png" alt="ytubedb logo"
+                                style="height: 35px; border-radius: 10px;">
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#"> About</a>
+                        <a class="nav-link active" aria-current="page" href="#">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('showChannels', page_num=1)}}">Channels</a>
@@ -57,7 +58,7 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Members -->
         <h1 class="text-center fw-light">Meet the team:</h1>
         <div class="album py-5 bg-body-tertiary">
@@ -217,7 +218,7 @@
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        <b>Stats</b>
+                        <b>Info</b>
                     </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordion">
@@ -233,24 +234,28 @@
                                 Total #Unit Tests: 9
                             </li>
                             <li>
-                                Unit Tests<button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#unitTestImageModal">View Image</button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="unitTestImageModal" tabindex="-1" aria-labelledby="unitTestImageModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="unitTestImageModalLabel">Unit Test Image</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                    <img src="../static/images/unittest.png" class="img-fluid" alt="Unit Test Image">
+                                <!-- Button or link triggering the modal -->
+                                <a href="#" class="btn btn-link text-decoration-none" style="padding-left: 0;" data-bs-toggle="modal"
+                                data-bs-target="#unitTestImageModal">Database Unit Tests</a>
+                                <!-- Modal -->
+                                <div class="modal fade" id="unitTestImageModal" tabindex="-1"
+                                    aria-labelledby="unitTestImageModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="unitTestImageModalLabel">Database Unit Tests
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="../static/images/unittest.png" class="img-fluid"
+                                                    alt="Unit Test Image">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
-                            </div>
-  
                             </li>
-                                                        
                             <li>
                                 <a class="link-opacity-75-hover"
                                     href="https://gitlab.com/cs331e1/ytubedb/-/issues/?sort=created_date&state=all&first_page_size=20">Issue
@@ -339,16 +344,32 @@
                 <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordion">
                     <div class="accordion-body">
                         <ul>
-                            <li>HTML</li>
-                            <li>CSS (Bootstrap v5.3.2)</li>
-                            <li>Javascript</li>
-                            <li>Python</li>
-                            <li>Flask</li>
-                            <li>Git</li>
-                            <li>Makefile</li>
-                            <li>Google Cloud Platform</li>
-                            <li>JSON</li>
-                            <li>YouTube APIs</li>
+                            <li><b>General</b>
+                                <ul>
+                                    <li>Git</li>
+                                    <li>Python</li>
+                                    <li>Makefile</li>
+                                    <li>Google Cloud Platform</li>
+                                </ul>
+                            </li>
+                            <li><b>Frontend</b>
+                                <ul>
+                                    <li>Flask</li>
+                                    <li>HTML</li>
+                                    <li>CSS (Bootstrap v5.3.2)</li>
+                                    <li>Javascript</li>
+                                </ul>
+                            </li>
+                            <li><b>Backend</b>
+                                <ul>
+                                    <li>JSON</li>
+                                    <li>SQLAlchemy</li>
+                                    <li>YouTube Data API</li>
+                                    <li>GitLab API</li>
+                                    <li>Postman</li>
+                                    <li>PostgreSQL</li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
