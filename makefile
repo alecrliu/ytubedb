@@ -41,15 +41,19 @@ cleanCodePY: APIs.py models.py database.py test.py gitlabStats.py main.py
 	$(AUTOPEP8) --in-place main.py
 	$(AUTOPEP8) --in-place test.py
 
-# for some reason, error generating docs: No Python documentation found for 'models.py'.
-# models:
-# 	$(PYDOC) -w models.py > models.html
+test: test.py
+	$(PYTHON) test.py
+
+# IDB1 and IDB2 have been removed to prevent overwriting the logs
+IDB1:
+# 	git log > IDB1.log
 
 IDB2:
-	git log > IDB2.log
+# 	git log > IDB2.log
 
 IDB3:
 	git log > IDB3.log
 
-test: test.py
-	$(PYTHON) test.py
+# for some reason, error generating docs: No Python documentation found for 'models.py'.
+models:
+# 	$(PYDOC) -w models.py > models.html
