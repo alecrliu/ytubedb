@@ -6,4 +6,3 @@
 *.tmp
 venv/
 .vscode/
-models.html

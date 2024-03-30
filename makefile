@@ -32,8 +32,8 @@ versions:
 DB: database.py
 	$(PYTHON) database.py
 
-cleanCodePY: APIs.py models.py database.py test.py gitlabStats.py main.py
-	$(AUTOPEP8) --in-place APIs.py
+cleanCodePY: youtubeData.py models.py database.py test.py gitlabStats.py main.py
+	$(AUTOPEP8) --in-place youtubeData.py
 	$(AUTOPEP8) --in-place models.py
 	$(AUTOPEP8) --in-place database.py
 	$(AUTOPEP8) --in-place test.py
