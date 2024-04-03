@@ -19,6 +19,7 @@ def get_one_channel(channel_id, youtube):
     if items:
         channel_data = items[0]
         channel_name = channel_data["snippet"]["title"]
+        # published_at = channel_data["snippet"]["publishedAt"]
         description = channel_data["snippet"].get("description")
         if not description:
             description = "No description available"
@@ -27,10 +28,12 @@ def get_one_channel(channel_id, youtube):
         video_count = channel_data["statistics"].get("videoCount", 0)
         thumbnail_url = "No thumbnail available"
         if channel_data["snippet"].get("thumbnails"):
-            thumbnail_url = channel_data["snippet"].get("thumbnails")[
-                "high"]["url"]
+            thumbnail_url = channel_data["snippet"].get("thumbnails")["high"]["url"]
+            if channel_data["snippet"]["thumbnails"].get("maxres"):
+                thumbnail_url = channel_data["snippet"]["thumbnails"]["maxres"]["url"]
         channelData["channelID"] = channel_id
         channelData["channelName"] = channel_name
+        # channelData["publishedAt"] = published_at
         channelData["description"] = description
         channelData["subscriberCount"] = subscriber_count
         channelData["viewCount"] = view_count
@@ -51,6 +54,7 @@ def get_one_video(video_id, channel_id, youtube, checkChannelID=True):
     if response.get("items") and (not checkChannelID or response["items"][0]["snippet"]["channelId"] == channel_id):
         video_data = response["items"][0]
         title = video_data["snippet"]["title"]
+        # published_at = video_data["snippet"]["publishedAt"]
         description = video_data["snippet"].get("description")
         if not description:
             description = "No description available"
@@ -59,11 +63,13 @@ def get_one_video(video_id, channel_id, youtube, checkChannelID=True):
         comment_count = video_data["statistics"].get("commentCount", 0)
         thumbnail_url = "No thumbnail available"
         if video_data["snippet"].get("thumbnails"):
-            thumbnail_url = video_data["snippet"].get("thumbnails")[
-                "high"]["url"]
+            thumbnail_url = video_data["snippet"].get("thumbnails")["medium"]["url"]
+            if video_data["snippet"]["thumbnails"].get("maxres"):
+                thumbnail_url = video_data["snippet"]["thumbnails"]["maxres"]["url"]
         videoData["videoID"] = video_id
         videoData["channelID"] = channel_id
         videoData["title"] = title
+        # videoData["publishedAt"] = published_at
         videoData["description"] = description
         videoData["viewCount"] = view_count
         videoData["likeCount"] = like_count
@@ -125,8 +131,9 @@ def get_one_playlist(playlist_response, channel_id):
         published_at = playlist_response["snippet"]["publishedAt"]
         thumbnail_url = "No thumbnail available"
         if playlist_response["snippet"].get("thumbnails"):
-            thumbnail_url = playlist_response["snippet"].get("thumbnails")[
-                "high"]["url"]
+            thumbnail_url = playlist_response["snippet"].get("thumbnails")["medium"]["url"]
+            if playlist_response["snippet"]["thumbnails"].get("maxres"):
+                thumbnail_url = playlist_response["snippet"]["thumbnails"]["maxres"]["url"]
         playlistData["playlistID"] = playlist_id
         playlistData["channelID"] = channel_id
         playlistData["title"] = title

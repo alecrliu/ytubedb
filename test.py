@@ -9,6 +9,7 @@ from models import db, Channel, Playlist, Video
 CHANNEL_DATA = {
     "channel_id": "ChABC",
     "channelName": "ABC",
+    #"publishedAt": "2023-12-11T15:57:10Z",
     "description": "ABC",
     "subscriberCount": 0,
     "viewCount": 0,
@@ -19,6 +20,7 @@ CHANNEL_DATA = {
 VIDEO_DATA = {
     "video_id": "A1",
     "title": "ABC",
+    #"publishedAt": "2023-12-11T15:57:10Z",
     "description": "ABC",
     "viewCount": 0,
     "likeCount": 0,
@@ -50,6 +52,7 @@ class DBTestCases(unittest.TestCase):
             channel_id=CHANNEL_DATA["channel_id"]).one()
         self.assertEqual(r.channel_id, CHANNEL_DATA["channel_id"])
         self.assertEqual(r.channelName, CHANNEL_DATA["channelName"])
+        # self.assertEqual(r.publishedAt, CHANNEL_DATA["publishedAt"])
         self.assertEqual(r.description, CHANNEL_DATA["description"])
         self.assertEqual(r.subscriberCount, CHANNEL_DATA["subscriberCount"])
         self.assertEqual(r.viewCount, CHANNEL_DATA["viewCount"])
@@ -93,6 +96,7 @@ class DBTestCases(unittest.TestCase):
             video_id=VIDEO_DATA["video_id"]).one()
         self.assertEqual(r.video_id, VIDEO_DATA["video_id"])
         self.assertEqual(r.title, VIDEO_DATA["title"])
+        # self.assertEqual(r.publishedAt, VIDEO_DATA["publishedAt"])
         self.assertEqual(r.description, VIDEO_DATA["description"])
         self.assertEqual(r.viewCount, VIDEO_DATA["viewCount"])
         self.assertEqual(r.likeCount, VIDEO_DATA["likeCount"])

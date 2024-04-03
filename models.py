@@ -38,6 +38,7 @@ class Channel(db.Model):
     Attributes:
         channelName: Name of the channel
         description: Desription of the channel
+        publishedAt: Standard datetime when the channel was published
         subscriberCount: Number of subscribers of the channel
         viewCount: Sum of all the view counts of videos of the channel
         videoCount: Number of videos of the channel
@@ -48,6 +49,7 @@ class Channel(db.Model):
 
     channel_id = db.Column(db.String, primary_key=True)
     channelName = db.Column(db.String, nullable=False)
+    #publishedAt = db.Column(db.DateTime(timezone=False), nullable=False)
     description = db.Column(db.Text, nullable=True)
     subscriberCount = db.Column(db.Integer, nullable=False)
     viewCount = db.Column(db.BigInteger, nullable=False)
@@ -80,6 +82,7 @@ class Video(db.Model):
     Attributes:
         title: Title of the video
         description: Description of the video
+        publishedAt: Standard datetime when the video was published
         viewCount: Number of views the video has
         likeCount: Number of likes the video has
         commentCount: Number of comments the video has
@@ -90,6 +93,7 @@ class Video(db.Model):
 
     video_id = db.Column(db.String, primary_key=True)
     title = db.Column(db.String, nullable=False)
+    #publishedAt = db.Column(db.DateTime(timezone=False), nullable=False)
     description = db.Column(db.Text, nullable=True)
     viewCount = db.Column(db.BigInteger, nullable=False)
     likeCount = db.Column(db.Integer, nullable=False)
