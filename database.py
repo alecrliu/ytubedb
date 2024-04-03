@@ -7,6 +7,7 @@ def create_Channel(channel_data):
     channel_obj = Channel(
         channel_id=channel_data["channelID"],
         channelName=channel_data["channelName"],
+        #publishedAt=channel_data["publishedAt"],
         description=channel_data["description"],
         subscriberCount=channel_data["subscriberCount"],
         viewCount=channel_data["viewCount"],
@@ -41,6 +42,7 @@ def create_Video(video_data):
     video_obj = Video(
         video_id=video_data["videoID"],
         title=video_data["title"],
+        #publishedAt=video_data["publishedAt"],
         description=video_data["description"],
         viewCount=video_data["viewCount"],
         likeCount=video_data["likeCount"],
