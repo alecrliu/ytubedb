@@ -51,7 +51,12 @@
                 <div class="d-flex justify-content-center align-items-center">
                     <!-- Pagination -->
                     <ul class="pagination mb-0 me-3">
-                        {% for page in videos.iter_pages() %}
+                        {% if videos.has_prev %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('showVideos', page_num=current_page - 1, per_page=per_page) }}">Previous</a>
+                        </li>
+                        {% endif %}
+                        {% for page in videos.iter_pages(right_current=2) %}
                         {% if page %}
                         {% if page == current_page %}
                         <li class="page-item active bg-darker">
@@ -70,6 +75,11 @@
                         </li>
                         {% endif %}
                         {% endfor %}
+                        {% if videos.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('showVideos', page_num=current_page + 1, per_page=per_page) }}">Next</a>
+                        </li>
+                        {% endif %}
                     </ul>
 
 
@@ -131,8 +141,14 @@
             </div>
             <br>
             <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    {% for page in videos.iter_pages() %}
+                <!-- Pagination -->
+                <ul class="pagination mb-0 me-3 justify-content-center">
+                    {% if videos.has_prev %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('showVideos', page_num=current_page - 1, per_page=per_page) }}">Previous</a>
+                    </li>
+                    {% endif %}
+                    {% for page in videos.iter_pages(right_current=2) %}
                     {% if page %}
                     {% if page == current_page %}
                     <li class="page-item active bg-darker">
@@ -151,6 +167,11 @@
                     </li>
                     {% endif %}
                     {% endfor %}
+                    {% if videos.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('showVideos', page_num=current_page + 1, per_page=per_page) }}">Next</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>
