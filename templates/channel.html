@@ -132,7 +132,7 @@
                                         <ul>
                                             {% for playlist in playlists %}
                                             <li>
-                                                <a href="{{ url_for('playList', playlistId=playlist.playlist_id) }}"
+                                                <a href="{{ url_for('playlist', playlistId=playlist.playlist_id) }}"
                                                     class="ms-3" style="color: inherit; text-decoration: none;">{{
                                                     playlist.title }}</a>
                                             </li>

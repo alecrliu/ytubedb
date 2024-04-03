@@ -6,6 +6,7 @@ group_id = 81639866
 gitlab_members = {"Nirmal": 15538898, "Adrian": 15580304,
                   "Alec": 15573017, "Junyu": 15554133}
 
+
 def get_commit_counts_per_project(project_id, commit_tracker):
     url = f"{gitlab_url}/api/v4/projects/{project_id}/repository/commits"
     params = {"per_page": 100, "page": 1}
@@ -23,6 +24,7 @@ def get_commit_counts_per_project(project_id, commit_tracker):
         page_commits = response.json()
     return commit_tracker
 
+
 def get_commit_counts(group_id, gitlab_members):
     commit_tracker = {name: 0 for name in gitlab_members}
     url = f"{gitlab_url}/api/v4/groups/{group_id}/projects"
@@ -31,11 +33,13 @@ def get_commit_counts(group_id, gitlab_members):
         projects = response.json()
         for project in projects:
             project_id = project["id"]
-            commit_tracker = get_commit_counts_per_project(project_id, commit_tracker)
+            commit_tracker = get_commit_counts_per_project(
+                project_id, commit_tracker)
     else:
         for name in commit_tracker:
             commit_tracker[name] = -1
     return commit_tracker
+
 
 def get_issue_counts(group_id, gitlab_members):
     issue_tracker = {name: 0 for name in gitlab_members}
@@ -51,6 +55,7 @@ def get_issue_counts(group_id, gitlab_members):
                 issue_tracker[name] = -1
             break
     return issue_tracker
+
 
 commit_counts = get_commit_counts(group_id, gitlab_members)
 issue_counts = get_issue_counts(group_id, gitlab_members)

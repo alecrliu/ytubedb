@@ -24,6 +24,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
+
 class Channel(db.Model):
     """
 
@@ -49,7 +50,7 @@ class Channel(db.Model):
 
     channel_id = db.Column(db.String, primary_key=True)
     channelName = db.Column(db.String, nullable=False)
-    #publishedAt = db.Column(db.DateTime(timezone=False), nullable=False)
+    # publishedAt = db.Column(db.DateTime(timezone=False), nullable=False)
     description = db.Column(db.Text, nullable=True)
     subscriberCount = db.Column(db.Integer, nullable=False)
     viewCount = db.Column(db.BigInteger, nullable=False)
@@ -59,6 +60,18 @@ class Channel(db.Model):
     videos = db.relationship('Video', backref='channels')
     playlists = db.relationship('Playlist', backref='channels')
 
+    # Returns dictionary of channel instance
+    def to_dict(self):
+        return {
+            "channelID": self.channel_id,
+            "channelName": self.channelName,
+            "description": self.description,
+            "subscriberCount": self.subscriberCount,
+            "viewCount": self.viewCount,
+            "videoCount": self.videoCount,
+            "thumbnail": self.thumbnail
+        }
+
 
 # Video-Playlist association table
 VideoPlaylist = db.Table('videoplaylist',
@@ -67,6 +80,7 @@ VideoPlaylist = db.Table('videoplaylist',
                          db.Column('playlist_id', db.String,
                                    db.ForeignKey('playlists.playlist_id'))
                          )
+
 
 class Video(db.Model):
     """
@@ -93,7 +107,7 @@ class Video(db.Model):
 
     video_id = db.Column(db.String, primary_key=True)
     title = db.Column(db.String, nullable=False)
-    #publishedAt = db.Column(db.DateTime(timezone=False), nullable=False)
+    # publishedAt = db.Column(db.DateTime(timezone=False), nullable=False)
     description = db.Column(db.Text, nullable=True)
     viewCount = db.Column(db.BigInteger, nullable=False)
     likeCount = db.Column(db.Integer, nullable=False)
@@ -101,6 +115,20 @@ class Video(db.Model):
     thumbnail = db.Column(db.Text, nullable=True)
 
     channel_id = db.Column(db.String, db.ForeignKey('channels.channel_id'))
+
+    # Returns dictionary of video instance
+    def to_dict(self):
+        return {
+            "videoID": self.video_id,
+            "title": self.title,
+            "description": self.description,
+            "viewCount": self.viewCount,
+            "likeCount": self.likeCount,
+            "commentCount": self.commentCount,
+            "thumbnail": self.thumbnail,
+            "channelID": self.channel_id
+        }
+
 
 class Playlist(db.Model):
     """
@@ -140,3 +168,18 @@ class Playlist(db.Model):
 
     videos = db.relationship(
         'Video', secondary='videoplaylist', backref='inPlaylist')
+
+    # Returns dictionary of playlist instance
+    def to_dict(self):
+        return {
+            "playlistID": self.playlist_id,
+            "title": self.title,
+            "description": self.description,
+            "publishedAt": self.publishedAt,
+            "videoCount": self.videoCount,
+            "totalViews": self.totalViews,
+            "totalLikes": self.totalLikes,
+            "totalComments": self.totalComments,
+            "thumbnail": self.thumbnail,
+            "channelID": self.channel_id
+        }
