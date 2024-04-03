@@ -1,7 +1,7 @@
 from flask import jsonify
 from flask_cors import CORS
 from database import app, db, Channel, Playlist, Video
-from gitlabStats import root_url, gitlab_ids, getCommits, getIssues
+from gitlabStats import commit_counts, issue_counts
 
 CORS(app)
 
@@ -41,19 +41,17 @@ def Playlist_to_dict(self):
 
 @app.route('/api/about', methods=['GET'])
 def about():
-    curr_commits = getCommits(root_url, gitlab_ids)
-    curr_issues = getIssues(root_url, gitlab_ids)
     response = {
-        'nirmalCommits': curr_commits["Nirmal"],
-        'nirmalIssues': curr_issues["Nirmal"],
-        'adrianCommits':curr_commits["Adrian"],
-        'adrianIssues':curr_issues["Adrian"],
-        'alecCommits':curr_commits["Alec"],
-        'alecIssues':curr_issues["Alec"],
-        'junyuCommits':curr_commits["Junyu"],
-        'junyuIssues':curr_issues["Junyu"],
-        'totalCommits': sum(curr_commits.values()),
-        'totalIssues': sum(curr_issues.values())
+        'nirmalCommits': commit_counts["Nirmal"],
+        'nirmalIssues': issue_counts["Nirmal"],
+        'adrianCommits':commit_counts["Adrian"],
+        'adrianIssues':issue_counts["Adrian"],
+        'alecCommits':commit_counts["Alec"],
+        'alecIssues':issue_counts["Alec"],
+        'junyuCommits':commit_counts["Junyu"],
+        'junyuIssues':issue_counts["Junyu"],
+        'totalCommits': sum(commit_counts.values()),
+        'totalIssues': sum(issue_counts.values())
     }
     return jsonify(response)
 
@@ -121,4 +119,4 @@ def playList(playlistId):
 # debug=True to avoid restart the local development server manually after each change to your code.
 # host='0.0.0.0' to make the server publicly available.
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0',port=8080)
