@@ -84,11 +84,11 @@
                 {% for playlist in playlists.items %}
                 <div class="col">
                     <div class="card shadow-sm">
-                        <a href="{{ url_for('playList', playlistId=playlist.playlist_id) }}">
+                        <a href="{{ url_for('playlist', playlistId=playlist.playlist_id) }}">
                             <img class="bd-placeholder-img card-img-top" src="{{ playlist.thumbnail }}"
                                 alt="Playlist Thumbnail">
                         </a>
-                        <a href="{{ url_for('playList', playlistId=playlist.playlist_id) }}">
+                        <a href="{{ url_for('playlist', playlistId=playlist.playlist_id) }}">
                             <h5 style="padding-top: 10px;padding-left: 10px;">{{playlist.title}}</h5>
                         </a>
                         <div class="d-flex justify-content-between align-items-center"
