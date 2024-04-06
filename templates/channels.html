@@ -47,38 +47,60 @@
     <main class="py-5 mt-5">
         <div class="container">
             <h1 class="fw-light text-center">YouTube Channels</h1>
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    {% if channels.has_prev %}
-                    <li class="page-item">
-                        <a class="page-link" href="{{ url_for('showChannels', page_num=current_page - 1) }}">Previous</a>
-                    </li>
-                    {% endif %}
-                    {% for page in channels.iter_pages(right_current=2) %}
-                    {% if page %}
-                    {% if page == current_page %}
-                    <li class="page-item active bg-darker">
-                        <a class="page-link active bg-darker" href="{{ url_for('showChannels', page_num=page) }}">{{
-                            page }}</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="{{ url_for('showChannels', page_num=page) }}">{{ page }}</a>
-                    </li>
-                    {% endif %}
-                    {% else %}
-                    <li class="page-item">
-                        <a class="page-link"> ... </a>
-                    </li>
-                    {% endif %}
-                    {% endfor %}
-                    {% if channels.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="{{ url_for('showChannels', page_num=current_page + 1) }}">Next</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
+            <div class="container mt-4">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                {% if channels.has_prev %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ url_for('showChannels', page_num=current_page - 1, sort=request.args.get('sort', 'default')) }}">Previous</a>
+                                </li>
+                                {% endif %}
+                                {% for page in channels.iter_pages(right_current=2) %}
+                                {% if page %}
+                                {% if page == current_page %}
+                                <li class="page-item active bg-darker">
+                                    <a class="page-link active bg-darker" href="{{ url_for('showChannels', page_num=page, sort=request.args.get('sort', 'default')) }}">{{
+                                        page }}</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ url_for('showChannels', page_num=page, sort=request.args.get('sort', 'default')) }}">{{ page }}</a>
+                                </li>
+                                {% endif %}
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="page-link"> ... </a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                                {% if channels.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ url_for('showChannels', page_num=current_page + 1, sort=request.args.get('sort', 'default')) }}">Next</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="sortingDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Sort by: {{ request.args.get('sort', 'Default').capitalize() }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortingDropdown">
+                                <li><a class="dropdown-item" href="{{ url_for('showChannels', page_num=current_page, sort='subscribers') }}">Subscriber Count</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('showChannels', page_num=current_page, sort='views') }}">View Count</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('showChannels', page_num=current_page, sort='videos') }}">Video Count</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('showChannels', page_num=current_page, sort='name') }}">Channel Name</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('showChannels', page_num=current_page) }}">Default</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
                 {% for channel in channels.items %}
                 <div class="col">
@@ -119,19 +141,19 @@
                 <ul class="pagination justify-content-center">
                     {% if channels.has_prev %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ url_for('showChannels', page_num=current_page - 1) }}">Previous</a>
+                        <a class="page-link" href="{{ url_for('showChannels', page_num=current_page - 1, sort=request.args.get('sort', 'default')) }}">Previous</a>
                     </li>
                     {% endif %}
                     {% for page in channels.iter_pages(right_current=2) %}
                     {% if page %}
                     {% if page == current_page %}
                     <li class="page-item active bg-darker">
-                        <a class="page-link active bg-darker" href="{{ url_for('showChannels', page_num=page) }}">{{
+                        <a class="page-link active bg-darker" href="{{ url_for('showChannels', page_num=page, sort=request.args.get('sort', 'default')) }}">{{
                             page }}</a>
                     </li>
                     {% else %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ url_for('showChannels', page_num=page) }}">{{ page }}</a>
+                        <a class="page-link" href="{{ url_for('showChannels', page_num=page,sort=request.args.get('sort', 'default')) }}">{{ page }}</a>
                     </li>
                     {% endif %}
                     {% else %}
@@ -142,7 +164,7 @@
                     {% endfor %}
                     {% if channels.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ url_for('showChannels', page_num=current_page + 1) }}">Next</a>
+                        <a class="page-link" href="{{ url_for('showChannels', page_num=current_page + 1, sort=request.args.get('sort', 'default')) }}">Next</a>
                     </li>
                     {% endif %}
                 </ul>

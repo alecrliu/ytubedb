@@ -55,13 +55,27 @@ def aboutAPI():
 
 # channels page displays multiple channels
 
-
+'''
 @app.route('/channels/<int:page_num>')
 def showChannels(page_num):
     channels_info = Channel.query.paginate(
         per_page=12, page=page_num, error_out=True)
     return render_template('channels.html', channels=channels_info, current_page=page_num)
-
+'''
+@app.route('/channels/<int:page_num>')
+def showChannels(page_num):
+    sort_option = request.args.get('sort', 'default')  # Get the sort parameter from URL
+    if sort_option == 'subscribers':
+        channels_info = Channel.query.order_by(Channel.subscriberCount.desc()).paginate(per_page=12, page=page_num, error_out=True)
+    elif sort_option == 'views':
+        channels_info = Channel.query.order_by(Channel.viewCount.desc()).paginate(per_page=12, page=page_num, error_out=True)
+    elif sort_option == 'videos':
+        channels_info = Channel.query.order_by(Channel.videoCount.desc()).paginate(per_page=12, page=page_num, error_out=True)
+    elif sort_option == 'name':
+        channels_info = Channel.query.order_by(Channel.channelName).paginate(per_page=12, page=page_num, error_out=True)
+    else:
+        channels_info = Channel.query.paginate(per_page=12, page=page_num, error_out=True)
+    return render_template('channels.html', channels=channels_info, current_page=page_num)
 
 @app.route('/api/channels/<int:page_num>', methods=['GET'])
 def showChannelsAPI(page_num):
