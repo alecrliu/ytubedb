@@ -4,6 +4,7 @@
 import json
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_cors import CORS
+from sqlalchemy import func
 import math
 from database import app, db, Channel, Playlist, Video
 from gitlabStats import commit_counts, issue_counts
@@ -164,18 +165,50 @@ def oneVideoAPI(videoId):
 
 @app.route('/playlists/<int:page_num>')
 def showPlaylist(page_num):
-    playlists_info = Playlist.query.paginate(
-        per_page=12, page=page_num, error_out=True)
-    return render_template('playlists.html', playlists=playlists_info, current_page=page_num)
+    sort_arg = request.args.get('sort_arg', type=str, default="")
+    sort_ord = request.args.get('sort_ord', type=str, default="asc")
+    sort_arg_map = {
+        "title": "title", 
+        "published at": "publishedAt", 
+        "video count": "videoCount", 
+        "total views": "totalViews", 
+        "total likes": "totalLikes", 
+        "total comments": "totalComments"
+    }
+    if sort_arg:
+        sort_key = getattr(Playlist, sort_arg_map[sort_arg])
+        if sort_arg == "title":
+            sort_key = func.lower(getattr(Playlist, sort_arg_map[sort_arg]))
+        sort_key.asc()
+        if sort_ord == "desc":
+            sort_key = sort_key.desc()
+        playlists_info = Playlist.query.order_by(sort_key).paginate(per_page=12, page=page_num, error_out=True)
+    else:
+        playlists_info = Playlist.query.paginate(per_page=12, page=page_num, error_out=True)
+    return render_template('playlists.html', playlists=playlists_info, current_page=page_num, sort_arg=sort_arg, sort_ord=sort_ord)
 
 
 @app.route('/api/playlists/<int:page_num>', methods=['GET'])
 def showPlaylistAPI(page_num):
+    sort_arg = request.args.get('sort_arg', type=str, default="")
+    sort_arg_map = {
+        "title": "title", 
+        "published at": "publishedAt", 
+        "video count": "videoCount", 
+        "total views": "totalViews", 
+        "total likes": "totalLikes", 
+        "total comments": "totalComments"
+    }
     per_page = 12
     total_playlists = Playlist.query.count()
     total_pages = math.ceil(total_playlists / per_page)
-    playlists_info = Playlist.query.paginate(
-        per_page=12, page=page_num, error_out=True)
+    if sort_arg:
+        sort_key = getattr(Playlist, sort_arg_map[sort_arg])
+        if sort_arg == "title":
+            sort_key = func.lower(getattr(Playlist, sort_arg_map[sort_arg]))
+        playlists_info = Playlist.query.order_by(sort_key.asc()).paginate(per_page=12, page=page_num, error_out=True)
+    else:
+        playlists_info = Playlist.query.paginate(per_page=12, page=page_num, error_out=True)
     playlists_info = [playlists.to_dict()
                       for playlists in playlists_info.items]
     return jsonify(current_page=page_num, total_pages=total_pages, playlists=playlists_info)
