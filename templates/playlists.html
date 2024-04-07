@@ -49,13 +49,26 @@
         <div class="container">
             <h1 class="fw-light text-center">YouTube Playlists</h1>
             <br>
+            <nav aria-label="Search">
+                <div class="d-flex justify-content-center align-items-center">
+                    <!-- Search -->
+                    <div style="display: flex; align-items: center; justify-content: flex-end;">
+                        <form method="GET" action="{{ url_for('showPlaylist', page_num=1) }}">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="search_arg" name="search_arg" placeholder="{% if search_arg %}{{ search_arg }}{% else %}Search{% endif %}">
+                                <button type="submit" class="btn btn-primary d-flex">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nav>
             <nav aria-label="Sort">
                 <div class="d-flex justify-content-center align-items-center">
                     <!-- Sort -->
                     <div style="display: flex; align-items: center; justify-content: flex-end;">
                         <label for="sortSelect" style="margin-right: 8px; white-space: nowrap;"><b>Sort:</b></label>
-                        <select id="sortSelect" class="form-select"
-                            onchange="window.location.href = '{{ url_for('showPlaylist', page_num=1) }}?sort_arg=' + this.value;">
+                        <select id="sortSelect" class="form-select mb-3"
+                            onchange="window.location.href = '{{ url_for('showPlaylist', page_num=1) }}?search_arg={{ search_arg }}&sort_arg=' + this.value;">
                             {% set sort_arg_options = ["", "title", "published at", "video count", "total views", "total likes", "total comments"] %}
                             {% for opt in sort_arg_options %}
                                 <option value="{{ opt }}" {% if opt==request.args.get('sort_arg', default="") %}selected{% endif %}>
@@ -67,7 +80,7 @@
                         {% if sort_arg %}
                             <label for="sortOrdSelect" style="margin-left: 8px; margin-right: 8px; white-space: nowrap;">Order:</label>
                             <select id="sortOrdSelect" class="form-select"
-                                onchange="window.location.href = '{{ url_for('showPlaylist', page_num=1) }}?sort_arg={{ sort_arg }}&sort_ord=' + this.value;">
+                                onchange="window.location.href = '{{ url_for('showPlaylist', page_num=1) }}?search_arg={{ search_arg }}&sort_arg={{ sort_arg }}&sort_ord=' + this.value;">
                                 {% set sort_ord_arg_options = ["asc", "desc"] %}
                                 {% for opt in sort_ord_arg_options %}
                                     <option value="{{ opt }}" {% if opt==request.args.get('sort_ord', default="asc") %}selected{% endif %}>
@@ -79,25 +92,24 @@
                     </div>
                 </div>
             </nav>
-            <br>
             <nav aria-label="Page navigation">
                 <div class="d-flex justify-content-center align-items-center">
                     <ul class="pagination mb-0 me-3">
                         {% if playlists.has_prev %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showPlaylist', page_num=current_page - 1, sort_arg=sort_arg, sort_ord=sort_ord) }}">Previous</a>
+                            <a class="page-link" href="{{ url_for('showPlaylist', page_num=current_page - 1, search_arg=search_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Previous</a>
                         </li>
                         {% endif %}
                         {% for page in playlists.iter_pages(right_current=2) %}
                         {% if page %}
                         {% if page == current_page %}
                         <li class="page-item active bg-darker">
-                            <a class="page-link active bg-darker" href="{{ url_for('showPlaylist', page_num=page, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{
+                            <a class="page-link active bg-darker" href="{{ url_for('showPlaylist', page_num=page, search_arg=search_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{
                                 page }}</a>
                         </li>
                         {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showPlaylist', page_num=page, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{ page }}</a>
+                            <a class="page-link" href="{{ url_for('showPlaylist', page_num=page, search_arg=search_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{ page }}</a>
                         </li>
                         {% endif %}
                         {% else %}
@@ -108,7 +120,7 @@
                         {% endfor %}
                         {% if playlists.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showPlaylist', page_num=current_page + 1, sort_arg=sort_arg, sort_ord=sort_ord) }}">Next</a>
+                            <a class="page-link" href="{{ url_for('showPlaylist', page_num=current_page + 1, search_arg=search_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Next</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -149,19 +161,19 @@
                 <ul class="pagination justify-content-center">
                     {% if playlists.has_prev %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ url_for('showPlaylist', page_num=current_page - 1, sort_arg=sort_arg, sort_ord=sort_ord) }}">Previous</a>
+                        <a class="page-link" href="{{ url_for('showPlaylist', page_num=current_page - 1, search_arg=search_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Previous</a>
                     </li>
                     {% endif %}
                     {% for page in playlists.iter_pages(right_current=2) %}
                     {% if page %}
                     {% if page == current_page %}
                     <li class="page-item active bg-darker">
-                        <a class="page-link active bg-darker" href="{{ url_for('showPlaylist', page_num=page, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{
+                        <a class="page-link active bg-darker" href="{{ url_for('showPlaylist', page_num=page, search_arg=search_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{
                             page }}</a>
                     </li>
                     {% else %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ url_for('showPlaylist', page_num=page, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{ page }}</a>
+                        <a class="page-link" href="{{ url_for('showPlaylist', page_num=page, search_arg=search_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{ page }}</a>
                     </li>
                     {% endif %}
                     {% else %}
@@ -172,7 +184,7 @@
                     {% endfor %}
                     {% if playlists.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ url_for('showPlaylist', page_num=current_page + 1, sort_arg=sort_arg, sort_ord=sort_ord) }}">Next</a>
+                        <a class="page-link" href="{{ url_for('showPlaylist', page_num=current_page + 1, search_arg=search_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Next</a>
                     </li>
                     {% endif %}
                 </ul>

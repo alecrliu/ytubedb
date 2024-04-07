@@ -4,7 +4,7 @@
 import json
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_cors import CORS
-from sqlalchemy import func
+from sqlalchemy import func, or_
 import math
 from database import app, db, Channel, Playlist, Video
 from gitlabStats import commit_counts, issue_counts
@@ -163,8 +163,19 @@ def oneVideoAPI(videoId):
 
 # playlists page displays multiple playlists
 
-@app.route('/playlists/<int:page_num>')
+@app.route('/playlists/<int:page_num>', methods=['GET'])
 def showPlaylist(page_num):
+    # Search
+    search_arg = request.args.get('search_arg', type=str, default="").strip()
+    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " ")
+    search_words = [word.lower() for word in search_text.split()]
+    query = Playlist.query
+    if search_words:
+        conditions = []
+        for word in search_words:
+            conditions.append(Playlist.title.ilike(f'%{word}%'))
+        query = query.filter(or_(*conditions))
+    # Sort
     sort_arg = request.args.get('sort_arg', type=str, default="")
     sort_ord = request.args.get('sort_ord', type=str, default="asc")
     sort_arg_map = {
@@ -182,10 +193,10 @@ def showPlaylist(page_num):
         sort_key.asc()
         if sort_ord == "desc":
             sort_key = sort_key.desc()
-        playlists_info = Playlist.query.order_by(sort_key).paginate(per_page=12, page=page_num, error_out=True)
+        playlists_info = query.order_by(sort_key).paginate(per_page=12, page=page_num, error_out=True)
     else:
-        playlists_info = Playlist.query.paginate(per_page=12, page=page_num, error_out=True)
-    return render_template('playlists.html', playlists=playlists_info, current_page=page_num, sort_arg=sort_arg, sort_ord=sort_ord)
+        playlists_info = query.paginate(per_page=12, page=page_num, error_out=True)
+    return render_template('playlists.html', playlists=playlists_info, current_page=page_num, search_arg=search_text, sort_arg=sort_arg, sort_ord=sort_ord)
 
 
 @app.route('/api/playlists/<int:page_num>', methods=['GET'])
