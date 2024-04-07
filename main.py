@@ -4,7 +4,7 @@
 import json
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_cors import CORS
-from sqlalchemy import func
+from sqlalchemy import func, or_
 import math
 from database import app, db, Channel, Playlist, Video
 from gitlabStats import commit_counts, issue_counts
@@ -63,6 +63,7 @@ def showChannels(page_num):
         per_page=12, page=page_num, error_out=True)
     return render_template('channels.html', channels=channels_info, current_page=page_num)
 '''
+'''
 @app.route('/channels/<int:page_num>')
 def showChannels(page_num):
     sort_option = request.args.get('sort', 'default')  # Get the sort parameter from URL
@@ -77,6 +78,34 @@ def showChannels(page_num):
     else:
         channels_info = Channel.query.paginate(per_page=12, page=page_num, error_out=True)
     return render_template('channels.html', channels=channels_info, current_page=page_num)
+'''
+
+
+@app.route('/channels/<int:page_num>')
+def showChannels(page_num):
+    sort_option = request.args.get('sort', 'default')  # sort parameter from URL
+    search_query = request.args.get('search', '')  # search parameter from URL
+    query = Channel.query
+    if search_query:
+        search = f"%{search_query}%"
+        query = query.filter(
+            or_(
+                Channel.channelName.ilike(search),
+                Channel.description.ilike(search)
+            )
+        )
+    if sort_option == 'subscribers':
+        query = query.order_by(Channel.subscriberCount.desc())
+    elif sort_option == 'views':
+        query = query.order_by(Channel.viewCount.desc())
+    elif sort_option == 'videos':
+        query = query.order_by(Channel.videoCount.desc())
+    elif sort_option == 'name':
+        query = query.order_by(Channel.channelName)
+ 
+    channels_info = query.paginate(per_page=12, page=page_num, error_out=True)
+    
+    return render_template('channels.html', channels=channels_info, current_page=page_num, search_query=search_query)
 
 @app.route('/api/channels/<int:page_num>', methods=['GET'])
 def showChannelsAPI(page_num):
