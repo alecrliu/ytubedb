@@ -11,15 +11,19 @@ from gitlabStats import commit_counts, issue_counts
 CORS(app)
 
 
-# splash page
 @app.route('/')
 def index():
+    """
+    splash page
+    """
     return render_template('splash.html')
 
 
-# about page
 @app.route('/about')
 def about():
+    """
+    about page
+    """
     return render_template(
         'about.html',
         nirmalCommits=commit_counts["Nirmal"],
@@ -35,9 +39,11 @@ def about():
     )
 
 
-# channels page displays multiple channels
 @app.route('/channels/<int:page_num>')
 def showChannels(page_num):
+    """
+    channels page displays multiple channels
+    """
     sort_option = request.args.get(
         'sort', 'default')  # sort parameter from URL
     order_option = request.args.get('order', 'desc')
@@ -69,9 +75,11 @@ def showChannels(page_num):
     return render_template('channels.html', channels=channels_info, current_page=page_num, search_query=search_query)
 
 
-# channel page displays single channel
 @app.route('/channel/<string:channelId>')
 def showChannel(channelId):
+    """
+    channel page displays single channel
+    """
     channel_info = Channel.query.filter_by(channel_id=channelId).first()
     if channel_info is None:
         return "Channel not found", 404
@@ -80,9 +88,11 @@ def showChannel(channelId):
     return render_template('channel.html', channel=channel_info, videos=videos, playlists=playlists)
 
 
-# videos page displays multiple videos
 @app.route('/videos/<int:page_num>')
 def showVideos(page_num):
+    """
+    videos page displays multiple videos
+    """
     sort_option = request.args.get('sort', 'default')
     order_option = request.args.get('order', 'desc')
     search_query = request.args.get('search', '')
@@ -113,9 +123,11 @@ def showVideos(page_num):
     return render_template('videos.html', videos=videos_info, current_page=page_num, search_query=search_query)
 
 
-# video page displays single video
 @app.route('/video/<string:videoId>')
 def oneVideo(videoId):
+    """
+    video page displays single video
+    """
     video = Video.query.filter_by(video_id=videoId).first()
     channel = None
     playlists = []
@@ -127,9 +139,11 @@ def oneVideo(videoId):
     return render_template('video.html', video=video, channel=channel, playlists=playlists)
 
 
-# playlists page displays multiple playlists
 @app.route('/playlists/<int:page_num>', methods=['GET'])
 def showPlaylist(page_num):
+    """
+    playlists page displays multiple playlists
+    """
     # Search
     search_arg = request.args.get('search_arg', type=str, default="").strip()
     query, search_text = process_search_playlist(search_arg)

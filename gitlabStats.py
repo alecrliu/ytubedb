@@ -1,3 +1,6 @@
+"""API and stats for GitLab activity"""
+
+
 import requests
 import json
 

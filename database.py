@@ -1,3 +1,6 @@
+"""Creates and adds data to the database"""
+
+
 from models import app, db, Channel, Playlist, Video
 import os
 import json

@@ -1,3 +1,6 @@
+"""Postman API server for project"""
+
+
 from flask import jsonify
 from flask_cors import CORS
 from database import app, db, Channel, Playlist, Video

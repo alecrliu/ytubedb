@@ -6,6 +6,7 @@ import sys
 import unittest
 from models import db, Channel, Playlist, Video
 
+
 CHANNEL_DATA = {
     "channel_id": "ChABC",
     "channelName": "ABC",

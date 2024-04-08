@@ -1,9 +1,12 @@
 """Creates classes (tables) for each model in the database"""
 
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 from dotenv import load_dotenv
+
+
 load_dotenv()
 
 # initializing Flask app
@@ -27,7 +30,6 @@ db = SQLAlchemy(app)
 
 class Channel(db.Model):
     """
-
     Channel table
 
     Primary Key: channel_id
@@ -38,13 +40,12 @@ class Channel(db.Model):
 
     Attributes:
         channelName: Name of the channel
-        description: Desription of the channel
+        description: Description of the channel
         publishedAt: Standard datetime when the channel was published
         subscriberCount: Number of subscribers of the channel
         viewCount: Sum of all the view counts of videos of the channel
         videoCount: Number of videos of the channel
         thumbnail: A high quality thumbnail URL of the channel
-
     """
     __tablename__ = 'channels'
 
@@ -84,7 +85,6 @@ VideoPlaylist = db.Table('videoplaylist',
 
 class Video(db.Model):
     """
-
     Video table
 
     Primary Key: video_id
@@ -101,7 +101,6 @@ class Video(db.Model):
         likeCount: Number of likes the video has
         commentCount: Number of comments the video has
         thumbnail: A high quality thumbnail URL of the video
-
     """
     __tablename__ = 'videos'
 
