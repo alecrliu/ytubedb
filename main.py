@@ -1,8 +1,6 @@
 """Routing with queries for each page"""
 
-
-import json
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import render_template, request,jsonify
 from flask_cors import CORS
 from sqlalchemy import func, or_, desc, asc
 import math
@@ -13,8 +11,6 @@ from gitlabStats import commit_counts, issue_counts
 CORS(app)
 
 # splash page
-
-
 @app.route('/')
 def index():
     return render_template('splash.html')
@@ -174,6 +170,16 @@ def showVideos(page_num):
     return render_template('videos.html', videos=videos_info, current_page=page_num, search_query=search_query)
 
 
+@app.route('/api/videos/<int:page_num>', methods=['GET'])
+def showVideosAPI(page_num):
+    per_page = request.args.get('per_page', type=int, default=12)
+    total_videos = Video.query.count()
+    total_pages = math.ceil(total_videos / per_page)
+    videos_query = Video.query.options(joinedload(Video.channels)).paginate(
+        per_page=per_page, page=page_num, error_out=True)
+    videos_info = [video.to_dict() for video in videos_query.items]
+    return jsonify(current_page=page_num, total_pages=total_pages, videos=videos_info)
+
 # video page displays single video
 @app.route('/video/<string:videoId>')
 def oneVideo(videoId):
@@ -330,7 +336,8 @@ def playlistAPI(playlistId):
     return jsonify(playlist=playlist_dict, channel=channel_dict, videos=videos_dict)
 
 
+
 # debug=True to avoid restart the local development server manually after each change to your code.
 # host='0.0.0.0' to make the server publicly available.
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0',port=8080)
