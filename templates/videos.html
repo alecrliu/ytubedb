@@ -189,12 +189,12 @@
                 {% endfor %}
             </div>
             {% else %}
+            <br>
+            <h3 class="text-center fw-light pt-5">We went from "hello world" to dealing with "{{search_query}}".</h3>
             <div class="col d-flex justify-content-center align-items-center pt-5">
-                <img src="../static/images/missing.png" alt="No Results" style="height: 200px; width: 200px;">
+                <img src="../static/images/missing.png" alt="No Results" style="height: 125px; width: 125px;">
             </div>
-            <div class="col d-flex justify-content-center align-items-center pt-5">
-                <p>No videos found. Try searching for something else... </p>
-            </div>
+            <p class="text-center pt-5">No videos found. Try searching for something else... </p>
             {% endif %}
             <br>
             <nav aria-label="Page navigation">
