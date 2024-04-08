@@ -47,8 +47,7 @@ def showChannels(page_num):
         search = f"%{search_query}%"
         query = query.filter(
             or_(
-                Channel.channelName.ilike(search),
-                Channel.description.ilike(search)
+                Channel.channelName.ilike(search)
             )
         )
     if sort_option == 'subscribers':
@@ -92,8 +91,7 @@ def showVideos(page_num):
         search = f"%{search_query}%"
         query = query.filter(
             or_(
-                Video.title.ilike(search),
-                Video.description.ilike(search)
+                Video.title.ilike(search)
             )
         )
     if sort_option == 'title':

@@ -133,7 +133,6 @@
                         </li>
                         {% endif %}
                     </ul>
-
                     <!-- Videos per page selection dropdown (temporarily removed due to conflicts with searching and sorting)-->
                     <!-- <div style="display: flex; align-items: center; justify-content: flex-end;">
                         <label for="perPageSelect" style="margin-right: 8px; white-space: nowrap;">Videos per
@@ -147,10 +146,9 @@
                             {% endfor %}
                         </select>
                     </div> -->
-
                 </div>
             </nav>
-            {% if videos.total > 0 %}
+            {% if videos.items %}
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
                 {% for video in videos.items %}
                 <div class="col">
@@ -195,7 +193,7 @@
                 <img src="../static/images/missingVideo.png" alt="No Results" style="height: 175px; width: 200px;">
             </div>
             <div class="col d-flex justify-content-center align-items-center pt-5">
-                <p>No videos found. Try searching for something else... </p>
+                <p>No videos found. Try searching for something else ... </p>
             </div>
             {% endif %}
             <br>

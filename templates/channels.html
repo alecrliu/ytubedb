@@ -141,6 +141,7 @@
                     </div>
                 </div>
             </div>
+            {% if channels.items %}
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-3">
                 {% for channel in channels.items %}
                 <div class="col">
@@ -170,12 +171,18 @@
                                 <i class="fas fa-video"></i> {{ channel.videoCount }}
                             </p>
                         </div>
-
-
                     </div>
                 </div>
                 {% endfor %}
             </div>
+            {% else %}
+            <div class="col d-flex justify-content-center align-items-center pt-5">
+                <img src="../static/images/missingVideo.png" alt="No Results" style="height: 175px; width: 200px;">
+            </div>
+            <div class="col d-flex justify-content-center align-items-center pt-5">
+                <p>No channels found. Try searching for something else... </p>
+            </div>
+            {% endif %}
             <br>
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
