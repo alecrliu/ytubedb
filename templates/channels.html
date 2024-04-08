@@ -59,7 +59,7 @@
                                 {% if channels.has_prev %}
                                 <li class="page-item">
                                     <a class="page-link"
-                                        href="{{ url_for('showChannels', page_num=current_page - 1, sort=request.args.get('sort', 'default'),search=request.args.get('search', '')) }}">Previous</a>
+                                        href="{{ url_for('showChannels', page_num=current_page - 1, sort=request.args.get('sort', 'default'),order=request.args.get('order', 'desc'),search=request.args.get('search', '')) }}">Previous</a>
                                 </li>
                                 {% endif %}
                                 {% for page in channels.iter_pages(right_current=2) %}
@@ -67,13 +67,13 @@
                                 {% if page == current_page %}
                                 <li class="page-item active bg-darker">
                                     <a class="page-link active bg-darker"
-                                        href="{{ url_for('showChannels', page_num=page, sort=request.args.get('sort', 'default'),search=request.args.get('search', '')) }}">{{
+                                        href="{{ url_for('showChannels', page_num=page, sort=request.args.get('sort', 'default'),order=request.args.get('order', 'desc'),search=request.args.get('search', '')) }}">{{
                                         page }}</a>
                                 </li>
                                 {% else %}
                                 <li class="page-item">
                                     <a class="page-link"
-                                        href="{{ url_for('showChannels', page_num=page, sort=request.args.get('sort', 'default'),search=request.args.get('search', '')) }}">{{
+                                        href="{{ url_for('showChannels', page_num=page, sort=request.args.get('sort', 'default'),order=request.args.get('order', 'desc'),search=request.args.get('search', '')) }}">{{
                                         page }}</a>
                                 </li>
                                 {% endif %}
@@ -86,7 +86,7 @@
                                 {% if channels.has_next %}
                                 <li class="page-item">
                                     <a class="page-link"
-                                        href="{{ url_for('showChannels', page_num=current_page + 1, sort=request.args.get('sort', 'default'),search=request.args.get('search', '')) }}">Next</a>
+                                        href="{{ url_for('showChannels', page_num=current_page + 1, sort=request.args.get('sort', 'default'),order=request.args.get('order', 'desc'),search=request.args.get('search', '')) }}">Next</a>
                                 </li>
                                 {% endif %}
                             </ul>
@@ -107,19 +107,19 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item"
-                                        href="{{ url_for('showChannels', page_num=1, sort='name', search=request.args.get('search', '')) }}">Name</a>
+                                        href="{{ url_for('showChannels', page_num=1, sort='name',order='asc', search=request.args.get('search', '')) }}">Name</a>
                                 </li>
                                 <li><a class="dropdown-item"
-                                        href="{{ url_for('showChannels', page_num=1, sort='subscribers', search=request.args.get('search', '')) }}">Subscribers</a>
+                                        href="{{ url_for('showChannels', page_num=1, sort='subscribers',order='asc', search=request.args.get('search', '')) }}">Subscribers</a>
                                 </li>
                                 <li><a class="dropdown-item"
-                                        href="{{ url_for('showChannels', page_num=1, sort='views', search=request.args.get('search', '')) }}">Views</a>
+                                        href="{{ url_for('showChannels', page_num=1, sort='views',order='asc', search=request.args.get('search', '')) }}">Views</a>
                                 </li>
                                 <li><a class="dropdown-item"
-                                        href="{{ url_for('showChannels', page_num=1, sort='videos', search=request.args.get('search', '')) }}">Videos</a>
+                                        href="{{ url_for('showChannels', page_num=1, sort='videos',order='asc', search=request.args.get('search', '')) }}">Videos</a>
                                 </li>
                                 <li><a class="dropdown-item"
-                                        href="{{ url_for('showChannels', page_num=1, sort='wordiness', search=request.args.get('search', '')) }}">Wordiness</a>
+                                        href="{{ url_for('showChannels', page_num=1, sort='wordiness',order='asc', search=request.args.get('search', '')) }}">Wordiness</a>
                                 </li>
                                 <li><a class="dropdown-item"
                                         href="{{ url_for('showChannels', page_num=1, search=request.args.get('search', '')) }}">Default</a>
@@ -189,7 +189,7 @@
                     {% if channels.has_prev %}
                     <li class="page-item">
                         <a class="page-link"
-                            href="{{ url_for('showChannels', page_num=current_page - 1, sort=request.args.get('sort', 'default'),search=request.args.get('search', '')) }}">Previous</a>
+                            href="{{ url_for('showChannels', page_num=current_page - 1, sort=request.args.get('sort', 'default'),order=request.args.get('order', 'desc'),search=request.args.get('search', '')) }}">Previous</a>
                     </li>
                     {% endif %}
                     {% for page in channels.iter_pages(right_current=2) %}
@@ -197,13 +197,13 @@
                     {% if page == current_page %}
                     <li class="page-item active bg-darker">
                         <a class="page-link active bg-darker"
-                            href="{{ url_for('showChannels', page_num=page, sort=request.args.get('sort', 'default'),search=request.args.get('search', '')) }}">{{
+                            href="{{ url_for('showChannels', page_num=page, sort=request.args.get('sort', 'default'),order=request.args.get('order', 'desc'),search=request.args.get('search', '')) }}">{{
                             page }}</a>
                     </li>
                     {% else %}
                     <li class="page-item">
                         <a class="page-link"
-                            href="{{ url_for('showChannels', page_num=page,sort=request.args.get('sort', 'default'),search=request.args.get('search', '')) }}">{{
+                            href="{{ url_for('showChannels', page_num=page,sort=request.args.get('sort', 'default'),order=request.args.get('order', 'desc'),search=request.args.get('search', '')) }}">{{
                             page }}</a>
                     </li>
                     {% endif %}
@@ -216,7 +216,7 @@
                     {% if channels.has_next %}
                     <li class="page-item">
                         <a class="page-link"
-                            href="{{ url_for('showChannels', page_num=current_page + 1, sort=request.args.get('sort', 'default'),search=request.args.get('search', '')) }}">Next</a>
+                            href="{{ url_for('showChannels', page_num=current_page + 1, sort=request.args.get('sort', 'default'),order=request.args.get('order', 'desc'),search=request.args.get('search', '')) }}">Next</a>
                     </li>
                     {% endif %}
                 </ul>
