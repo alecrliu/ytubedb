@@ -51,11 +51,8 @@ def showChannels(page_num):
     query = Channel.query
     if search_query:
         search = f"%{search_query}%"
-        query = query.filter(
-            or_(
-                Channel.channelName.ilike(search)
-            )
-        )
+        query = query.filter(or_(Channel.channelName.ilike(search),
+                                 Channel.description.ilike(search)))
     if sort_option == 'subscribers':
         query = query.order_by(desc(Channel.subscriberCount)
                                if order_option == 'desc' else asc(Channel.subscriberCount))
