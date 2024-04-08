@@ -126,7 +126,9 @@ class Video(db.Model):
             "likeCount": self.likeCount,
             "commentCount": self.commentCount,
             "thumbnail": self.thumbnail,
-            "channelID": self.channel_id
+            "channelID": self.channel_id,
+            "channelName": self.channels.channelName,
+            "channelThumbnail": self.channels.thumbnail
         }
 
 
@@ -181,5 +183,7 @@ class Playlist(db.Model):
             "totalLikes": self.totalLikes,
             "totalComments": self.totalComments,
             "thumbnail": self.thumbnail,
-            "channelID": self.channel_id
+            "channelID": self.channel_id,
+            "channelName": self.channels.channelName,
+            "channelThumbnail": self.channels.thumbnail
         }
