@@ -2,11 +2,11 @@
 
 from flask import render_template, request,jsonify
 from flask_cors import CORS
-from sqlalchemy import func, or_
-from sqlalchemy.orm import joinedload
+from sqlalchemy import func, or_, desc, asc
 import math
 from database import app, db, Channel, Playlist, Video
 from gitlabStats import commit_counts, issue_counts
+
 
 CORS(app)
 
@@ -14,6 +14,7 @@ CORS(app)
 @app.route('/')
 def index():
     return render_template('splash.html')
+
 
 # about page
 @app.route('/about')
@@ -49,9 +50,8 @@ def aboutAPI():
     }
     return jsonify(response)
 
+
 # channels page displays multiple channels
-
-
 '''
 @app.route('/channels/<int:page_num>')
 def showChannels(page_num):
@@ -115,9 +115,8 @@ def showChannelsAPI(page_num):
     channels = [channel.to_dict() for channel in channels_info.items]
     return jsonify(current_page=page_num, total_pages=total_pages, channels=channels)
 
+
 # channel page displays single channel
-
-
 @app.route('/channel/<string:channelId>')
 def showChannel(channelId):
     channel_info = Channel.query.filter_by(channel_id=channelId).first()
@@ -139,15 +138,36 @@ def showChannelAPI(channelId):
         channel_id=channelId).all()]
     return jsonify(channel=channel_info.to_dict(), videos=videos, playlists=playlists)
 
+
 # videos page displays multiple videos
-
-
 @app.route('/videos/<int:page_num>')
 def showVideos(page_num):
-    per_page = request.args.get('per_page', type=int, default=12)
-    videos_info = Video.query.paginate(
-        per_page=per_page, page=page_num, error_out=True)
-    return render_template('videos.html', videos=videos_info, current_page=page_num, per_page=per_page)
+    sort_option = request.args.get('sort', 'default')
+    order_option = request.args.get('order', 'desc')
+    search_query = request.args.get('search', '')
+    query = Video.query
+    if search_query:
+        search = f"%{search_query}%"
+        query = query.filter(
+            or_(
+                Video.title.ilike(search),
+                Video.description.ilike(search)
+            )
+        )
+    if sort_option == 'title':
+        query = query.order_by(
+            desc(Video.title) if order_option == 'desc' else asc(Video.title))
+    elif sort_option == 'views':
+        query = query.order_by(
+            desc(Video.viewCount) if order_option == 'desc' else asc(Video.viewCount))
+    elif sort_option == 'likes':
+        query = query.order_by(
+            desc(Video.likeCount) if order_option == 'desc' else asc(Video.likeCount))
+    elif sort_option == 'comments':
+        query = query.order_by(
+            desc(Video.commentCount) if order_option == 'desc' else asc(Video.commentCount))
+    videos_info = query.paginate(per_page=15, page=page_num, error_out=True)
+    return render_template('videos.html', videos=videos_info, current_page=page_num, search_query=search_query)
 
 
 @app.route('/api/videos/<int:page_num>', methods=['GET'])
@@ -161,8 +181,6 @@ def showVideosAPI(page_num):
     return jsonify(current_page=page_num, total_pages=total_pages, videos=videos_info)
 
 # video page displays single video
-
-
 @app.route('/video/<string:videoId>')
 def oneVideo(videoId):
     video = Video.query.filter_by(video_id=videoId).first()
@@ -187,9 +205,8 @@ def oneVideoAPI(videoId):
     video_dict = video.to_dict()
     return jsonify(video=video_dict, channel=channel_dict, playlists=playlists_dict)
 
+
 # playlists page displays multiple playlists
-
-
 def process_search_playlist(search_arg):
     search_text = ''.join(c for c in search_arg if c.isalnum() or c == " ")
     search_words = [word.lower() for word in search_text.split()]
@@ -237,6 +254,8 @@ def process_sort_playlist(query, page_num, sort_arg, sort_ord):
         sort_key.asc()
         if sort_ord == "desc":
             sort_key = sort_key.desc()
+        playlists_info = query.order_by(sort_key).paginate(
+            per_page=12, page=page_num, error_out=True)
         playlists_info = query.order_by(sort_key).paginate(
             per_page=12, page=page_num, error_out=True)
     else:
@@ -293,9 +312,8 @@ def showPlaylistAPI(page_num):
     total_pages = math.ceil(total_playlists / per_page)
     return jsonify(current_page=page_num, total_pages=total_pages, playlists=playlists_info)
 
+
 # playlist page displays single playlist
-
-
 @app.route('/playlist/<string:playlistId>')
 def playlist(playlistId):
     playlist_info = Playlist.query.filter_by(playlist_id=playlistId).first()
