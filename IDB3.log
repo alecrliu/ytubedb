@@ -1,3 +1,65 @@
+commit bd53011ffc9b1ef7a83136621935572e05b2b0e1
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Apr 8 16:27:47 2024 -0500
+
+    docs, formatting, new icon for missing stuff
+
+commit 4e812e9cfc36a199aa4450e272f2766872ae14b4
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Apr 8 12:31:00 2024 -0500
+
+    added no results messages
+
+commit c6919ccc81cab852b15621a282bdab4604938ad9
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Apr 8 12:18:41 2024 -0500
+
+    added description length sorting, rearranged main, formatted descriptions and search bars, added ordering options to channels
+
+commit 3df180d4d4e1b1341d79de064572fe38936d91dc
+Merge: 84c8f5c 278dcc1
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Apr 8 16:24:49 2024 +0000
+
+    Merge branch 'Alec' into 'main'
+    
+    added searching and sorting to videos
+    
+    See merge request cs331e1/ytubedb!60
+
+commit 278dcc1baec35a4d606c12e8b4714cec2ac85410
+Merge: 9610a1b 84c8f5c
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Apr 8 16:23:42 2024 +0000
+
+    Merge branch 'main' into 'Alec'
+    
+    # Conflicts:
+    #   main.py
+
+commit 9610a1b23d3df042529161226496a1dc6d74ab3d
+Author: Alec Liu <alec.liu@utexas.edu>
+Date:   Mon Apr 8 11:20:45 2024 -0500
+
+    added searching and sorting to videos
+
+commit 84c8f5c23f304f18b324d60f2dbdcc8cc43cd893
+Merge: c430f70 addb3d9
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Mon Apr 8 15:40:45 2024 +0000
+
+    Merge branch 'main' into 'main'
+    
+    Update main and model for better api data
+    
+    See merge request cs331e1/ytubedb!59
+
+commit addb3d98af7bb8202b1f657507be619135c357e5
+Author: Junyu Yao <yaojunyu@utexas.edu>
+Date:   Mon Apr 8 10:24:26 2024 -0500
+
+    Update main and model for better api data
+
 commit c430f708a7157ec4e447de74b7d3b3c8d5d392c6
 Merge: 79cb85d 0a041d1
 Author: Nirmal Narendra Patel <nirmpatel@utexas.edu>

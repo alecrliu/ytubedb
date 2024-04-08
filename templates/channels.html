@@ -176,12 +176,12 @@
                 {% endfor %}
             </div>
             {% else %}
+            <br>
+            <h3 class="text-center fw-light pt-5">"{{search_query}}" sounds like a really unique channel. A bit too unique!</h3>
             <div class="col d-flex justify-content-center align-items-center pt-5">
-                <img src="../static/images/missing.png" alt="No Results" style="height: 200px; width: 200px;">
+                <img src="../static/images/missing.png" alt="No Results" style="height: 125px; width: 125px;">
             </div>
-            <div class="col d-flex justify-content-center align-items-center pt-5">
-                <p>No channels found. Try searching for something else... </p>
-            </div>
+            <p class="text-center pt-5">No channels found. Try searching for something else... </p>
             {% endif %}
             <br>
             <nav aria-label="Page navigation">
