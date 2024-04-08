@@ -81,7 +81,7 @@
                     </div>
                     <div class="collapse" id="descriptionCollapse">
                         <div class="card card-body mt-3">
-                            {{ channel.description }}
+                            {{ channel.description|replace('\n', '<br>')|safe }}
                         </div>
 
                         <br>

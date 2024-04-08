@@ -83,7 +83,7 @@
                     <div class="collapse" id="descriptionCollapse">
                         <div class="card card-body mt-3">
                             <h5> Description</h5>
-                            {{ playlist.description }}
+                            {{ playlist.description|replace('\n', '<br>')|safe }}
                             <br>
                         </div>
                     </div>

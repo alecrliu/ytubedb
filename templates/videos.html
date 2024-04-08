@@ -80,6 +80,9 @@
                     <li><a class="dropdown-item"
                             href="{{ url_for('showVideos', page_num=1, sort='comments', search=request.args.get('search', '')) }}">Comments</a>
                     </li>
+                    <li><a class="dropdown-item"
+                            href="{{ url_for('showVideos', page_num=1, sort='wordiness', search=request.args.get('search', '')) }}">Wordiness</a>
+                    </li>
                 </ul>
                 {% if request.args.get('sort', 'default') != 'default' %}
                 <div class="btn-group">
