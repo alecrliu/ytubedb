@@ -3,6 +3,7 @@
 from flask import render_template, request, jsonify
 from flask_cors import CORS
 from sqlalchemy import func, or_, desc, asc, func
+from sqlalchemy.orm import joinedload
 import math
 from database import app, db, Channel, Playlist, Video
 from gitlabStats import commit_counts, issue_counts
@@ -286,13 +287,27 @@ def aboutAPI():
 
 @app.route('/api/channels/<int:page_num>', methods=['GET'])
 def showChannelsAPI(page_num):
+    # Search
+    search_arg = request.args.get('search_arg', type=str, default="").strip()
+    query, search_text = process_search_channel(search_arg)
+    # Filter
+    filter_arg = request.args.get('filter_arg', type=str, default="")
+    filter_min_arg = request.args.get('filter_min_arg', type=str, default="").strip()
+    filter_max_arg = request.args.get('filter_max_arg', type=str, default="").strip()
+    query = process_filter_channel(query, filter_arg, filter_min_arg, filter_max_arg)
+    # Sort
+    sort_arg = request.args.get('sort_arg', type=str, default="")
+    sort_ord = request.args.get('sort_ord', type=str, default="asc")
+    query = process_sort_channel(query, sort_arg, sort_ord)
     per_page = 12
     total_channels = Channel.query.count()
     total_pages = math.ceil(total_channels / per_page)
     channels_info = Channel.query.paginate(
         per_page=12, page=page_num, error_out=True)
     channels = [channel.to_dict() for channel in channels_info.items]
-    return jsonify(current_page=page_num, total_pages=total_pages, channels=channels)
+    return jsonify(current_page=page_num, total_pages=total_pages, channels=channels,search_arg=search_text,
+        filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg,
+        sort_arg=sort_arg, sort_ord=sort_ord)
 
 
 @app.route('/api/channel/<string:channelId>', methods=['GET'])
