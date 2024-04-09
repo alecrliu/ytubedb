@@ -24,7 +24,7 @@ def get_one_channel(channel_id, youtube):
     if items:
         channel_data = items[0]
         channel_name = channel_data["snippet"]["title"]
-        # published_at = channel_data["snippet"]["publishedAt"]
+        published_at = channel_data["snippet"]["publishedAt"]
         description = channel_data["snippet"].get("description")
         if not description:
             description = "No description available"
@@ -39,7 +39,7 @@ def get_one_channel(channel_id, youtube):
                 thumbnail_url = channel_data["snippet"]["thumbnails"]["maxres"]["url"]
         channelData["channelID"] = channel_id
         channelData["channelName"] = channel_name
-        # channelData["publishedAt"] = published_at
+        channelData["publishedAt"] = published_at
         channelData["description"] = description
         channelData["subscriberCount"] = subscriber_count
         channelData["viewCount"] = view_count
@@ -61,7 +61,7 @@ def get_one_video(video_id, channel_id, youtube, checkChannelID=True):
     if response.get("items") and (not checkChannelID or response["items"][0]["snippet"]["channelId"] == channel_id):
         video_data = response["items"][0]
         title = video_data["snippet"]["title"]
-        # published_at = video_data["snippet"]["publishedAt"]
+        published_at = video_data["snippet"]["publishedAt"]
         description = video_data["snippet"].get("description")
         if not description:
             description = "No description available"
@@ -77,7 +77,7 @@ def get_one_video(video_id, channel_id, youtube, checkChannelID=True):
         videoData["videoID"] = video_id
         videoData["channelID"] = channel_id
         videoData["title"] = title
-        # videoData["publishedAt"] = published_at
+        videoData["publishedAt"] = published_at
         videoData["description"] = description
         videoData["viewCount"] = view_count
         videoData["likeCount"] = like_count
