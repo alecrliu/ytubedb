@@ -38,39 +38,76 @@ def about():
         totalIssues=sum(issue_counts.values())
     )
 
+def process_search_channel(search_arg):
+    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " ")
+    search_words = [word.lower() for word in search_text.split()]
+    query = Channel.query
+    if search_words:
+        conditions = []
+        for word in search_words:
+            conditions.append(Channel.channelName.ilike(f'%{word}%'))
+            conditions.append(Channel.description.ilike(f'%{word}%'))
+        query = query.filter(or_(*conditions))
+    return query, search_text
+
+def process_filter_channel(query, filter_arg, filter_min_arg, filter_max_arg):
+    filter_min_arg = int(filter_min_arg) if filter_min_arg.isdigit() else 0
+    filter_max_arg = int(filter_max_arg) if filter_max_arg.isdigit() else 1000000000000
+    if filter_max_arg < filter_min_arg:
+        filter_min_arg, filter_max_arg = 0, 1000000000000
+    filter_arg_map = {
+        "subscriber count": "subscriberCount",
+        "view count": "viewCount",
+        "video count": "videoCount"
+    }
+    if filter_arg:
+        filter_key = getattr(Channel, filter_arg_map[filter_arg]).between(filter_min_arg, filter_max_arg)
+        query = query.filter(filter_key)
+    return query
+
+def process_sort_channel(query, sort_arg, sort_ord):
+    sort_arg_map = {
+        "title": "channelName",
+        "subscriber count": "subscriberCount",
+        "view count": "viewCount",
+        "video count": "videoCount", 
+        "wordiness": "description"
+    }
+    if sort_arg:
+        sort_key = getattr(Channel, sort_arg_map[sort_arg])
+        if sort_arg == "title":
+            sort_key = func.lower(getattr(Channel, sort_arg_map[sort_arg]))
+        elif sort_arg == "wordiness":
+            sort_key = func.length(getattr(Channel, sort_arg_map[sort_arg]))
+        sort_key.asc()
+        if sort_ord == "desc":
+            sort_key = sort_key.desc()
+        query = query.order_by(sort_key)
+    return query
 
 @app.route('/channels/<int:page_num>')
 def showChannels(page_num):
     """
     channels page displays multiple channels
     """
-    sort_option = request.args.get(
-        'sort', 'default')  # sort parameter from URL
-    order_option = request.args.get('order', 'desc')
-    search_query = request.args.get('search', '')  # search parameter from URL
-    query = Channel.query
-    if search_query:
-        search = f"%{search_query}%"
-        query = query.filter(or_(Channel.channelName.ilike(search),
-                                 Channel.description.ilike(search)))
-    if sort_option == 'subscribers':
-        query = query.order_by(desc(Channel.subscriberCount)
-                               if order_option == 'desc' else asc(Channel.subscriberCount))
-    elif sort_option == 'views':
-        query = query.order_by(
-            desc(Channel.viewCount) if order_option == 'desc' else asc(Channel.viewCount))
-    elif sort_option == 'videos':
-        query = query.order_by(
-            desc(Channel.videoCount) if order_option == 'desc' else asc(Channel.videoCount))
-    elif sort_option == 'name':
-        query = query.order_by(desc(
-            Channel.channelName) if order_option == 'desc' else asc(Channel.channelName))
-    elif sort_option == 'wordiness':
-        query = query.order_by(desc(func.length(Channel.description))
-                               if order_option == 'desc' else asc(func.length(Channel.description)))
+    # Search
+    search_arg = request.args.get('search_arg', type=str, default="").strip()
+    query, search_text = process_search_channel(search_arg)
+    # Filter
+    filter_arg = request.args.get('filter_arg', type=str, default="")
+    filter_min_arg = request.args.get('filter_min_arg', type=str, default="").strip()
+    filter_max_arg = request.args.get('filter_max_arg', type=str, default="").strip()
+    query = process_filter_channel(query, filter_arg, filter_min_arg, filter_max_arg)
+    # Sort
+    sort_arg = request.args.get('sort_arg', type=str, default="")
+    sort_ord = request.args.get('sort_ord', type=str, default="asc")
+    query = process_sort_channel(query, sort_arg, sort_ord)
     channels_info = query.paginate(per_page=12, page=page_num, error_out=True)
-    return render_template('channels.html', channels=channels_info, current_page=page_num, search_query=search_query)
-
+    return render_template(
+        'channels.html', channels=channels_info, current_page=page_num, search_arg=search_text,
+        filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg,
+        sort_arg=sort_arg, sort_ord=sort_ord
+    )
 
 @app.route('/channel/<string:channelId>')
 def showChannel(channelId):
@@ -83,7 +120,6 @@ def showChannel(channelId):
     videos = Video.query.filter_by(channel_id=channelId).all()
     playlists = Playlist.query.filter_by(channel_id=channelId).all()
     return render_template('channel.html', channel=channel_info, videos=videos, playlists=playlists)
-
 
 @app.route('/videos/<int:page_num>')
 def showVideos(page_num):
