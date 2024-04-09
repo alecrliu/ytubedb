@@ -48,7 +48,7 @@
     </nav>
     <main class="py-5 mt-5">
         <div class="container">
-            <h1 class="fw-light text-center">YouTube Videos</h1>
+            <h1 class="fw-light text-center">Videos</h1>
             <br>
             <nav aria-label="Search">
                 <div class="d-flex justify-content-center align-items-center">
@@ -222,38 +222,40 @@
             {% endif %}
             <br>
             <nav aria-label="Page navigation">
-                <div class="d-flex justify-content-center align-items-center">
-                    <ul class="pagination mb-0 me-3">
-                        {% if videos.has_prev %}
-                        <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showVideos', page_num=current_page - 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">Previous</a>
-                        </li>
-                        {% endif %}
-                        {% for page in videos.iter_pages(right_current=2) %}
-                        {% if page %}
-                        {% if page == current_page %}
-                        <li class="page-item active bg-darker">
-                            <a class="page-link active bg-darker" href="{{ url_for('showVideos', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">{{
-                                page }}</a>
-                        </li>
-                        {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showVideos', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">{{ page }}</a>
-                        </li>
-                        {% endif %}
-                        {% else %}
-                        <li class="page-item">
-                            <a class="page-link"> ... </a>
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                        {% if videos.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showVideos', page_num=current_page + 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">Next</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
+                <!-- Pagination -->
+                <ul class="pagination mb-0 me-3 justify-content-center">
+                    {% if videos.has_prev %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="{{ url_for('showVideos', page_num=current_page - 1, per_page=per_page) }}">Previous</a>
+                    </li>
+                    {% endif %}
+                    {% for page in videos.iter_pages(right_current=2) %}
+                    {% if page %}
+                    {% if page == current_page %}
+                    <li class="page-item active bg-darker">
+                        <a class="page-link active bg-darker"
+                            href="{{ url_for('showVideos', page_num=page, per_page=per_page) }}">{{ page }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('showVideos', page_num=page, per_page=per_page) }}">{{
+                            page }}</a>
+                    </li>
+                    {% endif %}
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link"> ... </a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if videos.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="{{ url_for('showVideos', page_num=current_page + 1, per_page=per_page) }}">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
             </nav>
         </div>
     </main>
