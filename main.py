@@ -334,7 +334,9 @@ def showChannelsAPI(page_num):
     channels_info = Channel.query.paginate(
         per_page=12, page=page_num, error_out=True)
     channels = [channel.to_dict() for channel in channels_info.items]
-    return jsonify(current_page=page_num, total_pages=total_pages, channels=channels)
+    return jsonify(current_page=page_num, total_pages=total_pages, channels=channels,search_arg=search_text,
+        filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg,
+        sort_arg=sort_arg, sort_ord=sort_ord)
 
 @app.route('/api/channel/<string:channelId>', methods=['GET'])
 def showChannelAPI(channelId):
@@ -369,7 +371,9 @@ def showVideosAPI(page_num):
     total_videos = query.count()
     total_pages = math.ceil(total_videos / per_page)
     videos_info = [video.to_dict() for video in videos_info.items]
-    return jsonify(current_page=page_num, total_pages=total_pages, videos=videos_info)
+    return jsonify(current_page=page_num, total_pages=total_pages, videos=videos_info,search_arg=search_text,
+        filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg,
+        sort_arg=sort_arg, sort_ord=sort_ord)
 
 
 @app.route('/api/video/<string:videoId>', methods=['GET'])
@@ -395,18 +399,19 @@ def showPlaylistAPI(page_num):
         'filter_min_arg', type=str, default="").strip()
     filter_max_arg = request.args.get(
         'filter_max_arg', type=str, default="").strip()
-    query = process_filter_playlist(
-        query, filter_arg, filter_min_arg, filter_max_arg)
+    query = process_filter_playlist(query, filter_arg, filter_min_arg, filter_max_arg)
     # Sort
     sort_arg = request.args.get('sort_arg', type=str, default="")
     sort_ord = request.args.get('sort_ord', type=str, default="asc")
-    playlists_info = process_sort_playlist(query, page_num, sort_arg, sort_ord)
-    playlists_info = [playlists.to_dict()
-                      for playlists in playlists_info.items]
-    per_page = 12
+    query = process_sort_playlist(query, sort_arg, sort_ord)
+    per_page = request.args.get('per_page', type=int, default=12)
+    playlists_info = query.paginate(per_page=per_page, page=page_num, error_out=True)
     total_playlists = query.count()
     total_pages = math.ceil(total_playlists / per_page)
-    return jsonify(current_page=page_num, total_pages=total_pages, playlists=playlists_info)
+    playlists_info = [playlist.to_dict() for playlist in playlists_info.items]
+    return jsonify(current_page=page_num, total_pages=total_pages, playlists=playlists_info,search_arg=search_text,
+        filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg,
+        sort_arg=sort_arg, sort_ord=sort_ord)
 
 
 @app.route('/api/playlist/<string:playlistId>', methods=['GET'])
