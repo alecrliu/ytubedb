@@ -404,7 +404,7 @@ def showPlaylistAPI(page_num):
     sort_arg = request.args.get('sort_arg', type=str, default="")
     sort_ord = request.args.get('sort_ord', type=str, default="asc")
     query = process_sort_playlist(query, sort_arg, sort_ord)
-    per_page = request.args.get('per_page', type=int, default=12)
+    per_page = 12
     playlists_info = query.paginate(per_page=per_page, page=page_num, error_out=True)
     total_playlists = query.count()
     total_pages = math.ceil(total_playlists / per_page)
