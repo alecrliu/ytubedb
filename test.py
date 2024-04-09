@@ -10,7 +10,7 @@ from models import db, Channel, Playlist, Video
 CHANNEL_DATA = {
     "channel_id": "ChABC",
     "channelName": "ABC",
-    # "publishedAt": "2023-12-11T15:57:10Z",
+    "publishedAt": "2023-12-11T15:57:10Z",
     "description": "ABC",
     "subscriberCount": 0,
     "viewCount": 0,
@@ -21,7 +21,7 @@ CHANNEL_DATA = {
 VIDEO_DATA = {
     "video_id": "A1",
     "title": "ABC",
-    # "publishedAt": "2023-12-11T15:57:10Z",
+    "publishedAt": "2023-12-11T15:57:10Z",
     "description": "ABC",
     "viewCount": 0,
     "likeCount": 0,
