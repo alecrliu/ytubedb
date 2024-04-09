@@ -2,7 +2,7 @@
 
 from flask import render_template, request, jsonify
 from flask_cors import CORS
-from sqlalchemy import func, or_, desc, asc, func
+from sqlalchemy import func, or_, and_, desc, asc, func
 from sqlalchemy.orm import joinedload
 import math
 from database import app, db, Channel, Playlist, Video
@@ -40,15 +40,15 @@ def about():
     )
 
 def process_search_channel(search_arg):
-    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " ")
-    search_words = [word.lower() for word in search_text.split()]
+    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " " or c == "\"")
+    search_words = [word.lower().strip() for word in search_text.split("\"") if word.strip()]
     query = Channel.query
     if search_words:
         conditions = []
+        full_text = Channel.channelName + "\n" + Channel.description
         for word in search_words:
-            conditions.append(Channel.channelName.ilike(f'%{word}%'))
-            conditions.append(Channel.description.ilike(f'%{word}%'))
-        query = query.filter(or_(*conditions))
+            conditions.append(full_text.ilike(f'%{word}%'))
+        query = query.filter(and_(*conditions))
     return query, search_text
 
 def process_filter_channel(query, filter_arg, filter_min_arg, filter_max_arg):
@@ -123,15 +123,15 @@ def showChannel(channelId):
     return render_template('channel.html', channel=channel_info, videos=videos, playlists=playlists)
 
 def process_search_video(search_arg):
-    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " ")
-    search_words = [word.lower() for word in search_text.split()]
+    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " " or c == "\"")
+    search_words = [word.lower().strip() for word in search_text.split("\"") if word.strip()]
     query = Video.query
     if search_words:
         conditions = []
+        full_text = Video.title + "\n" + Video.description
         for word in search_words:
-            conditions.append(Video.title.ilike(f'%{word}%'))
-            conditions.append(Video.description.ilike(f'%{word}%'))
-        query = query.filter(or_(*conditions))
+            conditions.append(full_text.ilike(f'%{word}%'))
+        query = query.filter(and_(*conditions))
     return query, search_text
 
 def process_filter_video(query, filter_arg, filter_min_arg, filter_max_arg):
@@ -212,14 +212,14 @@ def oneVideo(videoId):
     return render_template('video.html', video=video, channel=channel, playlists=playlists)
 
 def process_search_playlist(search_arg):
-    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " ")
-    search_words = [word.lower() for word in search_text.split()]
+    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " " or c == "\"")
+    search_words = [word.lower().strip() for word in search_text.split("\"") if word.strip()]
     query = Playlist.query
     if search_words:
         conditions = []
         for word in search_words:
             conditions.append(Playlist.title.ilike(f'%{word}%'))
-        query = query.filter(or_(*conditions))
+        query = query.filter(and_(*conditions))
     return query, search_text
 
 def process_filter_playlist(query, filter_arg, filter_min_arg, filter_max_arg):
@@ -334,9 +334,7 @@ def showChannelsAPI(page_num):
     channels_info = Channel.query.paginate(
         per_page=12, page=page_num, error_out=True)
     channels = [channel.to_dict() for channel in channels_info.items]
-    return jsonify(current_page=page_num, total_pages=total_pages, channels=channels,search_arg=search_text,
-        filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg,
-        sort_arg=sort_arg, sort_ord=sort_ord)
+    return jsonify(current_page=page_num, total_pages=total_pages, channels=channels)
 
 @app.route('/api/channel/<string:channelId>', methods=['GET'])
 def showChannelAPI(channelId):
@@ -426,5 +424,5 @@ def playlistAPI(playlistId):
 # debug=True to avoid restart the local development server manually after each change to your code.
 # host='0.0.0.0' to make the server publicly available.
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=8080)
+    app.run(debug=True, host='0.0.0.0')
 
