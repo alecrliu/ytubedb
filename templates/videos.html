@@ -50,74 +50,100 @@
         <div class="container">
             <h1 class="fw-light text-center">YouTube Videos</h1>
             <br>
-            <div class="col-md-12">
-                <form action="{{ url_for('showVideos', page_num=1) }}" method="get" class="me-2 d-flex">
-                    <input type="text" name="search" class="form-control me-2 flex-grow-1"
-                        placeholder="Search videos..." aria-label="Search" value="{{ request.args.get('search', '') }}">
-                    <input type="hidden" name="sort" value="{{ request.args.get('sort', 'default') }}">
-                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                </form>
-            </div>
-            <br>
-            <div class="dropdown text-end">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="sortingDropdown"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Sort by: {{ request.args.get('sort', 'Default').capitalize() }}
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item"
-                            href="{{ url_for('showVideos', page_num=1, search=request.args.get('search', '')) }}">Default</a>
-                    </li>
-                    <li><a class="dropdown-item"
-                            href="{{ url_for('showVideos', page_num=1, sort='title', search=request.args.get('search', '')) }}">Title</a>
-                    </li>
-                    <li><a class="dropdown-item"
-                            href="{{ url_for('showVideos', page_num=1, sort='views', search=request.args.get('search', '')) }}">Views</a>
-                    </li>
-                    <li><a class="dropdown-item"
-                            href="{{ url_for('showVideos', page_num=1, sort='likes', search=request.args.get('search', '')) }}">Likes</a>
-                    </li>
-                    <li><a class="dropdown-item"
-                            href="{{ url_for('showVideos', page_num=1, sort='comments', search=request.args.get('search', '')) }}">Comments</a>
-                    </li>
-                    <li><a class="dropdown-item"
-                            href="{{ url_for('showVideos', page_num=1, sort='wordiness', search=request.args.get('search', '')) }}">Wordiness</a>
-                    </li>
-                </ul>
-                {% if request.args.get('sort', 'default') != 'default' %}
-                <div class="btn-group">
-                    <a href="{{ url_for('showVideos', page_num=1, sort=request.args.get('sort', 'default'), order='asc', search=request.args.get('search', '')) }}"
-                        class="btn btn-secondary {{ 'active' if request.args.get('order', 'desc') == 'asc' else '' }}">
-                        <i class="bi bi-arrow-up"></i>
-                    </a>
-                    <a href="{{ url_for('showVideos', page_num=1, sort=request.args.get('sort', 'default'), order='desc', search=request.args.get('search', '')) }}"
-                        class="btn btn-secondary {{ 'active' if request.args.get('order', 'desc') == 'desc' else '' }}">
-                        <i class="bi bi-arrow-down"></i>
-                    </a>
+            <nav aria-label="Search">
+                <div class="d-flex justify-content-center align-items-center">
+                    <!-- Search -->
+                    <div style="display: flex; align-items: center; justify-content: flex-end;">
+                        <form method="GET" action="{{ url_for('showVideos', page_num=1) }}">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="search_arg" name="search_arg" placeholder="{% if search_arg %}{{ search_arg }}{% else %}Search{% endif %}">
+                                <button type="submit" class="btn btn-primary d-flex">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                {% endif %}
-            </div>
+            </nav>
+            <nav aria-label="Filter">
+                <div class="d-flex justify-content-center align-items-center">
+                    <!-- Filter -->
+                    <div style="display: flex; align-items: center; justify-content: flex-end;">
+                        <label for="filterSelect" style="margin-right: 8px; white-space: nowrap;" class="mb-3"><b>Filter:</b></label>
+                        <select id="filterSelect" style="margin-right: 8px; white-space: nowrap;" class="form-select mb-3"
+                            onchange="window.location.href = '{{ url_for('showVideos', page_num=1, search_arg=search_arg) }}&filter_arg=' + this.value;">
+                            {% set filter_arg_options = ["", "view count", "like count", "comment count"] %}
+                            {% for opt in filter_arg_options %}
+                                <option value="{{ opt }}" {% if opt==filter_arg %}selected{% endif %}>
+                                    {{ opt }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div style="display: flex; align-items: center; justify-content: flex-end;">
+                        <!-- Min Max -->
+                        {% if filter_arg %}
+                            <form method="GET" action="{{ url_for('showVideos', page_num=1) }}">
+                                <input type="hidden" name="search_arg" value="{{ search_arg }}">
+                                <input type="hidden" name="filter_arg" value="{{ filter_arg }}">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="filter_min_arg" name="filter_min_arg" placeholder="{% if filter_min_arg %}{{ filter_min_arg }}{% else %}min{% endif %}">
+                                    <input type="text" class="form-control" id="filter_max_arg" name="filter_max_arg" placeholder="{% if filter_max_arg %}{{ filter_max_arg }}{% else %}max{% endif %}">
+                                    <button type="submit" class="btn btn-primary d-flex">Submit</button>
+                                </div>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+            <nav aria-label="Sort">
+                <div class="d-flex justify-content-center align-items-center">
+                    <!-- Sort -->
+                    <div style="display: flex; align-items: center; justify-content: flex-end;">
+                        <label for="sortSelect" style="margin-right: 8px; white-space: nowrap;" class="mb-3"><b>Sort:</b></label>
+                        <select id="sortSelect" class="form-select mb-3"
+                            onchange="window.location.href = '{{ url_for('showVideos', page_num=1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg) }}&sort_arg=' + this.value;">
+                            {% set sort_arg_options = ["", "title", "view count", "like count", "comment count", "wordiness"] %}
+                            {% for opt in sort_arg_options %}
+                                <option value="{{ opt }}" {% if opt==sort_arg %}selected{% endif %}>
+                                    {{ opt }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <!-- Order -->
+                        {% if sort_arg %}
+                            <label for="sortOrdSelect" style="margin-left: 8px; margin-right: 8px; white-space: nowrap;" class="mb-3">Order:</label>
+                            <select id="sortOrdSelect" class="form-select mb-3"
+                                onchange="window.location.href = '{{ url_for('showVideos', page_num=1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg) }}&sort_ord=' + this.value;">
+                                {% set sort_ord_arg_options = ["asc", "desc"] %}
+                                {% for opt in sort_ord_arg_options %}
+                                    <option value="{{ opt }}" {% if opt==sort_ord %}selected{% endif %}>
+                                        {{ opt }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
             <nav aria-label="Page navigation">
                 <div class="d-flex justify-content-center align-items-center">
-                    <!-- Pagination -->
                     <ul class="pagination mb-0 me-3">
                         {% if videos.has_prev %}
                         <li class="page-item">
-                            <a class="page-link"
-                                href="{{ url_for('showVideos', page_num=current_page - 1, per_page=per_page) }}">Previous</a>
+                            <a class="page-link" href="{{ url_for('showVideos', page_num=current_page - 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">Previous</a>
                         </li>
                         {% endif %}
                         {% for page in videos.iter_pages(right_current=2) %}
                         {% if page %}
                         {% if page == current_page %}
                         <li class="page-item active bg-darker">
-                            <a class="page-link active bg-darker"
-                                href="{{ url_for('showVideos', page_num=page, per_page=per_page) }}">{{ page }}</a>
+                            <a class="page-link active bg-darker" href="{{ url_for('showVideos', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">{{
+                                page }}</a>
                         </li>
                         {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showVideos', page_num=page, per_page=per_page) }}">{{
-                                page }}</a>
+                            <a class="page-link" href="{{ url_for('showVideos', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">{{ page }}</a>
                         </li>
                         {% endif %}
                         {% else %}
@@ -128,24 +154,22 @@
                         {% endfor %}
                         {% if videos.has_next %}
                         <li class="page-item">
-                            <a class="page-link"
-                                href="{{ url_for('showVideos', page_num=current_page + 1, per_page=per_page) }}">Next</a>
+                            <a class="page-link" href="{{ url_for('showVideos', page_num=current_page + 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">Next</a>
                         </li>
                         {% endif %}
                     </ul>
-                    <!-- Videos per page selection dropdown (temporarily removed due to conflicts with searching and sorting)-->
-                    <!-- <div style="display: flex; align-items: center; justify-content: flex-end;">
-                        <label for="perPageSelect" style="margin-right: 8px; white-space: nowrap;">Videos per
-                            page:</label>
-                        <select id="perPageSelect" class="form-select"
-                            onchange="window.location.href = '{{ url_for('showVideos', page_num=1) }}?per_page=' + this.value;">
+                    <div style="display: flex; align-items: center; justify-content: flex-end;">
+                        <label for="sortSelect" style="margin-right: 8px; white-space: nowrap;">Videos per page:</label>
+                        <select id="sortSelect" class="form-select"
+                            onchange="window.location.href = '{{ url_for('showVideos', page_num=1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}&per_page=' + this.value;">
                             {% set per_page_options = [6, 12, 24, 48] %}
-                            {% for num in per_page_options %}
-                            <option value="{{ num }}" {% if num|string==request.args.get('per_page', default='12' )
-                                %}selected{% endif %}>{{ num }}</option>
+                            {% for opt in per_page_options %}
+                                <option value="{{ opt }}" {% if opt==per_page %}selected{% endif %}>
+                                    {{ opt }}
+                                </option>
                             {% endfor %}
                         </select>
-                    </div> -->
+                    </div>
                 </div>
             </nav>
             {% if videos.items %}
@@ -190,7 +214,7 @@
             </div>
             {% else %}
             <br>
-            <h3 class="text-center fw-light pt-5">We went from "hello world" to dealing with "{{search_query}}".</h3>
+            <h3 class="text-center fw-light pt-5">We went from "hello world" to dealing with "{{search_arg}}".</h3>
             <div class="col d-flex justify-content-center align-items-center pt-5">
                 <img src="../static/images/missing.png" alt="No Results" style="height: 125px; width: 125px;">
             </div>
@@ -198,40 +222,38 @@
             {% endif %}
             <br>
             <nav aria-label="Page navigation">
-                <!-- Pagination -->
-                <ul class="pagination mb-0 me-3 justify-content-center">
-                    {% if videos.has_prev %}
-                    <li class="page-item">
-                        <a class="page-link"
-                            href="{{ url_for('showVideos', page_num=current_page - 1, per_page=per_page) }}">Previous</a>
-                    </li>
-                    {% endif %}
-                    {% for page in videos.iter_pages(right_current=2) %}
-                    {% if page %}
-                    {% if page == current_page %}
-                    <li class="page-item active bg-darker">
-                        <a class="page-link active bg-darker"
-                            href="{{ url_for('showVideos', page_num=page, per_page=per_page) }}">{{ page }}</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="{{ url_for('showVideos', page_num=page, per_page=per_page) }}">{{
-                            page }}</a>
-                    </li>
-                    {% endif %}
-                    {% else %}
-                    <li class="page-item">
-                        <a class="page-link"> ... </a>
-                    </li>
-                    {% endif %}
-                    {% endfor %}
-                    {% if videos.has_next %}
-                    <li class="page-item">
-                        <a class="page-link"
-                            href="{{ url_for('showVideos', page_num=current_page + 1, per_page=per_page) }}">Next</a>
-                    </li>
-                    {% endif %}
-                </ul>
+                <div class="d-flex justify-content-center align-items-center">
+                    <ul class="pagination mb-0 me-3">
+                        {% if videos.has_prev %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('showVideos', page_num=current_page - 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">Previous</a>
+                        </li>
+                        {% endif %}
+                        {% for page in videos.iter_pages(right_current=2) %}
+                        {% if page %}
+                        {% if page == current_page %}
+                        <li class="page-item active bg-darker">
+                            <a class="page-link active bg-darker" href="{{ url_for('showVideos', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">{{
+                                page }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('showVideos', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">{{ page }}</a>
+                        </li>
+                        {% endif %}
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link"> ... </a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if videos.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('showVideos', page_num=current_page + 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page) }}">Next</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </nav>
         </div>
     </main>

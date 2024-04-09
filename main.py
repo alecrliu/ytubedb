@@ -121,40 +121,79 @@ def showChannel(channelId):
     playlists = Playlist.query.filter_by(channel_id=channelId).all()
     return render_template('channel.html', channel=channel_info, videos=videos, playlists=playlists)
 
+def process_search_video(search_arg):
+    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " ")
+    search_words = [word.lower() for word in search_text.split()]
+    query = Video.query
+    if search_words:
+        conditions = []
+        for word in search_words:
+            conditions.append(Video.title.ilike(f'%{word}%'))
+            conditions.append(Video.description.ilike(f'%{word}%'))
+        query = query.filter(or_(*conditions))
+    return query, search_text
+
+def process_filter_video(query, filter_arg, filter_min_arg, filter_max_arg):
+    filter_min_arg = int(filter_min_arg) if filter_min_arg.isdigit() else 0
+    filter_max_arg = int(filter_max_arg) if filter_max_arg.isdigit() else 1000000000000
+    if filter_max_arg < filter_min_arg:
+        filter_min_arg, filter_max_arg = 0, 1000000000000
+    filter_arg_map = {
+        "view count": "viewCount",
+        "like count": "likeCount", 
+        "comment count": "commentCount"
+    }
+    if filter_arg:
+        filter_key = getattr(Video, filter_arg_map[filter_arg]).between(filter_min_arg, filter_max_arg)
+        query = query.filter(filter_key)
+    return query
+
+def process_sort_video(query, sort_arg, sort_ord):
+    sort_arg_map = {
+        "title": "title",
+        "view count": "viewCount",
+        "like count": "likeCount", 
+        "comment count": "commentCount", 
+        "wordiness": "description"
+    }
+    if sort_arg:
+        sort_key = getattr(Video, sort_arg_map[sort_arg])
+        if sort_arg == "title":
+            sort_key = func.lower(getattr(Video, sort_arg_map[sort_arg]))
+        elif sort_arg == "wordiness":
+            sort_key = func.length(getattr(Video, sort_arg_map[sort_arg]))
+        sort_key.asc()
+        if sort_ord == "desc":
+            sort_key = sort_key.desc()
+        query = query.order_by(sort_key)
+    return query
+
 @app.route('/videos/<int:page_num>')
 def showVideos(page_num):
     """
     videos page displays multiple videos
     """
-    sort_option = request.args.get('sort', 'default')
-    order_option = request.args.get('order', 'desc')
-    search_query = request.args.get('search', '')
-    query = Video.query
-    if search_query:
-        search = f"%{search_query}%"
-        query = query.filter(
-            or_(
-                Video.title.ilike(search)
-            )
-        )
-    if sort_option == 'title':
-        query = query.order_by(
-            desc(Video.title) if order_option == 'desc' else asc(Video.title))
-    elif sort_option == 'views':
-        query = query.order_by(
-            desc(Video.viewCount) if order_option == 'desc' else asc(Video.viewCount))
-    elif sort_option == 'likes':
-        query = query.order_by(
-            desc(Video.likeCount) if order_option == 'desc' else asc(Video.likeCount))
-    elif sort_option == 'comments':
-        query = query.order_by(
-            desc(Video.commentCount) if order_option == 'desc' else asc(Video.commentCount))
-    elif sort_option == 'wordiness':
-        query = query.order_by(desc(func.length(
-            Video.description)) if order_option == 'desc' else asc(func.length(Video.description)))
-    videos_info = query.paginate(per_page=15, page=page_num, error_out=True)
-    return render_template('videos.html', videos=videos_info, current_page=page_num, search_query=search_query)
-
+    # Search
+    search_arg = request.args.get('search_arg', type=str, default="").strip()
+    query, search_text = process_search_video(search_arg)
+    # Filter
+    filter_arg = request.args.get('filter_arg', type=str, default="")
+    filter_min_arg = request.args.get(
+        'filter_min_arg', type=str, default="").strip()
+    filter_max_arg = request.args.get(
+        'filter_max_arg', type=str, default="").strip()
+    query = process_filter_video(query, filter_arg, filter_min_arg, filter_max_arg)
+    # Sort
+    sort_arg = request.args.get('sort_arg', type=str, default="")
+    sort_ord = request.args.get('sort_ord', type=str, default="asc")
+    query = process_sort_video(query, sort_arg, sort_ord)
+    per_page = request.args.get('per_page', type=int, default=12)
+    videos_info = query.paginate(per_page=per_page, page=page_num, error_out=True)
+    return render_template(
+        'videos.html', videos=videos_info, current_page=page_num, search_arg=search_text,
+        filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg,
+        sort_arg=sort_arg, sort_ord=sort_ord, per_page=per_page
+    )
 
 @app.route('/video/<string:videoId>')
 def oneVideo(videoId):
