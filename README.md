@@ -1,5 +1,5 @@
 # YTubeDB
-https://ytubedb.uc.r.appspot.com/
+https://www.ytubedb.me/
 
 ## Description
 A simplified statistics website that mimics core functionalities of YouTube.
