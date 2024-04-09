@@ -211,6 +211,52 @@ def oneVideo(videoId):
         return "Video not found", 404
     return render_template('video.html', video=video, channel=channel, playlists=playlists)
 
+def process_search_playlist(search_arg):
+    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " ")
+    search_words = [word.lower() for word in search_text.split()]
+    query = Playlist.query
+    if search_words:
+        conditions = []
+        for word in search_words:
+            conditions.append(Playlist.title.ilike(f'%{word}%'))
+        query = query.filter(or_(*conditions))
+    return query, search_text
+
+def process_filter_playlist(query, filter_arg, filter_min_arg, filter_max_arg):
+    filter_min_arg = int(filter_min_arg) if filter_min_arg.isdigit() else 0
+    filter_max_arg = int(filter_max_arg) if filter_max_arg.isdigit() else 1000000000000
+    if filter_max_arg < filter_min_arg:
+        filter_min_arg, filter_max_arg = 0, 1000000000000
+    filter_arg_map = {
+        "video count": "videoCount",
+        "total views": "totalViews",
+        "total likes": "totalLikes",
+        "total comments": "totalComments"
+    }
+    if filter_arg:
+        filter_key = getattr(Playlist, filter_arg_map[filter_arg]).between(
+            filter_min_arg, filter_max_arg)
+        query = query.filter(filter_key)
+    return query
+
+def process_sort_playlist(query, sort_arg, sort_ord):
+    sort_arg_map = {
+        "title": "title",
+        "published at": "publishedAt",
+        "video count": "videoCount",
+        "total views": "totalViews",
+        "total likes": "totalLikes",
+        "total comments": "totalComments"
+    }
+    if sort_arg:
+        sort_key = getattr(Playlist, sort_arg_map[sort_arg])
+        if sort_arg == "title":
+            sort_key = func.lower(getattr(Playlist, sort_arg_map[sort_arg]))
+        sort_key.asc()
+        if sort_ord == "desc":
+            sort_key = sort_key.desc()
+        query = query.order_by(sort_key)
+    return query
 
 @app.route('/playlists/<int:page_num>', methods=['GET'])
 def showPlaylist(page_num):
@@ -231,55 +277,19 @@ def showPlaylist(page_num):
     # Sort
     sort_arg = request.args.get('sort_arg', type=str, default="")
     sort_ord = request.args.get('sort_ord', type=str, default="asc")
-    playlists_info = process_sort_playlist(query, page_num, sort_arg, sort_ord)
+    query = process_sort_playlist(query, sort_arg, sort_ord)
+    playlists_info = query.paginate(per_page=12, page=page_num, error_out=True)
     return render_template(
         'playlists.html', playlists=playlists_info, current_page=page_num, search_arg=search_text,
         filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg,
         sort_arg=sort_arg, sort_ord=sort_ord
     )
 
-
-def process_sort_playlist(query, page_num, sort_arg, sort_ord):
-    sort_arg_map = {
-        "title": "title",
-        "published at": "publishedAt",
-        "video count": "videoCount",
-        "total views": "totalViews",
-        "total likes": "totalLikes",
-        "total comments": "totalComments"
-    }
-    if sort_arg:
-        sort_key = getattr(Playlist, sort_arg_map[sort_arg])
-        if sort_arg == "title":
-            sort_key = func.lower(getattr(Playlist, sort_arg_map[sort_arg]))
-        sort_key.asc()
-        if sort_ord == "desc":
-            sort_key = sort_key.desc()
-        playlists_info = query.order_by(sort_key).paginate(
-            per_page=12, page=page_num, error_out=True)
-        playlists_info = query.order_by(sort_key).paginate(
-            per_page=12, page=page_num, error_out=True)
-    else:
-        playlists_info = query.paginate(
-            per_page=12, page=page_num, error_out=True)
-    return playlists_info
-
-
-def process_search_playlist(search_arg):
-    search_text = ''.join(c for c in search_arg if c.isalnum() or c == " ")
-    search_words = [word.lower() for word in search_text.split()]
-    query = Playlist.query
-    if search_words:
-        conditions = []
-        for word in search_words:
-            conditions.append(Playlist.title.ilike(f'%{word}%'))
-        query = query.filter(or_(*conditions))
-    return query, search_text
-
-
-# playlist page displays single playlist
 @app.route('/playlist/<string:playlistId>')
 def playlist(playlistId):
+    """
+    playlist page displays single playlist
+    """
     playlist_info = Playlist.query.filter_by(playlist_id=playlistId).first()
     if playlist_info is None:
         return "Playlist not found", 404
@@ -287,26 +297,7 @@ def playlist(playlistId):
     videos = playlist_info.videos
     return render_template('playlist.html', playlist=playlist_info, channel=channel, videos=videos)
 
-
-def process_filter_playlist(query, filter_arg, filter_min_arg, filter_max_arg):
-    filter_min_arg = int(filter_min_arg) if filter_min_arg.isdigit() else 0
-    filter_max_arg = int(
-        filter_max_arg) if filter_max_arg.isdigit() else 1000000000000
-    if filter_max_arg < filter_min_arg:
-        filter_min_arg, filter_max_arg = 0, 1000000000000
-    filter_arg_map = {
-        "video count": "videoCount",
-        "total views": "totalViews",
-        "total likes": "totalLikes",
-        "total comments": "totalComments"
-    }
-    if filter_arg:
-        filter_key = getattr(Playlist, filter_arg_map[filter_arg]).between(
-            filter_min_arg, filter_max_arg)
-        query = query.filter(filter_key)
-    return query
-
-
+# APIs
 @app.route('/api/about', methods=['GET'])
 def aboutAPI():
     response = {
@@ -322,7 +313,6 @@ def aboutAPI():
         'totalIssues': sum(issue_counts.values())
     }
     return jsonify(response)
-
 
 @app.route('/api/channels/<int:page_num>', methods=['GET'])
 def showChannelsAPI(page_num):
@@ -348,7 +338,6 @@ def showChannelsAPI(page_num):
         filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg,
         sort_arg=sort_arg, sort_ord=sort_ord)
 
-
 @app.route('/api/channel/<string:channelId>', methods=['GET'])
 def showChannelAPI(channelId):
     channel_info = Channel.query.filter_by(channel_id=channelId).first()
@@ -363,12 +352,25 @@ def showChannelAPI(channelId):
 
 @app.route('/api/videos/<int:page_num>', methods=['GET'])
 def showVideosAPI(page_num):
+    # Search
+    search_arg = request.args.get('search_arg', type=str, default="").strip()
+    query, search_text = process_search_video(search_arg)
+    # Filter
+    filter_arg = request.args.get('filter_arg', type=str, default="")
+    filter_min_arg = request.args.get(
+        'filter_min_arg', type=str, default="").strip()
+    filter_max_arg = request.args.get(
+        'filter_max_arg', type=str, default="").strip()
+    query = process_filter_video(query, filter_arg, filter_min_arg, filter_max_arg)
+    # Sort
+    sort_arg = request.args.get('sort_arg', type=str, default="")
+    sort_ord = request.args.get('sort_ord', type=str, default="asc")
+    query = process_sort_video(query, sort_arg, sort_ord)
     per_page = request.args.get('per_page', type=int, default=12)
-    total_videos = Video.query.count()
+    videos_info = query.paginate(per_page=per_page, page=page_num, error_out=True)
+    total_videos = query.count()
     total_pages = math.ceil(total_videos / per_page)
-    videos_query = Video.query.options(joinedload(Video.channels)).paginate(
-        per_page=per_page, page=page_num, error_out=True)
-    videos_info = [video.to_dict() for video in videos_query.items]
+    videos_info = [video.to_dict() for video in videos_info.items]
     return jsonify(current_page=page_num, total_pages=total_pages, videos=videos_info)
 
 
@@ -425,3 +427,4 @@ def playlistAPI(playlistId):
 # host='0.0.0.0' to make the server publicly available.
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=8080)
+
