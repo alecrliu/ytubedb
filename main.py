@@ -72,14 +72,12 @@ def process_sort_channel(query, sort_arg, sort_ord):
         "subscriber count": "subscriberCount",
         "view count": "viewCount",
         "video count": "videoCount", 
-        "wordiness": "description"
+        "published at": "publishedAt"
     }
     if sort_arg:
         sort_key = getattr(Channel, sort_arg_map[sort_arg])
         if sort_arg == "title":
             sort_key = func.lower(getattr(Channel, sort_arg_map[sort_arg]))
-        elif sort_arg == "wordiness":
-            sort_key = func.length(getattr(Channel, sort_arg_map[sort_arg]))
         sort_key.asc()
         if sort_ord == "desc":
             sort_key = sort_key.desc()
@@ -155,14 +153,12 @@ def process_sort_video(query, sort_arg, sort_ord):
         "view count": "viewCount",
         "like count": "likeCount", 
         "comment count": "commentCount", 
-        "wordiness": "description"
+        "published at": "publishedAt"
     }
     if sort_arg:
         sort_key = getattr(Video, sort_arg_map[sort_arg])
         if sort_arg == "title":
             sort_key = func.lower(getattr(Video, sort_arg_map[sort_arg]))
-        elif sort_arg == "wordiness":
-            sort_key = func.length(getattr(Video, sort_arg_map[sort_arg]))
         sort_key.asc()
         if sort_ord == "desc":
             sort_key = sort_key.desc()
