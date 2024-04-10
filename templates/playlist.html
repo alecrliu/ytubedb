@@ -55,20 +55,19 @@
                         style="max-width: 100%; height: auto; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                 </div>
                 <div class="card-body">
-                    <p>
+                    <h5>
                         <a href="{{ url_for('showChannel', channelId=playlist.channel_id) }}">
-                            <h5><img src="{{ channel.thumbnail }}" alt="Channel Thumbnail"
-                                    class="rounded-circle img-fluid" style="width: 40px;"> {{ channel.channelName }}
-                            </h5>
+                            <img src="{{ channel.thumbnail }}" alt="Channel Thumbnail" class="rounded-circle img-fluid"
+                                style="width: 40px;"> {{ channel.channelName }}
+
                         </a>
-                    </p>
-                    <div class="row align-items-center">
+                    </h5>
+                    <div class="row align-items-center pt-2">
                         <!-- Column for the Statistics, centered -->
                         <div class="d-flex justify-content-between align-items-center">
-                            <p class="mb-0 me-3"><i class="fas fa-calendar-alt"></i> {{ playlist.publishedAt }}</p>
-                            <p class="mb-0 me-3"><i class="far fa-eye"></i> {{ playlist.totalViews }}</p>
-                            <p class="mb-0 me-3"><i class="far fa-thumbs-up"></i> {{ playlist.totalLikes }}</p>
-                            <p class="mb-0 me-3"><i class="far fa-comment"></i> {{ playlist.totalComments }}</p>
+                            <h6><i class="far fa-eye"></i> {{ playlist.totalViews }}</h6>
+                            <h6><i class="far fa-thumbs-up"></i> {{ playlist.totalLikes }}</h6>
+                            <h6><i class="far fa-comment"></i> {{ playlist.totalComments }}</h6>
                         </div>
                     </div>
                     <br>
@@ -82,9 +81,12 @@
                     <!-- Collapsible description -->
                     <div class="collapse" id="descriptionCollapse">
                         <div class="card card-body mt-3">
-                            <h5> Description</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>Description</h5>
+                                <p><em>Created {{ playlist.publishedAt.strftime('%B %-d, %Y at %-I:%M
+                                        %p')}}</em></p>
+                            </div>
                             {{ playlist.description|replace('\n', '<br>')|safe }}
-                            <br>
                         </div>
                     </div>
                     <br>
@@ -118,7 +120,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -48,16 +48,18 @@
     </nav>
     <main class="py-5 mt-5">
         <div class="container">
-            <h1 class="fw-light text-center">YouTube Channels</h1>
+            <h1 class="fw-light text-center">Channels</h1>
             <br>
             <nav aria-label="Search">
                 <div class="d-flex justify-content-center align-items-center">
                     <!-- Search -->
-                    <div style="display: flex; align-items: center; justify-content: flex-end;">
+                    <div class="col-md-12">
                         <form method="GET" action="{{ url_for('showChannels', page_num=1) }}">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" id="search_arg" name="search_arg" placeholder="{% if search_arg %}{{ search_arg }}{% else %}Search{% endif %}">
-                                <button type="submit" class="btn btn-primary d-flex">Submit</button>
+                                <input type="text" class="form-control" id="search_arg" name="search_arg"
+                                    placeholder="{% if search_arg %}{{ search_arg }}{% else %}Search channels...{% endif %}">
+                                <button type="submit" class="btn btn-primary d-flex align-items-center"><i
+                                        class="fas fa-search"></i></button>
                             </div>
                         </form>
                     </div>
@@ -67,14 +69,16 @@
                 <div class="d-flex justify-content-center align-items-center">
                     <!-- Filter -->
                     <div style="display: flex; align-items: center; justify-content: flex-end;">
-                        <label for="filterSelect" style="margin-right: 8px; white-space: nowrap;" class="mb-3"><b>Filter:</b></label>
-                        <select id="filterSelect" style="margin-right: 8px; white-space: nowrap;" class="form-select mb-3"
+                        <label for="filterSelect" style="margin-right: 8px; white-space: nowrap;" class="mb-3"><i
+                                class="fas fa-filter"></i></label>
+                        <select id="filterSelect" style="margin-right: 8px; white-space: nowrap;"
+                            class="form-select mb-3"
                             onchange="window.location.href = '{{ url_for('showChannels', page_num=1, search_arg=search_arg) }}&filter_arg=' + this.value;">
-                            {% set filter_arg_options = ["", "subscriber count", "view count", "video count"] %}
+                            {% set filter_arg_options = ["", "subscribers", "views", "video count"] %}
                             {% for opt in filter_arg_options %}
-                                <option value="{{ opt }}" {% if opt==filter_arg %}selected{% endif %}>
-                                    {{ opt }}
-                                </option>
+                            <option value="{{ opt }}" {% if opt==filter_arg %}selected{% endif %}>
+                                {{ opt }}
+                            </option>
                             {% endfor %}
                         </select>
                     </div>
@@ -83,15 +87,18 @@
                     <div style="display: flex; align-items: center; justify-content: flex-end;">
                         <!-- Min Max -->
                         {% if filter_arg %}
-                            <form method="GET" action="{{ url_for('showChannels', page_num=1) }}">
-                                <input type="hidden" name="search_arg" value="{{ search_arg }}">
-                                <input type="hidden" name="filter_arg" value="{{ filter_arg }}">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="filter_min_arg" name="filter_min_arg" placeholder="{% if filter_min_arg %}{{ filter_min_arg }}{% else %}min{% endif %}">
-                                    <input type="text" class="form-control" id="filter_max_arg" name="filter_max_arg" placeholder="{% if filter_max_arg %}{{ filter_max_arg }}{% else %}max{% endif %}">
-                                    <button type="submit" class="btn btn-primary d-flex">Submit</button>
-                                </div>
-                            </form>
+                        <form method="GET" action="{{ url_for('showChannels', page_num=1) }}">
+                            <input type="hidden" name="search_arg" value="{{ search_arg }}">
+                            <input type="hidden" name="filter_arg" value="{{ filter_arg }}">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="filter_min_arg" name="filter_min_arg"
+                                    placeholder="{% if filter_min_arg %}{{ filter_min_arg }}{% else %}min{% endif %}">
+                                <input type="text" class="form-control" id="filter_max_arg" name="filter_max_arg"
+                                    placeholder="{% if filter_max_arg %}{{ filter_max_arg }}{% else %}max{% endif %}">
+                                <button type="submit" class="btn btn-secondary d-flex align-items-center"><i
+                                        class="fas fa-sliders-h"></i></button>
+                            </div>
+                        </form>
                         {% endif %}
                     </div>
                 </div>
@@ -100,30 +107,32 @@
                 <div class="d-flex justify-content-center align-items-center">
                     <!-- Sort -->
                     <div style="display: flex; align-items: center; justify-content: flex-end;">
-                        <label for="sortSelect" style="margin-right: 8px; white-space: nowrap;" class="mb-3"><b>Sort:</b></label>
+                        <label for="sortSelect" style="margin-right: 8px; white-space: nowrap;" class="mb-3"><i
+                                class="fas fa-sort"></i> </label>
                         <select id="sortSelect" class="form-select mb-3"
                             onchange="window.location.href = '{{ url_for('showChannels', page_num=1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg) }}&sort_arg=' + this.value;">
-                            {% set sort_arg_options = ["", "title", "subscriber count", "view count", "video count", "published at"] %}
+                            {% set sort_arg_options = ["", "title", "subscribers", "views", "video count", "creation
+                            date"] %}
                             {% for opt in sort_arg_options %}
-                                <option value="{{ opt }}" {% if opt==sort_arg %}selected{% endif %}>
-                                    {{ opt }}
-                                </option>
+                            <option value="{{ opt }}" {% if opt==sort_arg %}selected{% endif %}>
+                                {{ opt }}
+                            </option>
                             {% endfor %}
                         </select>
-                        <!-- Order -->
-                        {% if sort_arg %}
-                            <label for="sortOrdSelect" style="margin-left: 8px; margin-right: 8px; white-space: nowrap;" class="mb-3">Order:</label>
-                            <select id="sortOrdSelect" class="form-select mb-3"
-                                onchange="window.location.href = '{{ url_for('showChannels', page_num=1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg) }}&sort_ord=' + this.value;">
-                                {% set sort_ord_arg_options = ["asc", "desc"] %}
-                                {% for opt in sort_ord_arg_options %}
-                                    <option value="{{ opt }}" {% if opt==sort_ord %}selected{% endif %}>
-                                        {{ opt }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        {% endif %}
                     </div>
+                    <!-- Order -->
+                    {% if sort_arg %}
+                    <div class="btn-group mb-3 ml-2" style="padding-left: 2%;" role="group" aria-label="Sort Order">
+                        <a href="{{ url_for('showChannels', page_num=1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg) }}&sort_ord=desc"
+                            class="btn btn-outline-secondary btn-sm {% if sort_ord == 'desc' %}active{% endif %}">
+                            <i class="fas fa-arrow-down"></i>
+                        </a>
+                        <a href="{{ url_for('showChannels', page_num=1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg) }}&sort_ord=asc"
+                            class="btn btn-outline-secondary btn-sm {% if sort_ord == 'asc' %}active{% endif %}">
+                            <i class="fas fa-arrow-up"></i>
+                        </a>
+                    </div>
+                    {% endif %}
                 </div>
             </nav>
             <nav aria-label="Page navigation">
@@ -131,19 +140,23 @@
                     <ul class="pagination mb-0 me-3">
                         {% if channels.has_prev %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showChannels', page_num=current_page - 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Previous</a>
+                            <a class="page-link"
+                                href="{{ url_for('showChannels', page_num=current_page - 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Previous</a>
                         </li>
                         {% endif %}
                         {% for page in channels.iter_pages(right_current=2) %}
                         {% if page %}
                         {% if page == current_page %}
                         <li class="page-item active bg-darker">
-                            <a class="page-link active bg-darker" href="{{ url_for('showChannels', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{
+                            <a class="page-link active bg-darker"
+                                href="{{ url_for('showChannels', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{
                                 page }}</a>
                         </li>
                         {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showChannels', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{ page }}</a>
+                            <a class="page-link"
+                                href="{{ url_for('showChannels', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{
+                                page }}</a>
                         </li>
                         {% endif %}
                         {% else %}
@@ -154,7 +167,8 @@
                         {% endfor %}
                         {% if channels.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showChannels', page_num=current_page + 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Next</a>
+                            <a class="page-link"
+                                href="{{ url_for('showChannels', page_num=current_page + 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Next</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -202,7 +216,8 @@
             </div>
             {% else %}
             <br>
-            <h3 class="text-center fw-light pt-5">"{{search_arg}}" sounds like a really unique channel. A bit too unique!</h3>
+            <h3 class="text-center fw-light pt-5">{{search_arg}} sounds like a really unique channel. A bit too
+                unique!</h3>
             <div class="col d-flex justify-content-center align-items-center pt-5">
                 <img src="../static/images/missing.png" alt="No Results" style="height: 125px; width: 125px;">
             </div>
@@ -214,19 +229,23 @@
                     <ul class="pagination mb-0 me-3">
                         {% if channels.has_prev %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showChannels', page_num=current_page - 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Previous</a>
+                            <a class="page-link"
+                                href="{{ url_for('showChannels', page_num=current_page - 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Previous</a>
                         </li>
                         {% endif %}
                         {% for page in channels.iter_pages(right_current=2) %}
                         {% if page %}
                         {% if page == current_page %}
                         <li class="page-item active bg-darker">
-                            <a class="page-link active bg-darker" href="{{ url_for('showChannels', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{
+                            <a class="page-link active bg-darker"
+                                href="{{ url_for('showChannels', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{
                                 page }}</a>
                         </li>
                         {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showChannels', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{ page }}</a>
+                            <a class="page-link"
+                                href="{{ url_for('showChannels', page_num=page, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">{{
+                                page }}</a>
                         </li>
                         {% endif %}
                         {% else %}
@@ -237,7 +256,8 @@
                         {% endfor %}
                         {% if channels.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ url_for('showChannels', page_num=current_page + 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Next</a>
+                            <a class="page-link"
+                                href="{{ url_for('showChannels', page_num=current_page + 1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg, sort_arg=sort_arg, sort_ord=sort_ord) }}">Next</a>
                         </li>
                         {% endif %}
                     </ul>

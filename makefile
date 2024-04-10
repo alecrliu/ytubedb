@@ -3,21 +3,21 @@ ifeq ($(shell uname), Darwin)          # Apple
 	PIP      := pip3
 	PYLINT   := pylint
 	COVERAGE := coverage
-	PYDOC    := python -m pydoc
+	PDOC     := python -m pdoc
 	AUTOPEP8 := autopep8
 else ifeq ($(shell uname -p), unknown) # Windows
 	PYTHON   := python
 	PIP      := pip3
 	PYLINT   := pylint
 	COVERAGE := coverage
-	PYDOC    := python -m pydoc
+	PDOC     := python -m pdoc
 	AUTOPEP8 := autopep8
 else                                   # UTCS
 	PYTHON   := python3
 	PIP      := pip3
 	PYLINT   := pylint3
 	COVERAGE := coverage
-	PYDOC    := pydoc3
+	PDOC     := pdoc3
 	AUTOPEP8 := autopep8
 endif
 
@@ -54,6 +54,5 @@ IDB2:
 IDB3:
 	git log > IDB3.log
 
-# for some reason, error generating docs: No Python documentation found for 'models.py'.
 models:
-# 	$(PYDOC) -w models.py > models.html
+	$(PDOC) --output-dir models models.py
