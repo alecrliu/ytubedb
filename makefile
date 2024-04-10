@@ -55,4 +55,4 @@ IDB3:
 	git log > IDB3.log
 
 models:
-	$(PDOC) --output-dir docs models.py
+	$(PDOC) --output-dir models models.py
