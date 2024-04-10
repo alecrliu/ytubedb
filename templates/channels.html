@@ -184,7 +184,13 @@
                                 alt="Channel Thumbnail">
                         </a>
                         <a href="{{ url_for('showChannel', channelId=channel.channel_id) }}">
-                            <h5 style="padding-top: 10px;padding-left: 10px;">{{channel.channelName}}</h5>
+                            <h5 style="padding-top: 10px;padding-left: 10px;">
+                                {% if search_arg %}
+                                {{ channel.channelName | replace(search_arg, '<span style="background-color: yellow;">' + search_arg + '</span>') | safe }}
+                                {% else %}
+                                {{ channel.channelName }}
+                                {% endif %}
+                            </h5>
                         </a>
                         <div class="d-flex justify-content-between align-items-center"
                             style="color: gray; padding: 10px;">
