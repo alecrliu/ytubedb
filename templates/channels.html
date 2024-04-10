@@ -111,8 +111,7 @@
                                 class="fas fa-sort"></i> </label>
                         <select id="sortSelect" class="form-select mb-3"
                             onchange="window.location.href = '{{ url_for('showChannels', page_num=1, search_arg=search_arg, filter_arg=filter_arg, filter_min_arg=filter_min_arg, filter_max_arg=filter_max_arg) }}&sort_arg=' + this.value;">
-                            {% set sort_arg_options = ["", "title", "subscribers", "views", "video count", "creation
-                            date"] %}
+                            {% set sort_arg_options = ["", "title", "subscribers", "views", "video count", "creation date"] %}
                             {% for opt in sort_arg_options %}
                             <option value="{{ opt }}" {% if opt==sort_arg %}selected{% endif %}>
                                 {{ opt }}
