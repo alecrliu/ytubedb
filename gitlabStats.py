@@ -17,11 +17,12 @@ def get_commit_counts_per_project(project_id, commit_tracker):
     page_commits = response.json()
     while page_commits:
         for commit in page_commits:
-            author = commit["author_name"].split()[0]
-            if author == "nirmpatel":
-                author = "Nirmal"
-            if author in commit_tracker:
-                commit_tracker[author] += 1
+            if "Merge branch" not in commit["message"]:
+                author = commit["author_name"].split()[0]
+                if author == "nirmpatel":
+                    author = "Nirmal"
+                if author in commit_tracker:
+                    commit_tracker[author] += 1
         params["page"] += 1
         response = requests.get(url, params=params)
         page_commits = response.json()
