@@ -1,4 +1,4 @@
-"""Routing with queries for each page"""
+"""Routing with queries for each page and API endpoints"""
 
 from flask import render_template, request, jsonify
 from flask_cors import CORS

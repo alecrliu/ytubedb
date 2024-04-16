@@ -44,7 +44,7 @@ cleanCodePY: youtubeData.py models.py database.py test.py gitlabStats.py main.py
 test: test.py
 	$(PYTHON) test.py
 
-# IDB1 and IDB2 have been removed to prevent overwriting the logs
+# IDBs have been removed to prevent overwriting the logs
 IDB1:
 # 	git log > IDB1.log
 
@@ -52,7 +52,7 @@ IDB2:
 # 	git log > IDB2.log
 
 IDB3:
-	git log > IDB3.log
+#	git log > IDB3.log
 
-models:
-	$(PDOC) --output-dir models models.py
+models: # unwanted website behavior
+#	$(PDOC) --output-dir models models.py
